@@ -4,9 +4,10 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { Button } from '@/components/ui/button'
 import { AnimatedGradientText } from '@/components/ui/animated-gradient-text'
 import { useState, useEffect } from 'react'
+import type { Connector } from 'wagmi'
 
 interface WalletOptionProps {
-  connector: any
+  connector: Connector
   onClick: () => void
 }
 
