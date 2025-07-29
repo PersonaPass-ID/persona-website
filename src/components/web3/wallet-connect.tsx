@@ -1,13 +1,13 @@
 "use client"
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { Button } from '@/components/ui/button'
 import { AnimatedGradientText } from '@/components/ui/animated-gradient-text'
 import { useState, useEffect } from 'react'
-import type { Connector } from 'wagmi'
-
 interface WalletOptionProps {
-  connector: Connector
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  connector: any
   onClick: () => void
 }
 
@@ -16,6 +16,7 @@ function WalletOption({ connector, onClick }: WalletOptionProps) {
 
   useEffect(() => {
     ;(async () => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const provider = await connector.getProvider()
       setReady(!!provider)
     })()
