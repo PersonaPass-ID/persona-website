@@ -129,7 +129,11 @@ const KeysStep: React.FC<StepProps> = ({
     
     const mnemonic = [];
     for (let i = 0; i < 12; i++) {
-      const index = entropy[i] % words.length;
+      const byte = entropy[i];
+      if (byte === undefined) {
+        throw new Error('Insufficient entropy for mnemonic generation');
+      }
+      const index = byte % words.length;
       mnemonic.push(words[index]);
     }
     
