@@ -79,12 +79,15 @@ export default function DashboardPage() {
             console.log('✅ Loaded', result.credentials.length, 'credentials')
             
             // Set the most recent DID as primary if no DID is set
-            if (!userDID && result.credentials.length > 0) {
-              const mostRecent = result.credentials.sort((a: APICredential, b: APICredential) => 
+            if (!userDID && result.credentials && result.credentials.length > 0) {
+              const sortedCredentials = result.credentials.sort((a: APICredential, b: APICredential) => 
                 new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-              )[0]
-              setUserDID(mostRecent.did)
-              localStorage.setItem('persona_did', mostRecent.did)
+              )
+              if (sortedCredentials.length > 0 && sortedCredentials[0]) {
+                const mostRecent = sortedCredentials[0]
+                setUserDID(mostRecent.did)
+                localStorage.setItem('persona_did', mostRecent.did)
+              }
             }
           }
         } catch (error) {
