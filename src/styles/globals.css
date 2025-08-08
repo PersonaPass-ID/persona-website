@@ -52,10 +52,11 @@
 
 @layer base {
   * {
-    @apply border-border;
+    border-color: hsl(var(--border));
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-foreground antialiased;
+    font-family: Inter, sans-serif;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold tracking-tight;
