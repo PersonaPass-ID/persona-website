@@ -24,7 +24,8 @@ import {
   Loader2
 } from 'lucide-react'
 import { Navigation } from '@/components/Navigation'
-import { personaApiClient, PersonaIdentityCredential } from '@/lib/api-client'
+import { personaApiClient } from '@/lib/api-client'
+import type { PersonaIdentityCredential } from '@/lib/api-client'
 import { useWalletConnectionManager } from '@/hooks/useWalletConnectionManager'
 import { useKeplrWallet } from '@/hooks/useKeplrWallet'
 import confetti from 'canvas-confetti'

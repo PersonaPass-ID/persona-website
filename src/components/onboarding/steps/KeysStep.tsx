@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { StepProps } from './types';
+import type { StepProps } from './types';
 
 interface KeyPair {
   publicKey: string;

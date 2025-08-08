@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { StepProps, FormFieldProps } from './types';
+import type { StepProps, FormFieldProps } from './types';
 import { UserMetadata } from '../../../lib/blockchain';
 
 interface ProfileField {

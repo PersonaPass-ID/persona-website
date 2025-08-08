@@ -19,7 +19,8 @@ import {
   Loader2
 } from 'lucide-react'
 import { DashboardNavigation } from '@/components/DashboardNavigation'
-import { personaApiClient, PhoneVerificationCredential, APICredential } from '@/lib/api-client'
+import { personaApiClient } from '@/lib/api-client'
+import type { PhoneVerificationCredential, APICredential } from '@/lib/api-client'
 
 interface ProfileData {
   firstName: string

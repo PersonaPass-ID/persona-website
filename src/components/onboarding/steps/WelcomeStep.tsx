@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { StepProps } from './types';
+import type { StepProps } from './types';
 
 const WelcomeStep: React.FC<StepProps> = ({ 
   onNext, 
