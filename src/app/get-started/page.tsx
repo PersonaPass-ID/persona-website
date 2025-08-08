@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { Navigation } from '@/components/Navigation'
 import OnboardingWizard from '@/components/onboarding/OnboardingWizard'
-import { OnboardingResult } from '@/lib/blockchain'
+import type { OnboardingResult } from '@/lib/blockchain'
 
 export default function GetStartedPage() {
   const router = useRouter()

@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { Mail, Lock, Eye, EyeOff, Loader2, ArrowRight, User, Shield } from 'lucide-react'
 import { Navigation } from '@/components/Navigation'
-import { personaApiClient, LoginRequest, AuthResponse } from '@/lib/api-client'
+import { personaApiClient } from '@/lib/api-client'
+import type { LoginRequest, AuthResponse } from '@/lib/api-client'
 
 type LoginFormData = {
   email: string
