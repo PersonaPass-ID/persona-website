@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { StepProps } from './types';
-import { PrivacySettings } from '../../../lib/blockchain';
+import type { PrivacySettings } from '../../../lib/blockchain';
 
 interface PrivacySetting {
   id: keyof PrivacySettings;

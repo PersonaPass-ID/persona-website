@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { StepProps } from './types';
-import { AuthenticationOption } from '../../../lib/blockchain';
+import type { AuthenticationOption } from '../../../lib/blockchain';
 
 const AuthStep: React.FC<StepProps> = ({ 
   selectedAuth,

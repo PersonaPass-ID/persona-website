@@ -2,7 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { useState, useEffect } from 'react'
-import { useAccount, Connector } from 'wagmi'
+import { useAccount } from 'wagmi'
+import type { Connector } from 'wagmi'
 import { ChevronRight, CheckCircle, AlertTriangle, Loader2, RefreshCw } from 'lucide-react'
 import Image from 'next/image'
 import { useWalletConnectionManager } from '@/hooks/useWalletConnectionManager'

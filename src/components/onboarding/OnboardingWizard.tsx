@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useOnboarding } from '../../hooks/useOnboarding';
-import { OnboardingResult } from '../../lib/blockchain';
+import type { OnboardingResult } from '../../lib/blockchain';
 
 // Step Components
 import WelcomeStep from './steps/WelcomeStep';

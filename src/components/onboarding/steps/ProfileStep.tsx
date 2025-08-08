@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { StepProps, FormFieldProps } from './types';
-import { UserMetadata } from '../../../lib/blockchain';
+import type { UserMetadata } from '../../../lib/blockchain';
 
 interface ProfileField {
   id: keyof UserMetadata;
