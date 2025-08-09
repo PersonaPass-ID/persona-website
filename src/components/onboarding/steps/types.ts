@@ -1,7 +1,7 @@
 // 📝 SHARED TYPES FOR ONBOARDING STEPS
 // Type definitions for all step components
 
-import { 
+import type { 
   UserMetadata, 
   PrivacySettings, 
   AuthenticationOption, 

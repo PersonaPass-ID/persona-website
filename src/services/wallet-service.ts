@@ -204,7 +204,7 @@ class WalletService {
       
       // Get signer
       const offlineSigner = window.keplr.getOfflineSigner(PERSONACHAIN_CONFIG.chainId);
-      const accounts = await offlineSigner.getAccounts();
+      const accounts = await (offlineSigner as any).getAccounts();
       
       if (accounts.length === 0) {
         throw new Error('No accounts found');
@@ -273,7 +273,7 @@ class WalletService {
       
       // Get signer
       const offlineSigner = window.leap.getOfflineSigner(PERSONACHAIN_CONFIG.chainId);
-      const accounts = await offlineSigner.getAccounts();
+      const accounts = await (offlineSigner as any).getAccounts();
       
       if (accounts.length === 0) {
         throw new Error('No accounts found');

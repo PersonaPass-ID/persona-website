@@ -145,7 +145,7 @@ export function Web3Onboarding() {
       if (window.keplr) {
         await window.keplr.enable('personachain-1');
         const offlineSigner = window.keplr.getOfflineSigner('personachain-1');
-        const accounts = await offlineSigner.getAccounts();
+        const accounts = await (offlineSigner as any).getAccounts();
         
         if (accounts.length > 0 && accounts[0]) {
           const address = accounts[0].address;

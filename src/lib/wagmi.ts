@@ -22,8 +22,4 @@ export const config = createConfig({
   ssr: false,
 })
 
-declare module 'wagmi' {
-  interface Register {
-    config: typeof config
-  }
-}
+// Declaration moved to wagmi-config.ts

@@ -3,13 +3,15 @@
 
 import { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import PersonaBlockchain, { 
+  ONBOARDING_STEPS,
+  AUTHENTICATION_OPTIONS
+} from '../lib/blockchain';
+import type { 
   OnboardingResult, 
   UserMetadata, 
   PrivacySettings,
   OnboardingStep,
-  ONBOARDING_STEPS,
-  AuthenticationOption,
-  AUTHENTICATION_OPTIONS
+  AuthenticationOption
 } from '../lib/blockchain';
 
 export interface OnboardingState {
@@ -103,7 +105,7 @@ export const useOnboarding = (
         ...prev.analytics,
         stepStartTimes: {
           ...prev.analytics.stepStartTimes,
-          [stepId]: now
+          [stepId as string]: now
         }
       }
     }));
@@ -137,8 +139,8 @@ export const useOnboarding = (
     const stepTimes: Record<string, number> = {};
     
     Object.keys(stepCompletionTimes).forEach(stepId => {
-      const start = stepStartTimes[stepId];
-      const end = stepCompletionTimes[stepId];
+      const start = stepStartTimes[stepId as string];
+      const end = stepCompletionTimes[stepId as string];
       if (start && end) {
         stepTimes[stepId] = end - start;
       }
@@ -201,14 +203,14 @@ export const useOnboarding = (
         ...prev.analytics,
         stepCompletionTimes: {
           ...prev.analytics.stepCompletionTimes,
-          [currentStepId]: now,
+          [currentStepId as string]: now,
         }
       };
 
       trackEvent('onboarding_step_completed', {
         step: currentStepId,
         step_number: prev.currentStep + 1,
-        time_spent: now - (prev.analytics.stepStartTimes[currentStepId] || now)
+        time_spent: now - (prev.analytics.stepStartTimes[currentStepId as string] || now)
       });
 
       // Start timing next step
@@ -216,7 +218,7 @@ export const useOnboarding = (
         const nextStepId = prev.steps[nextStepIndex]?.id;
         newAnalytics.stepStartTimes = {
           ...newAnalytics.stepStartTimes,
-          [nextStepId]: now
+          [nextStepId as string]: now
         };
       }
 
