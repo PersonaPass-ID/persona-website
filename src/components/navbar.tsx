@@ -97,7 +97,7 @@ export function Navbar({ className }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -108,32 +108,43 @@ export function Navbar({ className }: NavbarProps) {
     <motion.nav
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         isScrolled
-          ? "bg-white/95 backdrop-blur-xl border-b border-neutral-200/60 shadow-sm"
-          : "bg-white/80 backdrop-blur-md",
+          ? "bg-black/70 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+          : "bg-black/30 backdrop-blur-lg border-b border-white/5",
         className
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="flex-shrink-0"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex-shrink-0 relative group"
           >
             <Link href="/" className="flex items-center">
-              <div className="text-2xl font-bold bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent">
+              {/* Logo Icon */}
+              <div className="relative mr-3">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">P</span>
+                </div>
+                
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-purple-500 to-blue-500 opacity-0 group-hover:opacity-50 blur-lg transition-opacity duration-300 -z-10" />
+              </div>
+              
+              {/* Logo Text */}
+              <div className="text-2xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
                 PersonaPass
               </div>
             </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-2">
             {navigation.map((item) => (
               <div
                 key={item.name}
@@ -141,54 +152,74 @@ export function Navbar({ className }: NavbarProps) {
                 onMouseEnter={() => item.dropdown && setActiveDropdown(item.name)}
                 onMouseLeave={() => setActiveDropdown(null)}
               >
-                <Link
-                  href={item.href}
-                  className={cn(
-                    "flex items-center space-x-1 text-neutral-600 hover:text-neutral-900 transition-colors duration-200 font-medium px-3 py-2 rounded-md hover:bg-neutral-50",
-                    activeDropdown === item.name && "text-neutral-900 bg-neutral-50"
-                  )}
+                <motion.div
+                  whileHover={{ y: -2 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  <span>{item.name}</span>
-                  {item.dropdown && (
-                    <span
-                      className={cn(
-                        "ml-1 text-xs transition-transform duration-200",
-                        activeDropdown === item.name && "rotate-180"
-                      )}
-                    >
-                      ▼
-                    </span>
-                  )}
-                </Link>
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "flex items-center space-x-1 text-white/70 hover:text-white transition-all duration-300 font-medium px-4 py-3 rounded-xl hover:bg-white/10 backdrop-blur-sm",
+                      activeDropdown === item.name && "text-white bg-white/10"
+                    )}
+                  >
+                    <span>{item.name}</span>
+                    {item.dropdown && (
+                      <motion.span
+                        className="ml-1 text-xs"
+                        animate={{ 
+                          rotate: activeDropdown === item.name ? 180 : 0 
+                        }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        ▼
+                      </motion.span>
+                    )}
+                  </Link>
+                </motion.div>
 
-                {/* Dropdown Menu */}
+                {/* Enhanced Dropdown Menu */}
                 <AnimatePresence>
                   {item.dropdown && activeDropdown === item.name && (
                     <motion.div
                       initial={{ opacity: 0, y: 10, scale: 0.95 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="absolute top-full left-0 mt-2 w-80 bg-white rounded-xl shadow-xl border border-neutral-200/80 overflow-hidden"
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute top-full left-0 mt-4 w-80 bg-black/80 backdrop-blur-xl rounded-2xl border border-white/10 overflow-hidden shadow-2xl"
                     >
                       <div className="p-2">
-                        {item.dropdown.map((dropdownItem) => (
-                          <Link
+                        {item.dropdown.map((dropdownItem, index) => (
+                          <motion.div
                             key={dropdownItem.name}
-                            href={dropdownItem.href}
-                            className="block p-4 rounded-lg hover:bg-neutral-50 transition-colors duration-150 group"
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
                           >
-                            <div className="font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors duration-150">
-                              {dropdownItem.name}
-                            </div>
-                            {dropdownItem.description && (
-                              <div className="text-sm text-neutral-500 mt-1">
-                                {dropdownItem.description}
+                            <Link
+                              href={dropdownItem.href}
+                              className="block p-4 rounded-xl hover:bg-white/10 transition-all duration-300 group relative overflow-hidden"
+                            >
+                              {/* Hover Gradient Effect */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                              
+                              <div className="relative">
+                                <div className="font-semibold text-white group-hover:text-gradient transition-all duration-300">
+                                  {dropdownItem.name}
+                                </div>
+                                {dropdownItem.description && (
+                                  <div className="text-sm text-white/50 mt-1 group-hover:text-white/70 transition-colors duration-300">
+                                    {dropdownItem.description}
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </Link>
+                            </Link>
+                          </motion.div>
                         ))}
                       </div>
+                      
+                      {/* Bottom Glow */}
+                      <div className="h-1 bg-gradient-to-r from-purple-500/50 to-blue-500/50" />
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -196,80 +227,143 @@ export function Navbar({ className }: NavbarProps) {
             ))}
           </div>
 
-          {/* CTA Buttons */}
-          <div className="hidden md:flex items-center space-x-3">
-            <Button variant="ghost" asChild>
-              <Link href="/auth/github">Sign In</Link>
-            </Button>
-            <Button asChild>
-              <Link href="/auth/github">Get Started</Link>
-            </Button>
+          {/* Enhanced CTA Buttons */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Button 
+                variant="ghost" 
+                asChild
+                className="text-white/70 hover:text-white hover:bg-white/10 backdrop-blur-sm rounded-xl font-medium"
+              >
+                <Link href="/login">Sign In</Link>
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative group"
+            >
+              <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+              <Button
+                asChild
+                className="relative bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-xl font-semibold px-6 shadow-lg"
+              >
+                <Link href="/get-started">Get Started</Link>
+              </Button>
+            </motion.div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button
+          {/* Enhanced Mobile Menu Button */}
+          <div className="lg:hidden">
+            <motion.button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-neutral-600 hover:text-neutral-900 transition-colors duration-200 p-2"
+              className="text-white/70 hover:text-white transition-all duration-300 p-3 rounded-xl hover:bg-white/10 backdrop-blur-sm"
+              whileTap={{ scale: 0.95 }}
             >
-              <div className={cn("w-6 h-0.5 bg-current transition-all duration-200", isMobileMenuOpen && "rotate-45 translate-y-1.5")} />
-              <div className={cn("w-6 h-0.5 bg-current my-1 transition-all duration-200", isMobileMenuOpen && "opacity-0")} />
-              <div className={cn("w-6 h-0.5 bg-current transition-all duration-200", isMobileMenuOpen && "-rotate-45 -translate-y-1.5")} />
-            </button>
+              <div className="relative w-6 h-6">
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-current transition-all duration-300"
+                  animate={{
+                    rotate: isMobileMenuOpen ? 45 : 0,
+                    y: isMobileMenuOpen ? 8 : 0,
+                  }}
+                />
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-current top-2"
+                  animate={{
+                    opacity: isMobileMenuOpen ? 0 : 1,
+                  }}
+                />
+                <motion.div
+                  className="absolute w-6 h-0.5 bg-current top-4"
+                  animate={{
+                    rotate: isMobileMenuOpen ? -45 : 0,
+                    y: isMobileMenuOpen ? -8 : 0,
+                  }}
+                />
+              </div>
+            </motion.button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Enhanced Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="md:hidden border-t border-neutral-200/50 bg-white/95 backdrop-blur-xl"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="lg:hidden border-t border-white/10 bg-black/90 backdrop-blur-xl"
             >
-              <div className="px-2 pt-2 pb-4 space-y-1">
-                {navigation.map((item) => (
-                  <div key={item.name}>
+              <div className="px-4 pt-6 pb-8 space-y-2">
+                {navigation.map((item, index) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
                     <Link
                       href={item.href}
-                      className="block px-4 py-3 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-50 rounded-lg font-medium transition-all duration-150"
+                      className="block px-4 py-4 text-white/70 hover:text-white hover:bg-white/10 rounded-xl font-medium transition-all duration-300"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
-                    {item.dropdown?.map((dropdownItem) => (
-                      <Link
+                    {item.dropdown?.map((dropdownItem, dropIndex) => (
+                      <motion.div
                         key={dropdownItem.name}
-                        href={dropdownItem.href}
-                        className="block px-8 py-2 text-sm text-neutral-500 hover:text-neutral-700 hover:bg-neutral-50 rounded-lg transition-all duration-150"
-                        onClick={() => setIsMobileMenuOpen(false)}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: (index * 0.1) + (dropIndex * 0.05) }}
                       >
-                        {dropdownItem.name}
-                      </Link>
+                        <Link
+                          href={dropdownItem.href}
+                          className="block px-8 py-3 text-sm text-white/50 hover:text-white/80 hover:bg-white/5 rounded-lg transition-all duration-300"
+                          onClick={() => setIsMobileMenuOpen(false)}
+                        >
+                          {dropdownItem.name}
+                        </Link>
+                      </motion.div>
                     ))}
-                  </div>
+                  </motion.div>
                 ))}
                 
-                {/* Mobile CTA Buttons */}
-                <div className="border-t border-neutral-200/50 pt-4 mt-4 space-y-2">
-                  <Button variant="ghost" asChild className="w-full justify-start">
-                    <Link href="/auth/github" onClick={() => setIsMobileMenuOpen(false)}>
+                {/* Enhanced Mobile CTA Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="border-t border-white/10 pt-6 mt-6 space-y-3"
+                >
+                  <Button 
+                    variant="ghost" 
+                    asChild 
+                    className="w-full justify-start text-white/70 hover:text-white hover:bg-white/10 rounded-xl"
+                  >
+                    <Link href="/login" onClick={() => setIsMobileMenuOpen(false)}>
                       Sign In
                     </Link>
                   </Button>
-                  <Button asChild className="w-full">
-                    <Link href="/auth/github" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button 
+                    asChild 
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 rounded-xl"
+                  >
+                    <Link href="/get-started" onClick={() => setIsMobileMenuOpen(false)}>
                       Get Started
                     </Link>
                   </Button>
-                </div>
+                </motion.div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
+
+      {/* Navbar Bottom Glow Effect */}
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
     </motion.nav>
   );
 }

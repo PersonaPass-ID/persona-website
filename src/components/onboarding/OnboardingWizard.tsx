@@ -68,8 +68,11 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
 
   if (!mounted) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-blue-900">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <div className="flex items-center justify-center min-h-screen bg-black">
+        <div className="glass-card p-8 flex flex-col items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
+          <p className="text-white/60 mt-4">Loading PersonaPass...</p>
+        </div>
       </div>
     );
   }
@@ -86,117 +89,210 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
   const CurrentStepComponent = stepComponents[currentStepData?.id as keyof typeof stepComponents];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-100 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 ${className}`}>
-      {/* Progress Bar */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-700 z-50">
+    <div className={`min-h-screen bg-black relative overflow-hidden ${className}`}>
+      {/* Epic Background Effects */}
+      <div className="absolute inset-0">
+        {/* Gradient Mesh */}
+        <div className="absolute inset-0 gradient-mesh opacity-40" />
+        
+        {/* Animated Grid Pattern */}
+        <div 
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `linear-gradient(rgba(139, 92, 246, 0.3) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(139, 92, 246, 0.3) 1px, transparent 1px)`,
+            backgroundSize: "60px 60px",
+          }}
+        />
+
+        {/* Floating Orbs */}
         <motion.div
-          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
+          animate={{
+            scale: [1, 1.2, 1],
+            opacity: [0.2, 0.4, 0.2],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600/30 rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{
+            scale: [1.2, 0.8, 1.2],
+            opacity: [0.3, 0.6, 0.3],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2
+          }}
+          className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-blue-600/30 rounded-full blur-3xl"
         />
       </div>
 
-      {/* Main Container */}
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        {/* Header */}
+      {/* Enhanced Progress Bar */}
+      <div className="fixed top-0 left-0 w-full h-2 bg-black/50 backdrop-blur-sm z-50">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          className="h-full bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500"
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 blur-sm" />
+      </div>
+
+      {/* Main Container */}
+      <div className="relative z-10 container mx-auto px-4 py-12 max-w-5xl">
+        {/* Enhanced Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-8"
+          transition={{ duration: 0.8 }}
+          className="text-center mb-12"
         >
-          <div className="flex items-center justify-center mb-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">P</span>
+          <div className="flex items-center justify-center mb-6">
+            <motion.div 
+              className="relative group"
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center relative">
+                <span className="text-white font-bold text-2xl">P</span>
+                {/* Glow Effect */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-purple-500 to-blue-500 opacity-0 group-hover:opacity-50 blur-lg transition-opacity duration-300 -z-10" />
+              </div>
+            </motion.div>
+            <div className="ml-4">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent">
+                PersonaPass
+              </h1>
+              <p className="text-white/40 text-sm">Your Digital Identity Journey</p>
             </div>
-            <h1 className="ml-3 text-2xl font-bold text-gray-900 dark:text-white">
-              PersonaPass
-            </h1>
           </div>
           
           {!isComplete && (
-            <div className="flex items-center justify-center space-x-2 text-sm text-gray-600 dark:text-gray-300">
-              <span>Step {currentStep + 1} of {steps.length}</span>
-              <span>•</span>
-              <span>{currentStepData?.title}</span>
-            </div>
+            <motion.div 
+              className="inline-flex items-center px-6 py-3 rounded-full glass-card"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3" />
+              <span className="text-white/80 font-medium">Step {currentStep + 1} of {steps.length}</span>
+              <span className="mx-3 text-white/30">•</span>
+              <span className="text-white/60">{currentStepData?.title}</span>
+            </motion.div>
           )}
         </motion.div>
 
-        {/* Step Indicators */}
+        {/* Enhanced Step Indicators */}
         {!isComplete && (
-          <div className="flex justify-center mb-8">
-            <div className="flex space-x-2">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.id}
-                  className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                    step.completed 
-                      ? 'bg-green-500' 
-                      : step.current
-                      ? 'bg-blue-500'
-                      : 'bg-gray-300 dark:bg-gray-600'
-                  }`}
-                  initial={{ scale: 0 }}
-                  animate={{ 
-                    scale: 1,
-                    backgroundColor: step.completed 
-                      ? '#10b981' 
-                      : step.current
-                      ? '#3b82f6'
-                      : '#d1d5db'
-                  }}
-                  transition={{ delay: index * 0.1 }}
-                />
-              ))}
+          <motion.div 
+            className="flex justify-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="glass-card px-8 py-4">
+              <div className="flex items-center space-x-4">
+                {steps.map((step, index) => (
+                  <div key={step.id} className="flex items-center">
+                    <motion.div
+                      className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ${
+                        step.completed 
+                          ? 'bg-gradient-to-r from-green-500 to-emerald-500' 
+                          : step.current
+                          ? 'bg-gradient-to-r from-purple-500 to-blue-500'
+                          : 'bg-white/10 border-2 border-white/20'
+                      }`}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      whileHover={{ scale: 1.1 }}
+                    >
+                      {step.completed ? (
+                        <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                      ) : (
+                        <span className="text-sm font-bold text-white">{index + 1}</span>
+                      )}
+                      
+                      {/* Glow Effect for Current Step */}
+                      {step.current && (
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 opacity-50 blur-lg animate-pulse -z-10" />
+                      )}
+                    </motion.div>
+                    
+                    {/* Connection Line */}
+                    {index < steps.length - 1 && (
+                      <motion.div
+                        className={`w-12 h-0.5 mx-2 transition-all duration-500 ${
+                          step.completed ? 'bg-gradient-to-r from-green-500 to-emerald-500' : 'bg-white/20'
+                        }`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ delay: index * 0.1 + 0.2 }}
+                      />
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
-        {/* Error Display */}
+        {/* Enhanced Error Display */}
         <AnimatePresence>
           {error && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-700 rounded-lg"
+              initial={{ opacity: 0, scale: 0.95, y: -20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: -20 }}
+              className="mb-8 mx-auto max-w-2xl"
             >
-              <div className="flex items-center">
-                <div className="text-red-500 mr-3">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                  </svg>
-                </div>
-                <div>
-                  <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
-                    Something went wrong
-                  </h3>
-                  <p className="text-sm text-red-700 dark:text-red-300 mt-1">
-                    {error}
-                  </p>
+              <div className="glass-card border border-red-500/20 bg-red-500/5">
+                <div className="flex items-start p-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center">
+                      <svg className="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="ml-4 flex-1">
+                    <h3 className="text-lg font-semibold text-red-300 mb-2">
+                      Something went wrong
+                    </h3>
+                    <p className="text-red-400/80 leading-relaxed">
+                      {error}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Step Content */}
+        {/* Enhanced Step Content */}
         <motion.div
-          className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden"
-          initial={{ opacity: 0, y: 20 }}
+          className="glass-card overflow-hidden max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          whileHover={{ y: -2, transition: { duration: 0.2 } }}
         >
-          <div className="p-8 min-h-[500px]">
+          <div className="p-12 min-h-[600px]">
             <AnimatePresence mode="wait">
               {CurrentStepComponent && (
                 <motion.div
                   key={currentStepData?.id}
-                  initial={{ opacity: 0, x: 20 }}
+                  initial={{ opacity: 0, x: 30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.4 }}
                 >
                   <CurrentStepComponent
                     userData={userData}
@@ -224,100 +320,126 @@ const OnboardingWizard: React.FC<OnboardingWizardProps> = ({
             </AnimatePresence>
           </div>
 
-          {/* Navigation Footer */}
+          {/* Enhanced Navigation Footer */}
           {!isComplete && currentStepData?.id !== 'complete' && (
-            <div className="bg-gray-50 dark:bg-gray-700/50 px-8 py-4 flex justify-between items-center">
-              <button
+            <div className="bg-black/20 backdrop-blur-sm border-t border-white/10 px-12 py-6 flex justify-between items-center">
+              <motion.button
                 onClick={prevStep}
                 disabled={!canGoPrev || loading}
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                whileHover={canGoPrev && !loading ? { scale: 1.02, x: -5 } : {}}
+                whileTap={canGoPrev && !loading ? { scale: 0.98 } : {}}
+                className={`flex items-center px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
                   canGoPrev && !loading
-                    ? 'text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600'
-                    : 'text-gray-400 dark:text-gray-500 cursor-not-allowed'
+                    ? 'text-white/80 hover:text-white hover:bg-white/10 backdrop-blur-sm'
+                    : 'text-white/30 cursor-not-allowed'
                 }`}
               >
-                ← Previous
-              </button>
+                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Previous
+              </motion.button>
 
-              <div className="flex space-x-3">
+              <div className="flex items-center space-x-4">
                 {currentStepData?.optional && (
-                  <button
+                  <motion.button
                     onClick={skipStep}
                     disabled={loading}
-                    className="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="px-6 py-3 font-medium text-white/60 hover:text-white/80 transition-colors rounded-xl hover:bg-white/5"
                   >
-                    Skip
-                  </button>
+                    Skip for now
+                  </motion.button>
                 )}
 
-                <button
-                  onClick={currentStepData?.id === 'keys' ? completeOnboarding : nextStep}
-                  disabled={!canGoNext || loading}
-                  className={`px-6 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
-                    canGoNext && !loading
-                      ? 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white hover:from-blue-600 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5'
-                      : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
-                  }`}
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="relative group"
                 >
-                  {loading ? (
-                    <div className="flex items-center space-x-2">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                      <span>Creating...</span>
-                    </div>
-                  ) : currentStepData?.id === 'keys' ? (
-                    'Create My Identity'
-                  ) : (
-                    'Continue →'
-                  )}
-                </button>
+                  <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl blur opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+                  <button
+                    onClick={currentStepData?.id === 'keys' ? completeOnboarding : nextStep}
+                    disabled={!canGoNext || loading}
+                    className={`relative px-8 py-3 font-semibold rounded-xl transition-all duration-300 ${
+                      canGoNext && !loading
+                        ? 'bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg'
+                        : 'bg-white/10 text-white/40 cursor-not-allowed'
+                    }`}
+                  >
+                    {loading ? (
+                      <div className="flex items-center space-x-3">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                        <span>Creating your identity...</span>
+                      </div>
+                    ) : currentStepData?.id === 'keys' ? (
+                      <div className="flex items-center space-x-2">
+                        <span>Create My Identity</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2">
+                        <span>Continue</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </div>
+                    )}
+                  </button>
+                </motion.div>
               </div>
             </div>
           )}
         </motion.div>
 
-        {/* Footer */}
+        {/* Enhanced Footer */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          className="text-center mt-8 text-sm text-gray-500 dark:text-gray-400"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="text-center mt-12"
         >
-          <p>
-            Powered by blockchain technology • Your data is encrypted and secure
-          </p>
-          <div className="flex justify-center space-x-4 mt-2">
-            <a href="#" className="hover:text-blue-500 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-blue-500 transition-colors">Support</a>
+          <div className="glass-card inline-block px-8 py-6 max-w-2xl">
+            <div className="flex items-center justify-center mb-4">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-3" />
+              <p className="text-white/80 font-medium">
+                Secured by PersonaChain • End-to-end encrypted
+              </p>
+            </div>
+            <div className="flex justify-center items-center space-x-6 text-sm">
+              <motion.a 
+                href="#" 
+                className="text-white/50 hover:text-purple-400 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+              >
+                Privacy Policy
+              </motion.a>
+              <div className="w-1 h-1 bg-white/20 rounded-full" />
+              <motion.a 
+                href="#" 
+                className="text-white/50 hover:text-blue-400 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+              >
+                Terms of Service
+              </motion.a>
+              <div className="w-1 h-1 bg-white/20 rounded-full" />
+              <motion.a 
+                href="#" 
+                className="text-white/50 hover:text-pink-400 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+              >
+                Get Support
+              </motion.a>
+            </div>
           </div>
         </motion.div>
       </div>
 
-      {/* Background Effects */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-40 left-40 w-80 h-80 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-      </div>
-
-      {/* Custom Styles */}
-      <style jsx>{`
-        @keyframes blob {
-          0% { transform: translate(0px, 0px) scale(1); }
-          33% { transform: translate(30px, -50px) scale(1.1); }
-          66% { transform: translate(-20px, 20px) scale(0.9); }
-          100% { transform: translate(0px, 0px) scale(1); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-        .animation-delay-4000 {
-          animation-delay: 4s;
-        }
-      `}</style>
+      {/* Bottom Glow Effect */}
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full h-40 bg-gradient-to-t from-purple-600/10 via-blue-600/5 to-transparent blur-3xl" />
     </div>
   );
 };

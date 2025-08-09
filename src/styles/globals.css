@@ -293,6 +293,10 @@
     background-size: 400% 400%;
   }
   
+  .bg-gradient-size-200 {
+    background-size: 200% 200%;
+  }
+  
   .animate-slide-up {
     animation: slideUp 0.5s ease-out;
   }

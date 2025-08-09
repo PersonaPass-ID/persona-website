@@ -1,7 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { Navigation } from '@/components/Navigation'
+import { Navbar } from '@/components/navbar'
 import OnboardingWizard from '@/components/onboarding/OnboardingWizard'
 import type { OnboardingResult } from '@/lib/blockchain'
 
@@ -33,11 +33,11 @@ export default function GetStartedPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
+    <div className="min-h-screen bg-black">
+      <Navbar />
       
       {/* State-of-the-art onboarding system */}
-      <div className="pt-16">
+      <div className="pt-20">
         <OnboardingWizard
           onComplete={handleOnboardingComplete}
           onError={handleOnboardingError}
