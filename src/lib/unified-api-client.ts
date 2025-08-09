@@ -41,8 +41,8 @@ export class UnifiedApiClient {
       // Main API (personapass.xyz backend)
       main: process.env.NEXT_PUBLIC_API_URL || 'https://personapass.xyz/api',
       
-      // Blockchain RPC (PersonaChain)
-      blockchain: process.env.NEXT_PUBLIC_PERSONACHAIN_RPC?.replace('http://', 'https://') || 'https://personapass.xyz',
+      // Blockchain RPC (PersonaChain) - Live AWS Load Balancer
+      blockchain: process.env.NEXT_PUBLIC_PERSONACHAIN_RPC || 'http://personachain-rpc-lb-463662045.us-east-1.elb.amazonaws.com',
       
       // Compute service (AWS Lambda/Fargate)
       compute: process.env.NEXT_PUBLIC_COMPUTE_URL || 'https://personapass.xyz/compute'
