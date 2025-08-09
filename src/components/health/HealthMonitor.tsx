@@ -4,7 +4,7 @@
 // Real-time backend connectivity monitoring for PersonaPass
 
 import { useState, useEffect, useCallback } from 'react';
-import { unifiedApiClient, HealthStatus } from '@/lib/unified-api-client';
+import { unifiedApiClient, type HealthStatus } from '@/lib/unified-api-client';
 
 interface HealthIndicatorProps {
   status: 'up' | 'down' | 'unknown';
