@@ -298,7 +298,7 @@ export default function Home() {
                 Complete activity tracking across platforms with zero control over your digital footprint
               </p>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
