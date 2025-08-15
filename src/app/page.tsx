@@ -133,7 +133,7 @@ export default function Home() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             <motion.div 
               className="mt-8 md:absolute md:mt-0 md:top-32 lg:top-0 md:right-0"
