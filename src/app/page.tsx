@@ -198,7 +198,7 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Problem Section */}
       <motion.section 
