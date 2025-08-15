@@ -192,10 +192,10 @@ export default function Home() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </motion.div>
 
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
