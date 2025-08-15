@@ -1,24 +1,4 @@
 {
-  "env": {
-    "NEXT_PUBLIC_PERSONACHAIN_RPC": "/api/proxy/rpc",
-    "NEXT_PUBLIC_PERSONACHAIN_API_URL": "/api/proxy/chain-api",
-    "NEXT_PUBLIC_API_BASE_URL": "/api/proxy/backend",
-    "NEXT_PUBLIC_PERSONA_API_URL": "/api/proxy/backend"
-  },
-  "rewrites": [
-    {
-      "source": "/api/proxy/rpc/:path*",
-      "destination": "http://44.201.59.57:26657/:path*"
-    },
-    {
-      "source": "/api/proxy/chain-api/:path*", 
-      "destination": "http://44.201.59.57:1317/:path*"
-    },
-    {
-      "source": "/api/proxy/backend/:path*",
-      "destination": "http://44.201.59.57:3001/api/:path*"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
