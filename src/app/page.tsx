@@ -1,169 +1,352 @@
 export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
-      {/* Hero Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            PersonaPass Digital Identity
+    <div className="min-h-screen">
+      {/* Hero Section - Aurora Gradient with Animated Background */}
+      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+        {/* Animated Aurora Background */}
+        <div className="absolute inset-0 aurora-bg">
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-electric-blue)]/10 via-transparent to-[var(--color-radiant-magenta)]/10 animate-pulse"></div>
+        </div>
+        
+        {/* Floating Glass Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 glass-card rounded-full opacity-20 animate-bounce" style={{animationDelay: '0s', animationDuration: '4s'}}></div>
+          <div className="absolute top-3/4 right-1/3 w-24 h-24 glass-card rounded-full opacity-15 animate-bounce" style={{animationDelay: '2s', animationDuration: '6s'}}></div>
+          <div className="absolute bottom-1/4 left-2/3 w-20 h-20 glass-card rounded-full opacity-10 animate-bounce" style={{animationDelay: '1s', animationDuration: '5s'}}></div>
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
+          <h1 className="display-1 mb-6 text-gradient">
+            The Sovereign Internet Starts Here
           </h1>
-          <p className="text-2xl text-slate-300 mb-4 max-w-3xl mx-auto leading-relaxed">
-            The most secure digital identity platform in the world
+          <p className="body-large text-[var(--color-slate-gray)] mb-4 max-w-3xl mx-auto">
+            Own your identity. Control your data. Access everything.
           </p>
-          <p className="text-lg text-slate-400 mb-12 max-w-2xl mx-auto">
-            Create verifiable credentials, prove your identity with zero-knowledge technology, 
-            and maintain complete control over your personal data on the blockchain.
+          <p className="body-regular text-[var(--color-slate-gray)] mb-12 max-w-2xl mx-auto">
+            Experience true digital sovereignty with zero-knowledge proofs, decentralized identity, and complete privacy control.
           </p>
+          
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-12 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl text-lg">
-              Create Your Identity
+            <button className="btn-primary">
+              Create Your Persona
             </button>
-            <button className="border-2 border-slate-600 bg-transparent hover:bg-slate-800 text-white font-semibold px-12 py-4 rounded-xl transition-all duration-200 text-lg">
-              View Documentation
+            <button className="btn-secondary">
+              See How It Works
             </button>
           </div>
         </div>
       </section>
 
-      {/* Core Features */}
-      <section className="py-20 px-6 border-t border-slate-700">
+      {/* Problem Section */}
+      <section className="py-24 px-6 border-t border-[var(--color-glass-border)]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Core Capabilities</h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-              Enterprise-grade digital identity infrastructure built for privacy and security
+            <h2 className="text-4xl font-bold mb-6">Your Identity is Broken</h2>
+            <p className="body-large text-[var(--color-slate-gray)] max-w-3xl mx-auto">
+              The current digital identity system puts your privacy, security, and control at risk
             </p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-10">
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 transition-all duration-200 hover:border-slate-600 hover:shadow-lg">
-              <div className="mb-6">
-                <div className="inline-block px-3 py-1 bg-blue-600/20 text-blue-400 font-bold text-xs rounded-lg">
-                  PRIVACY TECHNOLOGY
-                </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="glass-card p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Zero-Knowledge Proofs</h3>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Prove your identity, age, or credentials without revealing any personal information. 
-                Our advanced cryptographic protocols ensure your data remains completely private.
+              <h3 className="h4 mb-4">100+ Passwords</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Average person manages 100+ accounts with weak passwords and poor security
               </p>
             </div>
             
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 transition-all duration-200 hover:border-slate-600 hover:shadow-lg">
-              <div className="mb-6">
-                <div className="inline-block px-3 py-1 bg-purple-600/20 text-purple-400 font-bold text-xs rounded-lg">
-                  BLOCKCHAIN SECURITY
-                </div>
+            <div className="glass-card p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">Decentralized Storage</h3>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Your credentials are secured on PersonaChain blockchain with enterprise-grade encryption. 
-                No single point of failure, complete data sovereignty.
+              <h3 className="h4 mb-4">Data Breaches Daily</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Your personal data is sold, leaked, and exploited without your knowledge or consent
               </p>
             </div>
             
-            <div className="bg-slate-800 border border-slate-700 rounded-2xl p-6 transition-all duration-200 hover:border-slate-600 hover:shadow-lg">
-              <div className="mb-6">
-                <div className="inline-block px-3 py-1 bg-green-600/20 text-green-400 font-bold text-xs rounded-lg">
-                  IDENTITY VERIFICATION
-                </div>
+            <div className="glass-card p-8 text-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
               </div>
-              <h3 className="text-2xl font-bold mb-4">KYC Integration</h3>
-              <p className="text-slate-300 text-lg leading-relaxed">
-                Connect with verified identity providers for seamless onboarding. 
-                Instantly generate multiple credential types from a single verification.
+              <h3 className="h4 mb-4">No Privacy</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Complete activity tracking across platforms with zero control over your digital footprint
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Indicators */}
-      <section className="py-20 px-6 bg-slate-800/50">
-        <div className="max-w-6xl mx-auto text-center">
+      {/* Solution Section */}
+      <section className="py-24 px-6 bg-[var(--color-deep-amethyst)]/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6 text-gradient">One Identity. Infinite Possibilities.</h2>
+            <p className="body-large text-[var(--color-slate-gray)] max-w-3xl mx-auto">
+              PERSONA revolutionizes digital identity with cryptographic sovereignty and zero-knowledge privacy
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="glass-card p-8 text-center group hover:border-[var(--color-electric-blue)]/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="h4 mb-4">Universal Access</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                One sovereign identity that works across the entire Web3 ecosystem and beyond
+              </p>
+            </div>
+            
+            <div className="glass-card p-8 text-center group hover:border-[var(--color-electric-blue)]/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="h4 mb-4">You Own Your Data</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Encrypted, decentralized storage ensures your personal data is yours forever
+              </p>
+            </div>
+            
+            <div className="glass-card p-8 text-center group hover:border-[var(--color-electric-blue)]/50 transition-all duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+              </div>
+              <h3 className="h4 mb-4">Prove Without Revealing</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Zero-knowledge proofs let you verify anything without exposing sensitive data
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works Section */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">How It Works</h2>
+            <p className="body-large text-[var(--color-slate-gray)] max-w-3xl mx-auto">
+              Three simple steps to digital sovereignty
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="text-center">
+              <div className="relative mb-8">
+                <div className="w-24 h-24 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-full mx-auto flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">1</span>
+                </div>
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-[var(--color-neon-mint)] rounded-full flex items-center justify-center">
+                  <svg className="w-4 h-4 text-[var(--color-void-black)]" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </div>
+              <h3 className="h4 mb-4">Create Your DID</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Generate your decentralized identity in seconds by connecting your wallet
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative mb-8">
+                <div className="w-24 h-24 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-full mx-auto flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">2</span>
+                </div>
+              </div>
+              <h3 className="h4 mb-4">Add Credentials</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Link verifications, licenses, and achievements to build your sovereign profile
+              </p>
+            </div>
+            
+            <div className="text-center">
+              <div className="relative mb-8">
+                <div className="w-24 h-24 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-full mx-auto flex items-center justify-center">
+                  <span className="text-3xl font-bold text-white">3</span>
+                </div>
+              </div>
+              <h3 className="h4 mb-4">Access Everything</h3>
+              <p className="text-[var(--color-slate-gray)]">
+                Use your PERSONA across the entire Web3 ecosystem with complete privacy
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="py-24 px-6 bg-[var(--color-deep-amethyst)]/20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">Built for Real-World Use</h2>
+            <p className="body-large text-[var(--color-slate-gray)] max-w-3xl mx-auto">
+              From DeFi to gaming, PERSONA enables private, secure access across Web3
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="glass-card p-6 text-center group hover:border-[var(--color-neon-mint)]/50 transition-all duration-300">
+              <div className="w-12 h-12 bg-[var(--color-neon-mint)]/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[var(--color-neon-mint)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+                </svg>
+              </div>
+              <h4 className="font-semibold mb-2">DeFi KYC</h4>
+              <p className="body-small text-[var(--color-slate-gray)]">Compliant trading without revealing personal data</p>
+            </div>
+            
+            <div className="glass-card p-6 text-center group hover:border-[var(--color-radiant-magenta)]/50 transition-all duration-300">
+              <div className="w-12 h-12 bg-[var(--color-radiant-magenta)]/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[var(--color-radiant-magenta)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+                </svg>
+              </div>
+              <h4 className="font-semibold mb-2">Event Access</h4>
+              <p className="body-small text-[var(--color-slate-gray)]">Instant age verification for venues and events</p>
+            </div>
+            
+            <div className="glass-card p-6 text-center group hover:border-[var(--color-electric-blue)]/50 transition-all duration-300">
+              <div className="w-12 h-12 bg-[var(--color-electric-blue)]/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[var(--color-electric-blue)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h4 className="font-semibold mb-2">DAO Governance</h4>
+              <p className="body-small text-[var(--color-slate-gray)]">Sybil-resistant voting with reputation systems</p>
+            </div>
+            
+            <div className="glass-card p-6 text-center group hover:border-[var(--color-crimson-red)]/50 transition-all duration-300">
+              <div className="w-12 h-12 bg-[var(--color-crimson-red)]/20 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-6 h-6 text-[var(--color-crimson-red)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                </svg>
+              </div>
+              <h4 className="font-semibold mb-2">Gaming Identity</h4>
+              <p className="body-small text-[var(--color-slate-gray)]">Portable gaming profile across metaverses</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust & Stats Section */}
+      <section className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-6">Trusted by the Web3 Ecosystem</h2>
+          </div>
+          
           <div className="grid md:grid-cols-4 gap-8">
-            <div className="p-6">
-              <div className="text-3xl font-bold text-blue-400 mb-2">256-bit</div>
-              <div className="text-slate-400">Military-grade encryption</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-gradient mb-2">256-bit</div>
+              <div className="text-[var(--color-slate-gray)]">Military-grade encryption</div>
             </div>
-            <div className="p-6">
-              <div className="text-3xl font-bold text-blue-400 mb-2">100%</div>
-              <div className="text-slate-400">Data sovereignty</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-gradient mb-2">100%</div>
+              <div className="text-[var(--color-slate-gray)]">Data sovereignty</div>
             </div>
-            <div className="p-6">
-              <div className="text-3xl font-bold text-blue-400 mb-2">W3C</div>
-              <div className="text-slate-400">Standard compliant</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-gradient mb-2">W3C</div>
+              <div className="text-[var(--color-slate-gray)]">Standard compliant</div>
             </div>
-            <div className="p-6">
-              <div className="text-3xl font-bold text-blue-400 mb-2">Open</div>
-              <div className="text-slate-400">Source protocol</div>
+            <div className="text-center">
+              <div className="text-4xl font-bold text-gradient mb-2">Open</div>
+              <div className="text-[var(--color-slate-gray)]">Source protocol</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Technical Features */}
-      <section className="py-20 px-6 border-t border-slate-700">
+      {/* Network Status Section */}
+      <section className="py-24 px-6 bg-[var(--color-deep-amethyst)]/20">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="text-4xl font-bold mb-6">Built for Enterprise Security</h2>
-              <p className="text-xl text-slate-300 mb-8">
-                PersonaPass implements the latest in cryptographic security and blockchain technology 
-                to provide uncompromising protection for your digital identity.
+              <h2 className="text-4xl font-bold mb-6">Built on PersonaChain</h2>
+              <p className="body-large text-[var(--color-slate-gray)] mb-8">
+                Our purpose-built blockchain ensures maximum security, scalability, and privacy for your digital identity.
               </p>
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-3"></div>
+                  <div className="w-2 h-2 bg-[var(--color-neon-mint)] rounded-full mt-3"></div>
                   <div>
-                    <h4 className="font-semibold text-lg mb-2">Quantum-Resistant Cryptography</h4>
-                    <p className="text-slate-400">Future-proof security against quantum computing threats</p>
+                    <h4 className="font-semibold text-lg mb-2">Quantum-Resistant Security</h4>
+                    <p className="text-[var(--color-slate-gray)]">Future-proof cryptography against quantum computing threats</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-3"></div>
+                  <div className="w-2 h-2 bg-[var(--color-neon-mint)] rounded-full mt-3"></div>
                   <div>
-                    <h4 className="font-semibold text-lg mb-2">Multi-Signature Validation</h4>
-                    <p className="text-slate-400">Distributed consensus for credential authenticity</p>
+                    <h4 className="font-semibold text-lg mb-2">Instant Finality</h4>
+                    <p className="text-[var(--color-slate-gray)]">Sub-second transaction confirmation for seamless UX</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mt-3"></div>
+                  <div className="w-2 h-2 bg-[var(--color-neon-mint)] rounded-full mt-3"></div>
                   <div>
-                    <h4 className="font-semibold text-lg mb-2">GDPR Compliance</h4>
-                    <p className="text-slate-400">Built-in privacy controls and data portability</p>
+                    <h4 className="font-semibold text-lg mb-2">Carbon Neutral</h4>
+                    <p className="text-[var(--color-slate-gray)]">Proof-of-stake consensus with minimal environmental impact</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-slate-800 rounded-2xl p-8 border border-slate-700">
+            <div className="glass-card p-8">
               <h3 className="text-2xl font-bold mb-6">Live Network Status</h3>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">PersonaChain Status</span>
+                  <span className="text-[var(--color-slate-gray)]">PersonaChain Status</span>
                   <div className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-green-400 font-semibold">OPERATIONAL</span>
+                    <div className="w-3 h-3 bg-[var(--color-neon-mint)] rounded-full animate-pulse"></div>
+                    <span className="text-[var(--color-neon-mint)] font-semibold">OPERATIONAL</span>
                   </div>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Block Height</span>
-                  <span className="text-white font-mono">111+</span>
+                  <span className="text-[var(--color-slate-gray)]">Block Height</span>
+                  <span className="text-[var(--color-ghost-white)] font-mono">111+</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Network Validators</span>
-                  <span className="text-white font-mono">1</span>
+                  <span className="text-[var(--color-slate-gray)]">Active Validators</span>
+                  <span className="text-[var(--color-ghost-white)] font-mono">1</span>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span className="text-slate-300">Monthly Cost</span>
-                  <span className="text-green-400 font-semibold">$40</span>
+                  <span className="text-[var(--color-slate-gray)]">Average Block Time</span>
+                  <span className="text-[var(--color-ghost-white)] font-mono">6.1s</span>
+                </div>
+                
+                <div className="flex justify-between items-center">
+                  <span className="text-[var(--color-slate-gray)]">Monthly Cost</span>
+                  <span className="text-[var(--color-neon-mint)] font-semibold">$40</span>
+                </div>
+                
+                <div className="mt-6 pt-6 border-t border-[var(--color-glass-border)]">
+                  <button className="btn-glass w-full">
+                    View Block Explorer
+                  </button>
                 </div>
               </div>
             </div>
@@ -171,36 +354,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-20 px-6 bg-gradient-to-r from-blue-600/20 to-purple-600/20 border-t border-slate-700">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Take Control?</h2>
-          <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-            Join the future of digital identity. Create your sovereign identity today and experience 
-            true privacy and security in the Web3 ecosystem.
+      {/* Final CTA Section */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-electric-blue)]/10 to-[var(--color-radiant-magenta)]/10"></div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-6">Ready to Own Your Identity?</h2>
+          <p className="body-large text-[var(--color-slate-gray)] mb-8 max-w-2xl mx-auto">
+            Join thousands building the sovereign internet. Create your PERSONA today and experience true digital freedom.
           </p>
+          
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-12 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl text-lg">
-              Start Your Identity Journey
+            <button className="btn-primary">
+              Launch PERSONA App
             </button>
-            <button className="border-2 border-slate-600 bg-transparent hover:bg-slate-800 text-white font-semibold px-12 py-4 rounded-xl transition-all duration-200 text-lg">
-              Explore Documentation
+            <button className="btn-glass">
+              Explore Developer Docs
             </button>
+          </div>
+          
+          <div className="mt-12 flex items-center justify-center space-x-8 text-[var(--color-slate-gray)] body-small">
+            <span>No sign-up required</span>
+            <span>•</span>
+            <span>Free to start</span>
+            <span>•</span>
+            <span>100% private</span>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-700 bg-slate-800/50">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-slate-400">
-            Built with ❤️ for a more private and secure digital future
-          </p>
-          <p className="text-slate-500 text-sm mt-2">
-            PersonaPass © 2024 | Zero-Knowledge Digital Identity Protocol
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

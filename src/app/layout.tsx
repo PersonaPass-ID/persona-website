@@ -8,20 +8,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PersonaPass | The Most Secure Digital Identity Platform",
-  description: "Create verifiable credentials, prove your identity with zero-knowledge technology, and maintain complete control over your personal data on the blockchain.",
-  keywords: "zero-knowledge, digital identity, privacy, blockchain, Web3, credentials, PersonaPass",
+  title: "PERSONA | The Sovereign Internet Identity",
+  description: "Your identity. Your data. Your control. Access the Web3 ecosystem with zero-knowledge proofs and decentralized identity.",
+  keywords: "zero-knowledge, digital identity, privacy, blockchain, Web3, DID, verifiable credentials, PERSONA, sovereign identity",
   openGraph: {
-    title: "PersonaPass | The Most Secure Digital Identity Platform",
-    description: "Create verifiable credentials, prove your identity with zero-knowledge technology.",
-    url: "https://personapass.xyz",
-    siteName: "PersonaPass",
+    title: "PERSONA | The Sovereign Internet Identity",
+    description: "Your identity. Your data. Your control. Access the Web3 ecosystem with zero-knowledge proofs.",
+    url: "https://persona.xyz",
+    siteName: "PERSONA",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "PersonaPass | The Most Secure Digital Identity Platform",
-    description: "Create verifiable credentials, prove your identity with zero-knowledge technology.",
+    title: "PERSONA | The Sovereign Internet Identity",
+    description: "Your identity. Your data. Your control. Access the Web3 ecosystem with zero-knowledge proofs.",
   },
   robots: "index, follow",
 };
@@ -33,39 +33,156 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased bg-slate-900 text-white`}>
-        {/* Simple Navigation */}
-        <nav className="sticky top-0 z-50 border-b border-slate-700 bg-slate-900/95 backdrop-blur">
+      <body className={`${inter.variable} antialiased aurora-bg`}>
+        {/* PERSONA Navigation - Aurora Noir Design */}
+        <nav className="fixed top-0 w-full z-50 glass-nav">
           <div className="max-w-7xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
+              {/* Logo */}
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                  P
+                <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-lg">P</span>
                 </div>
-                <span className="text-xl font-bold">PersonaPass</span>
+                <span className="text-2xl font-bold text-gradient">PERSONA</span>
               </div>
               
-              <div className="hidden md:flex items-center space-x-8">
-                <a href="#features" className="text-slate-300 hover:text-white transition-colors">Features</a>
-                <a href="#security" className="text-slate-300 hover:text-white transition-colors">Security</a>
-                <a href="#status" className="text-slate-300 hover:text-white transition-colors">Network</a>
+              {/* Primary Navigation */}
+              <div className="hidden lg:flex items-center space-x-8">
+                <div className="relative group">
+                  <a href="/product" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
+                    Product
+                  </a>
+                </div>
+                <div className="relative group">
+                  <a href="/solutions" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
+                    Solutions
+                  </a>
+                </div>
+                <div className="relative group">
+                  <a href="/developers" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
+                    Developers
+                  </a>
+                </div>
+                <div className="relative group">
+                  <a href="/network" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
+                    Network
+                  </a>
+                </div>
+                <div className="relative group">
+                  <a href="/blog" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
+                    Resources
+                  </a>
+                </div>
               </div>
               
+              {/* Action Buttons */}
               <div className="flex items-center space-x-4">
-                <button className="text-slate-300 hover:text-white transition-colors">
+                <button className="btn-glass">
                   Connect Wallet
                 </button>
-                <button className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition-all duration-200">
-                  Get Started
+                <button className="btn-primary">
+                  Launch App
+                </button>
+              </div>
+
+              {/* Mobile Menu Button */}
+              <div className="lg:hidden">
+                <button className="text-[var(--color-ghost-white)] p-2">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  </svg>
                 </button>
               </div>
             </div>
           </div>
         </nav>
         
-        <main>
+        {/* Main Content with top padding for fixed nav */}
+        <main className="pt-20">
           {children}
         </main>
+
+        {/* Footer */}
+        <footer className="border-t border-[var(--color-glass-border)] bg-[var(--color-deep-amethyst)]/50 backdrop-blur-xl">
+          <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
+              {/* Brand */}
+              <div className="md:col-span-2">
+                <div className="flex items-center space-x-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl flex items-center justify-center">
+                    <span className="text-white font-bold text-lg">P</span>
+                  </div>
+                  <span className="text-2xl font-bold text-gradient">PERSONA</span>
+                </div>
+                <p className="text-[var(--color-slate-gray)] body-regular mb-6 max-w-md">
+                  The sovereign internet identity. Your data. Your control. Access the Web3 ecosystem with zero-knowledge technology.
+                </p>
+                <div className="flex space-x-4">
+                  <a href="#" className="text-[var(--color-slate-gray)] hover:text-[var(--color-electric-blue)] transition-colors">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                    </svg>
+                  </a>
+                  <a href="#" className="text-[var(--color-slate-gray)] hover:text-[var(--color-electric-blue)] transition-colors">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.749.097.118.111.221.082.343-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.749-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                    </svg>
+                  </a>
+                  <a href="#" className="text-[var(--color-slate-gray)] hover:text-[var(--color-electric-blue)] transition-colors">
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+
+              {/* Product Links */}
+              <div>
+                <h5 className="font-semibold mb-6">Product</h5>
+                <ul className="space-y-4">
+                  <li><a href="/product/features" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Features</a></li>
+                  <li><a href="/product/security" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Security</a></li>
+                  <li><a href="/product/roadmap" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Roadmap</a></li>
+                  <li><a href="/product/pricing" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Pricing</a></li>
+                </ul>
+              </div>
+
+              {/* Solutions Links */}
+              <div>
+                <h5 className="font-semibold mb-6">Solutions</h5>
+                <ul className="space-y-4">
+                  <li><a href="/solutions/defi" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">For DeFi</a></li>
+                  <li><a href="/solutions/events" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">For Events</a></li>
+                  <li><a href="/solutions/daos" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">For DAOs</a></li>
+                  <li><a href="/solutions/enterprise" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Enterprise</a></li>
+                </ul>
+              </div>
+
+              {/* Company Links */}
+              <div>
+                <h5 className="font-semibold mb-6">Company</h5>
+                <ul className="space-y-4">
+                  <li><a href="/about" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">About</a></li>
+                  <li><a href="/blog" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Blog</a></li>
+                  <li><a href="/careers" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Careers</a></li>
+                  <li><a href="/press" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors">Press</a></li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Bottom Bar */}
+            <div className="border-t border-[var(--color-glass-border)] mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+              <p className="text-[var(--color-slate-gray)] body-small">
+                © 2024 PERSONA. All rights reserved.
+              </p>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                <a href="/privacy" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors body-small">Privacy</a>
+                <a href="/terms" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors body-small">Terms</a>
+                <a href="/cookies" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors body-small">Cookies</a>
+              </div>
+            </div>
+          </div>
+        </footer>
       </body>
     </html>
   );
