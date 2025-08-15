@@ -1,0 +1,27 @@
+{
+  "env": {
+    "NEXT_PUBLIC_PERSONACHAIN_RPC": "http://44.201.59.57:26657",
+    "NEXT_PUBLIC_PERSONACHAIN_API_URL": "http://44.201.59.57:1317",
+    "NEXT_PUBLIC_API_BASE_URL": "http://44.201.59.57:3001",
+    "NEXT_PUBLIC_PERSONA_API_URL": "http://44.201.59.57:3001/api"
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ]
+}
