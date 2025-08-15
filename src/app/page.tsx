@@ -300,7 +300,7 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Solution Section */}
       <section className="py-24 px-6 bg-[var(--color-deep-amethyst)]/20">
