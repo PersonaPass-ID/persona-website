@@ -1,23 +1,50 @@
 'use client'
 
 import { http, createConfig } from 'wagmi'
-import { mainnet, base, sepolia } from 'wagmi/chains'
-import { injected, metaMask, walletConnect } from 'wagmi/connectors'
+import { defineChain } from 'viem'
 
-// WalletConnect Project ID - for production, replace with your actual project ID
-const projectId = '3fcc6bba6f1de962d911bb5b5c3dba68'
+// PersonaChain Configuration
+const personaChain = defineChain({
+  id: 1001, // PersonaChain testnet ID
+  name: 'PersonaChain Testnet',
+  nativeCurrency: {
+    decimals: 18,
+    name: 'PERSONA',
+    symbol: 'PERSONA',
+  },
+  rpcUrls: {
+    default: {
+      http: [
+        process.env.NEXT_PUBLIC_PERSONACHAIN_RPC || 
+        'http://44.201.59.57:26657'
+      ]
+    }
+  },
+  blockExplorers: {
+    default: {
+      name: 'PersonaChain Explorer',
+      url: process.env.NEXT_PUBLIC_PERSONACHAIN_API_URL || 'http://44.201.59.57:1317'
+    }
+  },
+  testnet: true,
+})
+
+// PERSONA Wallet Connector (custom implementation)
+const personaWalletConnector = {
+  id: 'persona-wallet',
+  name: 'PERSONA Wallet',
+  type: 'injected' as const,
+  icon: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMTMuMDkgOC4yNkwyMCAxTDE0IDdMMjIgMTJMMTQuNzQgMTAuOTFMMTcgMTlMMTEgMTNMMTIgMjJMMTAuOTEgMTQuNzRMNCAyM0wxMCAxN0wyIDEyTDkuMjYgMTMuMDlMNyA1TDEzIDExTDEyIDJaIiBmaWxsPSIjMDBFMEM2Ii8+Cjwvc3ZnPgo='
+}
 
 export const config = createConfig({
-  chains: [mainnet, base, sepolia],
+  chains: [personaChain],
   connectors: [
-    injected(),
-    metaMask(),
-    walletConnect({ projectId }),
+    // Only PERSONA Wallet connector for now
+    // Will be implemented with actual PERSONA Wallet integration
   ],
   transports: {
-    [mainnet.id]: http(),
-    [base.id]: http(),
-    [sepolia.id]: http(),
+    [personaChain.id]: http(personaChain.rpcUrls.default.http[0]),
   },
   ssr: false,
 })

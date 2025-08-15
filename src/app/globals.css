@@ -55,12 +55,6 @@
   --radius-2xl: 2rem;
 }
 
-/* Typography System - Inter + Montserrat + Orbitron */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
-
 /* Base Typography */
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -323,4 +317,182 @@ code, pre, .mono {
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+/* Magic UI Components */
+
+/* Neon Gradient Card */
+@keyframes background-position-spin {
+  0% { background-position: top center; }
+  100% { background-position: bottom center; }
+}
+
+.neon-gradient-card {
+  position: relative;
+  overflow: hidden;
+  padding: 2px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(0deg, var(--color-neon-teal), var(--color-electric-purple), var(--color-neon-teal));
+  background-size: 400% 400%;
+  animation: background-position-spin 8s linear infinite;
+}
+
+.neon-gradient-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(0deg, var(--color-neon-teal), var(--color-electric-purple), var(--color-neon-teal));
+  background-size: 400% 400%;
+  animation: background-position-spin 8s linear infinite;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+}
+
+.neon-gradient-card-content {
+  position: relative;
+  z-index: 1;
+  background: var(--color-midnight-dark);
+  border-radius: calc(var(--radius-xl) - 2px);
+  height: 100%;
+  width: 100%;
+}
+
+/* Animated Gradient Text */
+@keyframes gradient-shift {
+  0%, 16.667%, 100% {
+    opacity: 1;
+  }
+  33.333%, 83.333% {
+    opacity: 0.4;
+  }
+}
+
+.animated-gradient-text {
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: gradient-shift 8s linear infinite;
+  background-image: linear-gradient(
+    to right,
+    var(--color-neon-teal) 0%,
+    var(--color-electric-purple) 50%,
+    var(--color-neon-teal) 100%
+  );
+}
+
+/* Border Beam */
+@keyframes border-beam {
+  100% {
+    offset-distance: 100%;
+  }
+}
+
+.border-beam {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from 0deg, transparent, var(--color-neon-teal), transparent);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: xor;
+  animation: border-beam 2s linear infinite;
+}
+
+/* Meteors */
+@keyframes meteor-effect {
+  0% {
+    transform: rotate(215deg) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(215deg) translateX(-500px);
+    opacity: 0;
+  }
+}
+
+.meteor {
+  position: absolute;
+  top: 1/2;
+  left: 1/2;
+  height: 0.5rem;
+  width: 0.5rem;
+  border-radius: 9999px;
+  background-color: var(--color-neon-teal);
+  box-shadow: 0 0 0 1px var(--color-glass-border);
+  animation: meteor-effect 5s linear infinite;
+}
+
+.meteor::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-neon-teal), transparent);
+}
+
+.meteor:nth-child(1) {
+  animation-delay: 0s;
+  animation-duration: 4s;
+  left: 10%;
+  top: 20%;
+}
+
+.meteor:nth-child(2) {
+  animation-delay: 2s;
+  animation-duration: 6s;
+  left: 20%;
+  top: 10%;
+}
+
+.meteor:nth-child(3) {
+  animation-delay: 1s;
+  animation-duration: 5s;
+  left: 30%;
+  top: 5%;
+}
+
+/* Animated Beam */
+@keyframes beam-animate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.beam-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.beam {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-neon-teal),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: beam-animate 3s ease-in-out infinite;
 }
