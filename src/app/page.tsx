@@ -1,38 +1,121 @@
+'use client'
+
+import { motion, useScroll, useTransform, useInView } from 'motion/react'
+import { useRef } from 'react'
+
 export default function Home() {
+  const { scrollYProgress } = useScroll()
+  const heroRef = useRef(null)
+  const isHeroInView = useInView(heroRef)
+  
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2
+      }
+    }
+  }
+  
+  const itemVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.25, 0, 1]
+      }
+    }
+  }
+
   return (
     <div className="min-h-screen">
       {/* Hero Section - Modern Web3 Design */}
-      <section className="py-12 midnight-bg sm:pb-16 lg:pb-20 xl:pb-24 relative overflow-hidden">
+      <motion.section 
+        ref={heroRef}
+        className="py-12 midnight-bg sm:pb-16 lg:pb-20 xl:pb-24 relative overflow-hidden"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         {/* Animated Grid Background */}
-        <div className="absolute inset-0 pointer-events-none opacity-20">
+        <motion.div 
+          className="absolute inset-0 pointer-events-none opacity-20"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 0.2, scale: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+        >
           <div className="w-full h-full bg-gradient-to-br from-[var(--color-neon-teal)]/10 to-[var(--color-electric-purple)]/10" />
-        </div>
+        </motion.div>
         
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
           <div className="relative">
-            <div className="lg:w-2/3">
-              <p className="tech-label text-[var(--color-slate-gray)] tracking-widest uppercase">
+            <motion.div className="lg:w-2/3" variants={itemVariants}>
+              <motion.p 
+                className="tech-label text-[var(--color-slate-gray)] tracking-widest uppercase"
+                variants={itemVariants}
+              >
                 The Future of Digital Identity
-              </p>
-              <h1 className="mt-6 text-4xl font-normal text-[var(--color-cloud-white)] sm:mt-10 sm:text-5xl lg:text-6xl xl:text-8xl">
-                <span className="animated-gradient-text display-hero">
+              </motion.p>
+              <motion.h1 
+                className="mt-6 text-4xl font-normal text-[var(--color-cloud-white)] sm:mt-10 sm:text-5xl lg:text-6xl xl:text-8xl"
+                variants={itemVariants}
+              >
+                <motion.span 
+                  className="animated-gradient-text display-hero"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
                   Own Your Digital
-                </span>{' '}
-                <span className="display-hero">Sovereignty</span>
-              </h1>
-              <p className="max-w-lg mt-4 text-xl font-normal text-[var(--color-slate-gray)] sm:mt-8">
+                </motion.span>{' '}
+                <motion.span 
+                  className="display-hero"
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300 }}
+                >
+                  Sovereignty
+                </motion.span>
+              </motion.h1>
+              <motion.p 
+                className="max-w-lg mt-4 text-xl font-normal text-[var(--color-slate-gray)] sm:mt-8"
+                variants={itemVariants}
+              >
                 Zero-knowledge proofs meet decentralized identity. Control your data, prove your credentials, and access the Web3 ecosystem without revealing personal information.
-              </p>
+              </motion.p>
               
-              <div className="relative inline-flex items-center justify-center mt-8 sm:mt-12 group">
+              <motion.div 
+                className="relative inline-flex items-center justify-center mt-8 sm:mt-12 group"
+                variants={itemVariants}
+              >
                 <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] group-hover:shadow-lg group-hover:shadow-[var(--color-neon-teal)]/50"></div>
-                <a href="/app" className="relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[var(--color-midnight-blue)] bg-gradient-to-r from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-full hover:shadow-lg hover:shadow-[var(--color-neon-teal)]/30 transition-all duration-300 transform hover:-translate-y-0.5" role="button">
+                <motion.a 
+                  href="/app" 
+                  className="relative inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-[var(--color-midnight-blue)] bg-gradient-to-r from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-full hover:shadow-lg hover:shadow-[var(--color-neon-teal)]/30 transition-all duration-300"
+                  role="button"
+                  whileHover={{ 
+                    scale: 1.05,
+                    y: -2,
+                    boxShadow: "0 20px 40px rgba(0, 255, 255, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   Launch PERSONA Identity
-                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <motion.svg 
+                    className="w-5 h-5 ml-2" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 400 }}
+                  >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
-              </div>
+                  </motion.svg>
+                </motion.a>
+              </motion.div>
 
               <div>
                 <div className="inline-flex items-center pt-6 mt-8 border-t border-[var(--color-glass-border)] sm:pt-10 sm:mt-14">
@@ -52,11 +135,25 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-8 md:absolute md:mt-0 md:top-32 lg:top-0 md:right-0">
+            <motion.div 
+              className="mt-8 md:absolute md:mt-0 md:top-32 lg:top-0 md:right-0"
+              initial={{ opacity: 0, x: 50, rotateY: -15 }}
+              animate={{ opacity: 1, x: 0, rotateY: 0 }}
+              transition={{ duration: 1, delay: 0.8, ease: [0.25, 0.25, 0, 1] }}
+            >
               {/* 3D Identity Visualization */}
               <div className="w-full max-w-xs mx-auto lg:max-w-lg xl:max-w-xl relative">
                 {/* Main Identity Card with Neon Gradient Border */}
-                <div className="neon-gradient-card rotate-3">
+                <motion.div 
+                  className="neon-gradient-card rotate-3"
+                  whileHover={{ 
+                    scale: 1.05,
+                    rotateY: 5,
+                    rotateX: 5,
+                    boxShadow: "0 25px 50px rgba(0, 255, 255, 0.25)"
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
                   <div className="neon-gradient-card-content p-8">
                     <div className="flex items-center space-x-4 mb-6">
                       <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-xl neon-glow"></div>
@@ -104,52 +201,103 @@ export default function Home() {
       </section>
 
       {/* Problem Section */}
-      <section className="py-24 px-6 border-t border-[var(--color-glass-border)]">
+      <motion.section 
+        className="py-24 px-6 border-t border-[var(--color-glass-border)]"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, margin: "-100px" }}
+      >
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold mb-6">Your Identity is Broken</h2>
+          <motion.div 
+            className="text-center mb-16"
+            initial={{ y: 30, opacity: 0 }}
+            whileInView={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <motion.h2 
+              className="text-4xl font-bold mb-6"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              Your Identity is Broken
+            </motion.h2>
             <p className="body-large text-[var(--color-slate-gray)] max-w-3xl mx-auto">
               The current digital identity system puts your privacy, security, and control at risk
             </p>
-          </div>
+          </motion.div>
           
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="glass-card p-8 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+          >
+            <motion.div 
+              className="glass-card p-8 text-center"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center"
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
-              </div>
+              </motion.div>
               <h3 className="h4 mb-4">100+ Passwords</h3>
               <p className="text-[var(--color-slate-gray)]">
                 Average person manages 100+ accounts with weak passwords and poor security
               </p>
-            </div>
+            </motion.div>
             
-            <div className="glass-card p-8 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+            <motion.div 
+              className="glass-card p-8 text-center"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center"
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
-              </div>
+              </motion.div>
               <h3 className="h4 mb-4">Data Breaches Daily</h3>
               <p className="text-[var(--color-slate-gray)]">
                 Your personal data is sold, leaked, and exploited without your knowledge or consent
               </p>
-            </div>
+            </motion.div>
             
-            <div className="glass-card p-8 text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center">
+            <motion.div 
+              className="glass-card p-8 text-center"
+              variants={itemVariants}
+              whileHover={{ y: -5, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+            >
+              <motion.div 
+                className="w-16 h-16 bg-gradient-to-br from-[var(--color-crimson-red)] to-[var(--color-radiant-magenta)] rounded-xl mx-auto mb-6 flex items-center justify-center"
+                whileHover={{ rotate: 10, scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
                 <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                 </svg>
-              </div>
+              </motion.div>
               <h3 className="h4 mb-4">No Privacy</h3>
               <p className="text-[var(--color-slate-gray)]">
                 Complete activity tracking across platforms with zero control over your digital footprint
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
