@@ -33,61 +33,90 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased aurora-bg`}>
-        {/* PERSONA Navigation - Aurora Noir Design */}
+      <body className={`${inter.variable} antialiased midnight-bg`}>
+        {/* PERSONA Navigation - Midnight Dark + Neon */}
         <nav className="fixed top-0 w-full z-50 glass-nav">
           <div className="max-w-7xl mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
-              {/* Logo */}
+              {/* Logo - Futuristic Design */}
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-[var(--color-electric-blue)] to-[var(--color-radiant-magenta)] rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">P</span>
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-xl flex items-center justify-center neon-glow">
+                    <div className="w-8 h-8 bg-[var(--color-midnight-dark)] rounded-lg flex items-center justify-center">
+                      <span className="tech-label text-xs text-[var(--color-neon-teal)]">P</span>
+                    </div>
+                  </div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--color-neon-teal)] rounded-full animate-neon-pulse"></div>
                 </div>
-                <span className="text-2xl font-bold text-gradient">PERSONA</span>
+                <div className="flex flex-col">
+                  <span className="text-2xl font-bold text-neon display-hero">PERSONA</span>
+                  <span className="tech-label text-xs text-[var(--color-slate-gray)]">Digital Sovereignty</span>
+                </div>
               </div>
               
-              {/* Primary Navigation */}
+              {/* Primary Navigation - High-tech styling */}
               <div className="hidden lg:flex items-center space-x-8">
                 <div className="relative group">
-                  <a href="/product" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
-                    Product
+                  <a href="/product" className="flex items-center space-x-2 text-[var(--color-slate-gray)] hover:text-[var(--color-neon-teal)] transition-colors py-2 px-3 rounded-lg hover:bg-[var(--color-glass-light)]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                    <span className="font-medium">Product</span>
                   </a>
                 </div>
                 <div className="relative group">
-                  <a href="/solutions" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
-                    Solutions
+                  <a href="/solutions" className="flex items-center space-x-2 text-[var(--color-slate-gray)] hover:text-[var(--color-neon-teal)] transition-colors py-2 px-3 rounded-lg hover:bg-[var(--color-glass-light)]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                    <span className="font-medium">Solutions</span>
                   </a>
                 </div>
                 <div className="relative group">
-                  <a href="/developers" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
-                    Developers
+                  <a href="/developers" className="flex items-center space-x-2 text-[var(--color-slate-gray)] hover:text-[var(--color-neon-teal)] transition-colors py-2 px-3 rounded-lg hover:bg-[var(--color-glass-light)]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    <span className="font-medium">Developers</span>
                   </a>
                 </div>
                 <div className="relative group">
-                  <a href="/network" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
-                    Network
+                  <a href="/network" className="flex items-center space-x-2 text-[var(--color-slate-gray)] hover:text-[var(--color-neon-teal)] transition-colors py-2 px-3 rounded-lg hover:bg-[var(--color-glass-light)]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    <span className="font-medium">Network</span>
                   </a>
                 </div>
                 <div className="relative group">
-                  <a href="/blog" className="text-[var(--color-slate-gray)] hover:text-[var(--color-ghost-white)] transition-colors py-2">
-                    Resources
+                  <a href="/blog" className="flex items-center space-x-2 text-[var(--color-slate-gray)] hover:text-[var(--color-neon-teal)] transition-colors py-2 px-3 rounded-lg hover:bg-[var(--color-glass-light)]">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    <span className="font-medium">Resources</span>
                   </a>
                 </div>
               </div>
               
-              {/* Action Buttons */}
+              {/* Action Buttons - Enhanced design */}
               <div className="flex items-center space-x-4">
-                <button className="btn-glass">
-                  Connect Wallet
+                <button className="btn-glass flex items-center space-x-2">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span>Connect Wallet</span>
                 </button>
-                <button className="btn-primary">
-                  Launch App
+                <button className="btn-primary flex items-center space-x-2">
+                  <span>Launch App</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </button>
               </div>
 
               {/* Mobile Menu Button */}
               <div className="lg:hidden">
-                <button className="text-[var(--color-ghost-white)] p-2">
+                <button className="text-[var(--color-cloud-white)] p-2 hover:bg-[var(--color-glass-light)] rounded-lg">
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                   </svg>

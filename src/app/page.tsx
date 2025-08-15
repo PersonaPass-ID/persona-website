@@ -1,38 +1,93 @@
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Aurora Gradient with Animated Background */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Animated Aurora Background */}
-        <div className="absolute inset-0 aurora-bg">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-electric-blue)]/10 via-transparent to-[var(--color-radiant-magenta)]/10 animate-pulse"></div>
-        </div>
-        
-        {/* Floating Glass Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-32 h-32 glass-card rounded-full opacity-20 animate-bounce" style={{animationDelay: '0s', animationDuration: '4s'}}></div>
-          <div className="absolute top-3/4 right-1/3 w-24 h-24 glass-card rounded-full opacity-15 animate-bounce" style={{animationDelay: '2s', animationDuration: '6s'}}></div>
-          <div className="absolute bottom-1/4 left-2/3 w-20 h-20 glass-card rounded-full opacity-10 animate-bounce" style={{animationDelay: '1s', animationDuration: '5s'}}></div>
-        </div>
+      {/* Hero Section - Modern Web3 Design */}
+      <section className="py-12 midnight-bg sm:pb-16 lg:pb-20 xl:pb-24">
+        <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
+          <div className="relative">
+            <div className="lg:w-2/3">
+              <p className="tech-label text-[var(--color-slate-gray)] tracking-widest uppercase">
+                The Future of Digital Identity
+              </p>
+              <h1 className="mt-6 text-4xl font-normal text-[var(--color-cloud-white)] sm:mt-10 sm:text-5xl lg:text-6xl xl:text-8xl">
+                <span className="text-neon display-hero">
+                  Own Your Digital
+                </span>{' '}
+                Sovereignty
+              </h1>
+              <p className="max-w-lg mt-4 text-xl font-normal text-[var(--color-slate-gray)] sm:mt-8">
+                Zero-knowledge proofs meet decentralized identity. Control your data, prove your credentials, and access the Web3 ecosystem without revealing personal information.
+              </p>
+              
+              <div className="relative inline-flex items-center justify-center mt-8 sm:mt-12 group">
+                <div className="absolute transition-all duration-200 rounded-full -inset-px bg-gradient-to-r from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] group-hover:shadow-lg group-hover:shadow-[var(--color-neon-teal)]/50"></div>
+                <a href="#" className="relative inline-flex items-center justify-center px-8 py-3 text-base font-normal text-[var(--color-midnight-blue)] bg-[var(--color-midnight-blue)] border border-transparent rounded-full" role="button">
+                  Launch PERSONA Identity
+                </a>
+              </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-          <h1 className="display-1 mb-6 text-gradient">
-            The Sovereign Internet Starts Here
-          </h1>
-          <p className="body-large text-[var(--color-slate-gray)] mb-4 max-w-3xl mx-auto">
-            Own your identity. Control your data. Access everything.
-          </p>
-          <p className="body-regular text-[var(--color-slate-gray)] mb-12 max-w-2xl mx-auto">
-            Experience true digital sovereignty with zero-knowledge proofs, decentralized identity, and complete privacy control.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <button className="btn-primary">
-              Create Your Persona
-            </button>
-            <button className="btn-secondary">
-              See How It Works
-            </button>
+              <div>
+                <div className="inline-flex items-center pt-6 mt-8 border-t border-[var(--color-glass-border)] sm:pt-10 sm:mt-14">
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" strokeWidth="1.5" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 7.00003H21M21 7.00003V15M21 7.00003L13 15L9 11L3 17" stroke="url(#neon-gradient)" strokeLinecap="round" strokeLinejoin="round" />
+                    <defs>
+                      <linearGradient id="neon-gradient" x1="3" y1="7.00003" x2="22.2956" y2="12.0274" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="var(--color-neon-teal)" />
+                        <stop offset="100%" stopColor="var(--color-electric-purple)" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  <span className="ml-2 text-base font-normal text-[var(--color-cloud-white)]">
+                    111+ blocks secured on PersonaChain this week
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 md:absolute md:mt-0 md:top-32 lg:top-0 md:right-0">
+              {/* 3D Identity Visualization */}
+              <div className="w-full max-w-xs mx-auto lg:max-w-lg xl:max-w-xl relative">
+                {/* Main Identity Card */}
+                <div className="glass-card p-8 rotate-3 animate-float">
+                  <div className="flex items-center space-x-4 mb-6">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-xl neon-glow"></div>
+                    <div>
+                      <h3 className="text-[var(--color-cloud-white)] font-bold">Digital Identity</h3>
+                      <p className="tech-label text-xs text-[var(--color-slate-gray)]">Verified Sovereign</p>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span className="text-[var(--color-slate-gray)] text-sm">DID</span>
+                      <span className="text-[var(--color-neon-teal)] text-sm font-mono">did:persona:...</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[var(--color-slate-gray)] text-sm">Status</span>
+                      <span className="text-[var(--color-success-green)] text-sm">Verified</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-[var(--color-slate-gray)] text-sm">Privacy</span>
+                      <span className="text-[var(--color-neon-teal)] text-sm">Zero-Knowledge</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Floating Credential Cards */}
+                <div className="absolute -top-4 -right-4 w-20 h-12 glass-card p-2 -rotate-12 animate-float" style={{animationDelay: '1s'}}>
+                  <div className="w-full h-full bg-gradient-to-r from-[var(--color-success-green)] to-[var(--color-neon-teal)] rounded opacity-60"></div>
+                </div>
+                
+                <div className="absolute -bottom-2 -left-6 w-16 h-10 glass-card p-2 rotate-12 animate-float" style={{animationDelay: '2s'}}>
+                  <div className="w-full h-full bg-gradient-to-r from-[var(--color-electric-purple)] to-[var(--color-neon-teal)] rounded opacity-60"></div>
+                </div>
+
+                {/* Neon Particles */}
+                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[var(--color-neon-teal)] rounded-full animate-neon-pulse"></div>
+                <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-[var(--color-electric-purple)] rounded-full animate-neon-pulse" style={{animationDelay: '1s'}}></div>
+                <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-[var(--color-neon-teal)] rounded-full animate-neon-pulse" style={{animationDelay: '0.5s'}}></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
