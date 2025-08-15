@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* PERSONA - Midnight Dark + Neon Accents Design System */
+/* PERSONA - Professional Web3 Design System */
 @theme {
   /* Core Color Palette */
   --color-midnight-blue: #0A142F;      /* Primary background */
@@ -11,6 +11,69 @@
   --color-electric-purple-dark: #8A5AFF; /* Darker purple */
   --color-cloud-white: #F5F7FA;        /* Primary text */
   --color-slate-gray: #8A94A6;         /* Secondary text */
+  
+  /* New CSS Variables for Tailwind */
+  --background: 222.2 84% 4.9%;
+  --foreground: 210 40% 98%;
+  --border: 217.2 32.6% 17.5%;
+  --ring: 212.7 26.8% 83.9%;
+  
+  --primary: 222.2 47.4% 11.2%;
+  --primary-hover: 217.2 32.6% 17.5%;
+  --primary-active: 215.4 16.3% 46.9%;
+  --primary-foreground: 210 40% 98%;
+  
+  --secondary: 217.2 32.6% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+  
+  --muted: 217.2 32.6% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  
+  --accent: 217.2 32.6% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  
+  --popover: 222.2 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  
+  --card: 222.2 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+  
+  /* Premium Web3 Palette */
+  --electric-blue: 199 89% 48%;
+  --neon-purple: 271 91% 65%;
+  --cyber-cyan: 180 100% 50%;
+  --plasma-pink: 330 81% 60%;
+  --quantum-green: 142 71% 45%;
+  --void-black: 0 0% 3%;
+  --pearl-white: 0 0% 98%;
+  
+  /* Shadows */
+  --shadow-depth-1: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-depth-2: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-depth-3: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-depth-4: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-depth-5: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  
+  /* Glows */
+  --glow-primary: 0 0 20px hsl(var(--electric-blue) / 0.5);
+  --glow-secondary: 0 0 20px hsl(var(--neon-purple) / 0.5);
+  --glow-accent: 0 0 20px hsl(var(--cyber-cyan) / 0.5);
+  --glow-success: 0 0 20px hsl(var(--quantum-green) / 0.5);
+  --glass-shadow: 0 8px 32px rgb(0 0 0 / 0.12);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(var(--electric-blue)), hsl(var(--cyber-cyan)));
+  --gradient-secondary: linear-gradient(135deg, hsl(var(--neon-purple)), hsl(var(--plasma-pink)));
+  --gradient-mesh: conic-gradient(from 0deg, hsl(var(--electric-blue)), hsl(var(--neon-purple)), hsl(var(--cyber-cyan)), hsl(var(--electric-blue)));
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+  --gradient-border: linear-gradient(135deg, hsl(var(--electric-blue) / 0.5), hsl(var(--neon-purple) / 0.5));
+  --gradient-orb: radial-gradient(circle, hsl(var(--electric-blue) / 0.3), transparent 70%);
+  
+  /* Radius */
+  --radius: 0.5rem;
   
   /* Supporting Colors */
   --color-success-green: #4CAF50;
