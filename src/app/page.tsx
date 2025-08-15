@@ -3,11 +3,9 @@ export default function Home() {
     <div className="min-h-screen">
       {/* Hero Section - Modern Web3 Design */}
       <section className="py-12 midnight-bg sm:pb-16 lg:pb-20 xl:pb-24 relative overflow-hidden">
-        {/* Meteors Background Effect */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="meteor"></div>
-          <div className="meteor"></div>
-          <div className="meteor"></div>
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 pointer-events-none opacity-20">
+          <div className="w-full h-full bg-gradient-to-br from-[var(--color-neon-teal)]/10 to-[var(--color-electric-purple)]/10" />
         </div>
         
         <div className="px-4 mx-auto sm:px-6 lg:px-8 max-w-7xl">
@@ -58,7 +56,7 @@ export default function Home() {
               {/* 3D Identity Visualization */}
               <div className="w-full max-w-xs mx-auto lg:max-w-lg xl:max-w-xl relative">
                 {/* Main Identity Card with Neon Gradient Border */}
-                <div className="neon-gradient-card rotate-3 animate-float">
+                <div className="neon-gradient-card rotate-3">
                   <div className="neon-gradient-card-content p-8">
                     <div className="flex items-center space-x-4 mb-6">
                       <div className="w-12 h-12 bg-gradient-to-br from-[var(--color-neon-teal)] to-[var(--color-electric-purple)] rounded-xl neon-glow"></div>
@@ -99,19 +97,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Floating Credential Cards */}
-                <div className="absolute -top-4 -right-4 w-20 h-12 glass-card p-2 -rotate-12 animate-float" style={{animationDelay: '1s'}}>
-                  <div className="w-full h-full bg-gradient-to-r from-[var(--color-success-green)] to-[var(--color-neon-teal)] rounded opacity-60"></div>
-                </div>
-                
-                <div className="absolute -bottom-2 -left-6 w-16 h-10 glass-card p-2 rotate-12 animate-float" style={{animationDelay: '2s'}}>
-                  <div className="w-full h-full bg-gradient-to-r from-[var(--color-electric-purple)] to-[var(--color-neon-teal)] rounded opacity-60"></div>
-                </div>
-
-                {/* Neon Particles */}
-                <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[var(--color-neon-teal)] rounded-full animate-neon-pulse"></div>
-                <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-[var(--color-electric-purple)] rounded-full animate-neon-pulse" style={{animationDelay: '1s'}}></div>
-                <div className="absolute bottom-1/3 left-1/3 w-1.5 h-1.5 bg-[var(--color-neon-teal)] rounded-full animate-neon-pulse" style={{animationDelay: '0.5s'}}></div>
               </div>
             </div>
           </div>
