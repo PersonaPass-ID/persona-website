@@ -38,7 +38,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-12 leading-relaxed"
+        className="text-lg md:text-xl text-white max-w-3xl mx-auto mb-12 leading-relaxed"
       >
         Experience the future of digital identity with PersonaPass. Built on blockchain technology 
         with decentralized identifiers, verifiable credentials, and zero-knowledge proofs for 
@@ -54,15 +54,15 @@ export default function HeroSection() {
       >
         <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
           <FingerPrintIcon className="h-4 w-4 text-cyan-400 mr-2" />
-          <span className="text-sm text-gray-300">Decentralized IDs</span>
+          <span className="text-sm text-white">Decentralized IDs</span>
         </div>
         <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
           <LockClosedIcon className="h-4 w-4 text-purple-400 mr-2" />
-          <span className="text-sm text-gray-300">Zero-Knowledge Proofs</span>
+          <span className="text-sm text-white">Zero-Knowledge Proofs</span>
         </div>
         <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
           <ShieldCheckIcon className="h-4 w-4 text-pink-400 mr-2" />
-          <span className="text-sm text-gray-300">Verifiable Credentials</span>
+          <span className="text-sm text-white">Verifiable Credentials</span>
         </div>
       </motion.div>
 
@@ -83,7 +83,7 @@ export default function HeroSection() {
         
         <Link
           href="#how-it-works"
-          className="group border-2 border-gray-600 text-gray-300 px-8 py-4 rounded-xl font-semibold text-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300"
+          className="group border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300"
         >
           <span className="flex items-center">
             See How It Works
@@ -99,19 +99,19 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 1.0 }}
-        className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-16 pt-16 border-t border-gray-800"
+        className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-16 pt-16 border-t border-white/20"
       >
         <div className="text-center">
           <div className="text-2xl md:text-3xl font-bold text-cyan-400">99.9%</div>
-          <div className="text-sm text-gray-400 mt-1">Uptime</div>
+          <div className="text-sm text-white/80 mt-1">Uptime</div>
         </div>
         <div className="text-center">
           <div className="text-2xl md:text-3xl font-bold text-purple-400">256-bit</div>
-          <div className="text-sm text-gray-400 mt-1">Encryption</div>
+          <div className="text-sm text-white/80 mt-1">Encryption</div>
         </div>
         <div className="text-center">
           <div className="text-2xl md:text-3xl font-bold text-pink-400">100%</div>
-          <div className="text-sm text-gray-400 mt-1">Private</div>
+          <div className="text-sm text-white/80 mt-1">Private</div>
         </div>
       </motion.div>
     </div>

@@ -16,11 +16,19 @@ export default function Home() {
       {/* Navigation */}
       <Navigation />
       
-      {/* Hero Section with Wavy Background */}
+      {/* Hero Section with Background Image */}
       <section className="relative min-h-screen">
-        <WavyBackground className="max-w-6xl mx-auto">
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
+          }}
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 max-w-6xl mx-auto">
           <HeroSection />
-        </WavyBackground>
+        </div>
       </section>
 
       {/* Features Section */}
