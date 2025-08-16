@@ -59,42 +59,22 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section - Enhanced with Custom Background */}
-      <div className="relative min-h-screen overflow-hidden -mt-16">
-        {/* Hero Background Image - Simplest possible approach */}
+      {/* Hero Section - Restored Working Version */}
+      <section className="relative min-h-screen -mt-16">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-gradient-to-r from-orange-500 via-yellow-400 to-blue-600"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url("/hero.jpg")`,
+            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
           }}
         />
-        
-        {/* Next.js Image Fallback */}
-        <Image
-          src="/hero.jpg"
-          alt="Information Overload Digital Art"
-          fill
-          sizes="100vw"
-          className="object-cover object-center z-0"
-          priority
-          unoptimized
-        />
-        
-        {/* Standard img tag fallback */}
-        <img
-          src="/hero.jpg"
-          alt="Hero Background"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0"
-        />
-        
-        {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-black/20 z-10" />
+        {/* Gradient overlay inspired by the image - cosmic blue to tech orange */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-indigo-900/70 to-orange-900/60" />
         
         {/* Background Lines Effect */}
         <BackgroundLines className="absolute inset-0 z-20" svgOptions={{ duration: 8 }} />
         
         {/* Container for hero content */}
-        <div className="container relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
+        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
           {/* Main Content */}
           <div className="text-center">
             <motion.h1 
@@ -160,7 +140,7 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Enhanced Features Section with Focus Cards */}
       <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
