@@ -61,18 +61,18 @@ export default function HomePage() {
       
       {/* Hero Section - Enhanced with Custom Background */}
       <div className="relative min-h-screen overflow-hidden -mt-16">
-        {/* Hero Background Image - Web-safe filename */}
+        {/* Hero Background Image - Simplest possible approach */}
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-gradient-to-r from-orange-500 via-yellow-400 to-blue-600"
           style={{
-            backgroundImage: `url("/images/information-overload-digital-art.jpg")`,
+            backgroundImage: `url("/hero.jpg")`,
           }}
         />
         
-        {/* Next.js Image Fallback - absolutely positioned */}
+        {/* Next.js Image Fallback */}
         <Image
-          src="/images/information-overload-digital-art.jpg"
-          alt="Information Overload Digital Art - Orange explosions and blue data streams"
+          src="/hero.jpg"
+          alt="Information Overload Digital Art"
           fill
           sizes="100vw"
           className="object-cover object-center z-0"
@@ -80,10 +80,11 @@ export default function HomePage() {
           unoptimized
         />
         
-        {/* Debug: Simple fallback gradient if image fails */}
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-orange-500 via-yellow-400 to-blue-600 z-0"
-          style={{ display: 'var(--image-fallback, none)' }}
+        {/* Standard img tag fallback */}
+        <img
+          src="/hero.jpg"
+          alt="Hero Background"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
         />
         
         {/* Overlay for readability */}
