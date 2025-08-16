@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { ArrowRight, Zap, Shield, Globe, Lock, CheckCircle, Wallet, UserCheck, Key } from 'lucide-react'
-import { Navigation } from '@/components/Navigation'
+import Navigation from '@/components/layout/Navigation'
 import { BackgroundLines } from '@/components/ui/background-lines'
 import { FocusCards } from '@/components/ui/focus-cards'
 import { WobbleCard, WobbleCardContent } from '@/components/ui/wobble-card'
