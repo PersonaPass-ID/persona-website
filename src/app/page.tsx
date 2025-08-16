@@ -64,12 +64,12 @@ export default function HomePage() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/hero-background.jpg")',
+            backgroundImage: 'url("/images/Information%20Overload%20-%20Germ%C3%A1n%20Di%20Ciccio.jpeg")',
           }}
         />
         
         {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
         
         {/* Background Lines Effect */}
         <BackgroundLines className="absolute inset-0" svgOptions={{ duration: 8 }} />
