@@ -61,17 +61,17 @@ export default function HomePage() {
       
       {/* Hero Section - Enhanced with Custom Background */}
       <div className="relative min-h-screen overflow-hidden -mt-16">
-        {/* Hero Background Image - Multiple fallback approaches */}
+        {/* Hero Background Image - Web-safe filename */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url("/images/Information%20Overload%20-%20Germ%C3%A1n%20Di%20Ciccio.jpeg"), url("/images/hero-background.jpg"), linear-gradient(135deg, #f97316 0%, #fbbf24 50%, #2563eb 100%)`,
+            backgroundImage: `url("/images/information-overload-digital-art.jpg")`,
           }}
         />
         
         {/* Next.js Image Fallback - absolutely positioned */}
         <Image
-          src="/images/Information Overload - Germán Di Ciccio.jpeg"
+          src="/images/information-overload-digital-art.jpg"
           alt="Information Overload Digital Art - Orange explosions and blue data streams"
           fill
           sizes="100vw"
@@ -80,12 +80,10 @@ export default function HomePage() {
           unoptimized
         />
         
-        {/* Backup img tag - absolutely positioned */}
-        <img
-          src="/images/Information Overload - Germán Di Ciccio.jpeg"
-          alt="Information Overload Digital Art Fallback"
-          className="absolute inset-0 w-full h-full object-cover object-center z-0"
-          loading="eager"
+        {/* Debug: Simple fallback gradient if image fails */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-r from-orange-500 via-yellow-400 to-blue-600 z-0"
+          style={{ display: 'var(--image-fallback, none)' }}
         />
         
         {/* Overlay for readability */}
