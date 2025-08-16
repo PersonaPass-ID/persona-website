@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  images: {
+    unoptimized: true,
+    remotePatterns: [],
+    localPatterns: [
+      {
+        pathname: '/images/**',
+        search: '',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

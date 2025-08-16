@@ -8,6 +8,7 @@ import { FocusCards } from '@/components/ui/focus-cards'
 import { WobbleCard, WobbleCardContent } from '@/components/ui/wobble-card'
 import { AppleCardsCarousel } from '@/components/ui/apple-cards-carousel'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function HomePage() {
   // Enhanced feature cards data
@@ -60,22 +61,41 @@ export default function HomePage() {
       
       {/* Hero Section - Enhanced with Custom Background */}
       <div className="relative min-h-screen overflow-hidden -mt-16">
-        {/* Hero Background Image */}
+        {/* Hero Background Image - Multiple fallback approaches */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/Information%20Overload%20-%20Germ%C3%A1n%20Di%20Ciccio.jpeg")',
+            backgroundImage: `url("/images/Information%20Overload%20-%20Germ%C3%A1n%20Di%20Ciccio.jpeg"), url("/images/hero-background.jpg"), linear-gradient(135deg, #f97316 0%, #fbbf24 50%, #2563eb 100%)`,
           }}
         />
         
+        {/* Next.js Image Fallback - absolutely positioned */}
+        <Image
+          src="/images/Information Overload - Germán Di Ciccio.jpeg"
+          alt="Information Overload Digital Art - Orange explosions and blue data streams"
+          fill
+          sizes="100vw"
+          className="object-cover object-center z-0"
+          priority
+          unoptimized
+        />
+        
+        {/* Backup img tag - absolutely positioned */}
+        <img
+          src="/images/Information Overload - Germán Di Ciccio.jpeg"
+          alt="Information Overload Digital Art Fallback"
+          className="absolute inset-0 w-full h-full object-cover object-center z-0"
+          loading="eager"
+        />
+        
         {/* Overlay for readability */}
-        <div className="absolute inset-0 bg-black/20" />
+        <div className="absolute inset-0 bg-black/20 z-10" />
         
         {/* Background Lines Effect */}
-        <BackgroundLines className="absolute inset-0" svgOptions={{ duration: 8 }} />
+        <BackgroundLines className="absolute inset-0 z-20" svgOptions={{ duration: 8 }} />
         
         {/* Container for hero content */}
-        <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
+        <div className="container relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
           {/* Main Content */}
           <div className="text-center">
             <motion.h1 
