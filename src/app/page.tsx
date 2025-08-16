@@ -64,7 +64,7 @@ export default function HomePage() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/Information%20Overload%20-%20Germán%20Di%20Ciccio.jpeg")',
+            backgroundImage: 'url("/images/hero-background.jpg")',
           }}
         />
         
