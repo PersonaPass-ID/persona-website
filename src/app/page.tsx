@@ -59,7 +59,7 @@ export default function HomePage() {
       <Navigation />
       
       {/* Hero Section - Enhanced with Custom Background */}
-      <div className="relative min-h-screen overflow-hidden">
+      <div className="relative min-h-screen overflow-hidden -mt-16">
         {/* Hero Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -75,14 +75,14 @@ export default function HomePage() {
         <BackgroundLines className="absolute inset-0" svgOptions={{ duration: 8 }} />
         
         {/* Container for hero content */}
-        <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen">
+        <div className="container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
           {/* Main Content */}
           <div className="text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-lg"
+              className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-lg font-web3"
             >
               Your Identity,
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-400 to-blue-500 drop-shadow-lg">
@@ -94,7 +94,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 text-xl md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md"
+              className="mt-6 text-xl md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md font-display"
             >
               Create verifiable digital credentials with zero-knowledge proofs. 
               Own your identity on the blockchain.
@@ -108,13 +108,13 @@ export default function HomePage() {
               className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Link href="/get-started-v2">
-                <button className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-blue-600 text-white rounded-full font-medium hover:from-orange-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
+                <button className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-blue-600 text-white rounded-full font-medium hover:from-orange-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg font-display transform hover:scale-105">
                   Get Started
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
               
-              <button className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-medium hover:border-white/50 hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
+              <button className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-medium hover:border-white/50 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 font-display transform hover:scale-105">
                 Learn More
               </button>
             </motion.div>
