@@ -21,11 +21,11 @@ export default function Home() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg"), linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
           }}
         />
-        {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/70" />
+        {/* Gradient overlay inspired by the image - cosmic blue to tech orange */}
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-indigo-900/70 to-orange-900/60" />
         <div className="relative z-10 max-w-6xl mx-auto">
           <HeroSection />
         </div>

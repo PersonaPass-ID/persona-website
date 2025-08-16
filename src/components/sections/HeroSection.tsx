@@ -12,9 +12,9 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="inline-flex items-center px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 backdrop-blur-sm mb-8"
+        className="inline-flex items-center px-4 py-2 rounded-full border border-orange-400/30 bg-gradient-to-r from-blue-600/20 to-orange-500/20 backdrop-blur-md mb-8"
       >
-        <ShieldCheckIcon className="h-4 w-4 text-cyan-400 mr-2" />
+        <ShieldCheckIcon className="h-4 w-4 text-orange-300 mr-2" />
         <span className="text-sm text-white font-bold shadow-lg">
           The World's Most Secure Digital Identity Platform
         </span>
@@ -28,7 +28,7 @@ export default function HeroSection() {
         className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
       >
         <span className="block text-white drop-shadow-2xl font-black">Your Digital Identity,</span>
-        <span className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <span className="block bg-gradient-to-r from-orange-300 via-yellow-400 to-blue-400 bg-clip-text text-transparent">
           Truly Sovereign
         </span>
       </motion.h1>
@@ -52,16 +52,16 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="flex flex-wrap justify-center gap-4 mb-12"
       >
-        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
-          <FingerPrintIcon className="h-4 w-4 text-cyan-300 mr-2" />
+        <div className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-md rounded-full border border-orange-400/40">
+          <FingerPrintIcon className="h-4 w-4 text-orange-300 mr-2" />
           <span className="text-sm text-white font-bold">Decentralized IDs</span>
         </div>
-        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
-          <LockClosedIcon className="h-4 w-4 text-purple-300 mr-2" />
+        <div className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-md rounded-full border border-blue-400/40">
+          <LockClosedIcon className="h-4 w-4 text-blue-300 mr-2" />
           <span className="text-sm text-white font-bold">Zero-Knowledge Proofs</span>
         </div>
-        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
-          <ShieldCheckIcon className="h-4 w-4 text-pink-300 mr-2" />
+        <div className="flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-orange-500/20 backdrop-blur-md rounded-full border border-yellow-400/40">
+          <ShieldCheckIcon className="h-4 w-4 text-yellow-300 mr-2" />
           <span className="text-sm text-white font-bold">Verifiable Credentials</span>
         </div>
       </motion.div>
@@ -75,15 +75,15 @@ export default function HeroSection() {
       >
         <Link
           href="/register"
-          className="group relative overflow-hidden bg-gradient-to-r from-cyan-500 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-cyan-600 hover:to-purple-700 transition-all duration-300 shadow-2xl hover:shadow-cyan-500/25"
+          className="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:from-orange-600 hover:to-blue-700 transition-all duration-300 shadow-2xl hover:shadow-orange-500/25"
         >
           <span className="relative z-10">Create Your Identity</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-blue-500 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
         </Link>
         
         <Link
           href="#how-it-works"
-          className="group border-2 border-white/30 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:border-cyan-400 hover:text-cyan-400 transition-all duration-300"
+          className="group border-2 border-orange-400/40 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:border-orange-400 hover:text-orange-300 transition-all duration-300"
         >
           <span className="flex items-center">
             See How It Works
@@ -102,15 +102,15 @@ export default function HeroSection() {
         className="grid grid-cols-3 gap-8 max-w-md mx-auto mt-16 pt-16 border-t border-white/20"
       >
         <div className="text-center">
-          <div className="text-2xl md:text-3xl font-bold text-cyan-400">99.9%</div>
+          <div className="text-2xl md:text-3xl font-bold text-orange-400">99.9%</div>
           <div className="text-sm text-white/80 mt-1">Uptime</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl md:text-3xl font-bold text-purple-400">256-bit</div>
+          <div className="text-2xl md:text-3xl font-bold text-blue-400">256-bit</div>
           <div className="text-sm text-white/80 mt-1">Encryption</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl md:text-3xl font-bold text-pink-400">100%</div>
+          <div className="text-2xl md:text-3xl font-bold text-yellow-400">100%</div>
           <div className="text-sm text-white/80 mt-1">Private</div>
         </div>
       </motion.div>
