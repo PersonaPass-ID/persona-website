@@ -1,20 +1,45 @@
 'use client'
 
 import { WavyBackground } from '../components/ui/wavy-background'
+import Navigation from '../components/layout/Navigation'
+import HeroSection from '../components/sections/HeroSection'
+import FeaturesSection from '../components/sections/FeaturesSection'
+import HowItWorksSection from '../components/sections/HowItWorksSection'
+import EcosystemSection from '../components/sections/EcosystemSection'
+import UseCasesSection from '../components/sections/UseCasesSection'
+import ProblemSolutionSection from '../components/sections/ProblemSolutionSection'
+import Footer from '../components/layout/Footer'
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section - Aceternity UI Wavy Background */}
-      <WavyBackground className="max-w-4xl mx-auto pb-40">
-        <p className="text-2xl md:text-4xl lg:text-7xl text-white font-bold inter-var text-center">
-          Hero waves are cool
-        </p>
-        <p className="text-base md:text-lg mt-4 text-white font-normal inter-var text-center">
-          Leverage the power of canvas to create a beautiful hero section
-        </p>
-      </WavyBackground>
+    <div className="min-h-screen bg-black text-white">
+      {/* Navigation */}
+      <Navigation />
+      
+      {/* Hero Section with Wavy Background */}
+      <section className="relative min-h-screen">
+        <WavyBackground className="max-w-6xl mx-auto">
+          <HeroSection />
+        </WavyBackground>
+      </section>
 
+      {/* Features Section */}
+      <FeaturesSection />
+
+      {/* How It Works Section */}
+      <HowItWorksSection />
+
+      {/* Problem & Solution */}
+      <ProblemSolutionSection />
+
+      {/* Ecosystem Section */}
+      <EcosystemSection />
+
+      {/* Use Cases Section */}
+      <UseCasesSection />
+
+      {/* Footer */}
+      <Footer />
     </div>
   )
 }
