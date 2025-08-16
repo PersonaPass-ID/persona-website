@@ -1,6 +1,6 @@
 'use client'
 
-import { WavyBackground } from '../components/ui/wavy-background'
+// import { WavyBackground } from '../components/ui/wavy-background' // Replaced with custom background
 import Navigation from '../components/layout/Navigation'
 import HeroSection from '../components/sections/HeroSection'
 import FeaturesSection from '../components/sections/FeaturesSection'
@@ -21,11 +21,11 @@ export default function Home() {
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
+            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg"), linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
           }}
         />
         {/* Dark overlay for text readability */}
-        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-10 max-w-6xl mx-auto">
           <HeroSection />
         </div>

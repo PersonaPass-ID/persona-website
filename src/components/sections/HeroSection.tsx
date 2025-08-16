@@ -15,7 +15,7 @@ export default function HeroSection() {
         className="inline-flex items-center px-4 py-2 rounded-full border border-cyan-500/20 bg-cyan-500/10 backdrop-blur-sm mb-8"
       >
         <ShieldCheckIcon className="h-4 w-4 text-cyan-400 mr-2" />
-        <span className="text-sm text-cyan-300 font-medium">
+        <span className="text-sm text-white font-bold shadow-lg">
           The World's Most Secure Digital Identity Platform
         </span>
       </motion.div>
@@ -27,7 +27,7 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.2 }}
         className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6"
       >
-        <span className="block text-white">Your Digital Identity,</span>
+        <span className="block text-white drop-shadow-2xl font-black">Your Digital Identity,</span>
         <span className="block bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Truly Sovereign
         </span>
@@ -38,7 +38,7 @@ export default function HeroSection() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.4 }}
-        className="text-lg md:text-xl text-white max-w-3xl mx-auto mb-12 leading-relaxed"
+        className="text-lg md:text-xl text-white drop-shadow-lg font-semibold max-w-3xl mx-auto mb-12 leading-relaxed"
       >
         Experience the future of digital identity with PersonaPass. Built on blockchain technology 
         with decentralized identifiers, verifiable credentials, and zero-knowledge proofs for 
@@ -52,17 +52,17 @@ export default function HeroSection() {
         transition={{ duration: 0.8, delay: 0.6 }}
         className="flex flex-wrap justify-center gap-4 mb-12"
       >
-        <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
-          <FingerPrintIcon className="h-4 w-4 text-cyan-400 mr-2" />
-          <span className="text-sm text-white">Decentralized IDs</span>
+        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
+          <FingerPrintIcon className="h-4 w-4 text-cyan-300 mr-2" />
+          <span className="text-sm text-white font-bold">Decentralized IDs</span>
         </div>
-        <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
-          <LockClosedIcon className="h-4 w-4 text-purple-400 mr-2" />
-          <span className="text-sm text-white">Zero-Knowledge Proofs</span>
+        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
+          <LockClosedIcon className="h-4 w-4 text-purple-300 mr-2" />
+          <span className="text-sm text-white font-bold">Zero-Knowledge Proofs</span>
         </div>
-        <div className="flex items-center px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700">
-          <ShieldCheckIcon className="h-4 w-4 text-pink-400 mr-2" />
-          <span className="text-sm text-white">Verifiable Credentials</span>
+        <div className="flex items-center px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30">
+          <ShieldCheckIcon className="h-4 w-4 text-pink-300 mr-2" />
+          <span className="text-sm text-white font-bold">Verifiable Credentials</span>
         </div>
       </motion.div>
 
