@@ -103,12 +103,13 @@ export default function RegisterPage() {
       if (currentStep === 1) {
         // Generate TOTP secret after security setup
         await generateTotpSecret()
+        setCurrentStep(prev => prev + 1)
       } else if (currentStep === 2) {
-        // Generate DID and wallet after blockchain step
+        // Generate DID and wallet - step advancement is handled in the function
         await generateDidAndWallet()
+      } else {
+        setCurrentStep(prev => prev + 1)
       }
-      
-      setCurrentStep(prev => prev + 1)
     }
   }
 
@@ -147,6 +148,7 @@ export default function RegisterPage() {
   const generateDidAndWallet = async () => {
     try {
       setIsLoading(true)
+      setError(null)
       
       const response = await fetch('/api/blockchain/generate-identity', {
         method: 'POST',
@@ -166,6 +168,12 @@ export default function RegisterPage() {
         did: data.did,
         walletAddress: data.walletAddress
       }))
+      
+      // Auto advance after successful generation
+      setTimeout(() => {
+        setCurrentStep(prev => prev + 1)
+      }, 1500) // Give user time to see the result
+      
     } catch (err) {
       setError('Failed to generate digital identity')
     } finally {

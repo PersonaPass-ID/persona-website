@@ -27,8 +27,6 @@ export const Card = React.memo(
       )}
       whileHover={{ 
         y: -8,
-        rotateX: 5,
-        rotateY: 5,
         scale: 1.02,
         transition: { duration: 0.3, ease: "easeOut" }
       }}
