@@ -59,7 +59,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navigation />
       
-      {/* Hero Section - Restored Working Version */}
+      {/* Hero Section - Pure Raw Image */}
       <section className="relative min-h-screen -mt-16">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -67,21 +67,17 @@ export default function HomePage() {
             backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
           }}
         />
-        {/* Gradient overlay inspired by the image - cosmic blue to tech orange */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-indigo-900/70 to-orange-900/60" />
-        
-        {/* Background Lines Effect */}
-        <BackgroundLines className="absolute inset-0 z-20" svgOptions={{ duration: 8 }} />
         
         {/* Container for hero content */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
           {/* Main Content */}
           <div className="text-center">
             <motion.h1 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="text-5xl md:text-7xl font-bold text-white tracking-tight drop-shadow-lg font-web3"
+              className="text-5xl md:text-7xl font-bold text-white tracking-tight font-web3"
+              style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)' }}
             >
               Your Identity,
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-400 to-blue-500 drop-shadow-lg">
@@ -93,7 +89,8 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 text-xl md:text-2xl text-white/90 max-w-3xl mx-auto drop-shadow-md font-display"
+              className="mt-6 text-xl md:text-2xl text-white max-w-3xl mx-auto font-display"
+              style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}
             >
               Create verifiable digital credentials with zero-knowledge proofs. 
               Own your identity on the blockchain.
