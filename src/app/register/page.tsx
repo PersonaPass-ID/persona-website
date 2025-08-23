@@ -53,6 +53,22 @@ interface RegistrationState {
   walletAddress?: string
   totpSecret?: string
   qrCodeUrl?: string
+  userData?: {
+    firstName: string
+    lastName: string
+    email?: string
+    createdAt: string
+    verified: boolean
+  }
+  blockchain?: {
+    network: string
+    status: string
+    blockHeight?: number
+    transactionHash?: string
+    confirmations?: number
+    features: string[]
+  }
+  isExisting?: boolean
 }
 
 export default function RegisterPage() {
@@ -150,29 +166,35 @@ export default function RegisterPage() {
       setIsLoading(true)
       setError(null)
       
-      const response = await fetch('/api/blockchain/generate-identity', {
+      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://localhost:8001/api'
+      const response = await fetch(`${apiUrl}/identity/create-did`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: watch('email'),
           firstName: watch('firstName'),
-          lastName: watch('lastName')
+          lastName: watch('lastName'),
+          email: watch('email')
         })
       })
 
       if (!response.ok) throw new Error('Failed to generate digital identity')
       
       const data = await response.json()
-      setRegistrationState(prev => ({
-        ...prev,
-        did: data.did,
-        walletAddress: data.walletAddress
-      }))
-      
-      // Auto advance after successful generation
-      setTimeout(() => {
-        setCurrentStep(prev => prev + 1)
-      }, 1500) // Give user time to see the result
+      if (data.success) {
+        setRegistrationState(prev => ({
+          ...prev,
+          did: data.did,
+          walletAddress: data.walletAddress,
+          userData: data.userData,
+          blockchain: data.blockchain,
+          isExisting: data.isExisting
+        }))
+        
+        // Don't auto-advance - let user see their DID and manually continue
+        // User can now review their DID before proceeding
+      } else {
+        throw new Error(data.message || 'Failed to generate identity')
+      }
       
     } catch (err) {
       setError('Failed to generate digital identity')
@@ -290,10 +312,10 @@ export default function RegisterPage() {
               {/* Step Content */}
               <div className="text-center mb-8">
                 <h1 className="text-2xl lg:text-3xl font-bold text-white mb-2">
-                  {currentStepData.title}
+                  {currentStepData?.title || 'Loading...'}
                 </h1>
                 <p className="text-gray-300">
-                  {currentStepData.description}
+                  {currentStepData?.description || 'Please wait...'}
                 </p>
               </div>
 
@@ -443,30 +465,90 @@ export default function RegisterPage() {
                       <KeyIcon className="h-8 w-8 text-white" />
                     </div>
                     <h3 className="text-xl font-bold text-white mb-4">
-                      Generating Your Digital Identity
+                      {registrationState.did ? 'Your Digital Identity' : 'Generating Your Digital Identity'}
                     </h3>
                     <p className="text-gray-300 mb-6">
-                      We're creating your Decentralized Identifier (DID) and secure wallet on PersonaChain.
-                      This process is cryptographically secure and gives you complete control over your digital identity.
+                      {registrationState.did 
+                        ? 'Your Decentralized Identifier (DID) and secure wallet have been created on PersonaChain blockchain.'
+                        : 'We\'re creating your Decentralized Identifier (DID) and secure wallet on PersonaChain. This process is cryptographically secure and gives you complete control over your digital identity.'
+                      }
                     </p>
                     
                     {registrationState.did && registrationState.walletAddress ? (
                       <div className="space-y-4">
-                        <div className="bg-gray-800/50 rounded-lg p-4">
-                          <div className="text-sm text-gray-400 mb-1">Your DID</div>
+                        {registrationState.isExisting && (
+                          <div className="bg-blue-900/20 border border-blue-700/30 rounded-lg p-3 mb-4">
+                            <div className="text-blue-400 text-sm font-medium">
+                              ℹ️ Existing Identity Retrieved
+                            </div>
+                            <div className="text-blue-300 text-xs mt-1">
+                              Your identity was already registered. Same person = same DID.
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="bg-gray-800/50 rounded-lg p-4 text-left">
+                          <div className="text-sm text-gray-400 mb-1">Your DID (Decentralized Identifier)</div>
                           <div className="text-cyan-400 font-mono text-sm break-all">
                             {registrationState.did}
                           </div>
+                          <div className="text-xs text-gray-500 mt-1">
+                            🔗 Registered on PersonaChain blockchain
+                          </div>
                         </div>
-                        <div className="bg-gray-800/50 rounded-lg p-4">
+                        
+                        <div className="bg-gray-800/50 rounded-lg p-4 text-left">
                           <div className="text-sm text-gray-400 mb-1">Wallet Address</div>
                           <div className="text-purple-400 font-mono text-sm break-all">
                             {registrationState.walletAddress}
                           </div>
+                          <div className="text-xs text-gray-500 mt-1">
+                            💰 PersonaChain compatible address
+                          </div>
                         </div>
-                        <div className="flex items-center justify-center text-green-400">
+
+                        {registrationState.userData && (
+                          <div className="bg-gray-800/50 rounded-lg p-4 text-left">
+                            <div className="text-sm text-gray-400 mb-2">Attached Identity Data</div>
+                            <div className="text-xs space-y-1">
+                              <div><span className="text-gray-500">Name:</span> <span className="text-white">{registrationState.userData.firstName} {registrationState.userData.lastName}</span></div>
+                              {registrationState.userData.email && (
+                                <div><span className="text-gray-500">Email:</span> <span className="text-white">{registrationState.userData.email}</span></div>
+                              )}
+                              <div><span className="text-gray-500">Created:</span> <span className="text-white">{new Date(registrationState.userData.createdAt).toLocaleDateString()}</span></div>
+                            </div>
+                          </div>
+                        )}
+
+                        {registrationState.blockchain && (
+                          <div className="bg-gray-800/50 rounded-lg p-4 text-left">
+                            <div className="text-sm text-gray-400 mb-2">Blockchain Information</div>
+                            <div className="text-xs space-y-1">
+                              <div><span className="text-gray-500">Network:</span> <span className="text-green-400">{registrationState.blockchain.network}</span></div>
+                              {registrationState.blockchain.blockHeight && (
+                                <div><span className="text-gray-500">Block Height:</span> <span className="text-green-400">{registrationState.blockchain.blockHeight.toLocaleString()}</span></div>
+                              )}
+                              {registrationState.blockchain.transactionHash && (
+                                <div><span className="text-gray-500">Transaction:</span> <span className="text-green-400 font-mono text-xs break-all">{registrationState.blockchain.transactionHash}</span></div>
+                              )}
+                              {registrationState.blockchain.confirmations && (
+                                <div><span className="text-gray-500">Confirmations:</span> <span className="text-green-400">{registrationState.blockchain.confirmations}/6</span></div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                        
+                        <div className="flex items-center justify-center text-green-400 mt-6">
                           <CheckCircleIcon className="h-5 w-5 mr-2" />
-                          Digital identity generated successfully!
+                          Digital identity {registrationState.isExisting ? 'retrieved' : 'created'} successfully!
+                        </div>
+                        
+                        <div className="text-xs text-gray-400 mt-4 bg-gray-900/50 rounded-lg p-3">
+                          <div className="font-medium text-white mb-1">🔒 Your identity is now:</div>
+                          <div>✅ Cryptographically secured on PersonaChain</div>
+                          <div>✅ Linked to your personal information</div>
+                          <div>✅ Under your complete control</div>
+                          <div>✅ Persistent across sessions</div>
                         </div>
                       </div>
                     ) : (
