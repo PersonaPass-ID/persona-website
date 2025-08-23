@@ -106,6 +106,11 @@ class PersonaWalletCore {
 
   private loadStoredAccount() {
     try {
+      // Check if we're in browser environment
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return
+      }
+      
       const stored = localStorage.getItem('persona_wallet_account')
       if (stored) {
         const accountData = JSON.parse(stored)
@@ -120,6 +125,11 @@ class PersonaWalletCore {
 
   private saveAccount(account: PersonaWalletAccount) {
     try {
+      // Check if we're in browser environment
+      if (typeof window === 'undefined' || !window.localStorage) {
+        return
+      }
+      
       // Never store private key in localStorage
       const toStore = { ...account, privateKey: undefined }
       localStorage.setItem('persona_wallet_account', JSON.stringify(toStore))
@@ -504,7 +514,12 @@ class PersonaWalletCore {
   async disconnect(): Promise<void> {
     this.account = null
     this.walletClient = null
-    localStorage.removeItem('persona_wallet_account')
+    
+    // Check if we're in browser environment
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('persona_wallet_account')
+    }
+    
     this.notifyListeners()
     console.log('🔓 PERSONA Wallet disconnected')
   }
