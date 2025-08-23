@@ -8,7 +8,10 @@ export async function POST(request: NextRequest) {
 
     if (!email) {
       return NextResponse.json(
-        { error: 'Email is required' },
+        { 
+          success: false, 
+          message: 'Email is required' 
+        },
         { status: 400 }
       )
     }
@@ -23,16 +26,28 @@ export async function POST(request: NextRequest) {
     // Generate QR code URL
     const qrCodeUrl = await QRCode.toDataURL(secret.otpauth_url!)
 
+    // Generate backup codes
+    const backupCodes = Array.from({ length: 5 }, () => 
+      Math.random().toString().slice(2, 10)
+    )
+
     return NextResponse.json({
-      secret: secret.base32,
-      qrCodeUrl,
-      otpauthUrl: secret.otpauth_url
+      success: true,
+      data: {
+        qrCode: qrCodeUrl,
+        secret: secret.base32,
+        backupCodes: backupCodes
+      },
+      message: 'TOTP setup successful'
     })
 
   } catch (error) {
     console.error('TOTP setup error:', error)
     return NextResponse.json(
-      { error: 'Failed to setup TOTP' },
+      { 
+        success: false, 
+        message: 'Failed to setup TOTP' 
+      },
       { status: 500 }
     )
   }
