@@ -217,55 +217,72 @@ class PersonaWalletCore {
   }
 
   async updateBalance(): Promise<string> {
-    if (!this.account || !this.publicClient) return '0'
+    if (!this.account) return '0'
 
     try {
-      const balance = await this.publicClient.getBalance({
-        address: this.account.address
-      })
+      // Use backend API for PersonaChain balance (Cosmos SDK)
+      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'https://api.personapass.xyz/api'
+      const response = await fetch(`${apiUrl}/blockchain/balance/${this.account.address}`)
+      const result = await response.json()
       
-      const formattedBalance = formatEther(balance)
+      const balance = result.success ? result.data.balance || '0' : '0'
+      
       if (this.account) {
-        this.account.balance = formattedBalance
+        this.account.balance = balance
         this.saveAccount(this.account)
         this.notifyListeners()
       }
       
-      return formattedBalance
+      return balance
     } catch (error) {
-      console.warn('Failed to update balance:', error)
+      console.warn('Failed to update balance via PersonaChain backend:', error)
       return '0'
     }
   }
 
   async sendTransaction(to: string, amount: string, data?: string): Promise<PersonaTransaction> {
-    if (!this.account || !this.walletClient) {
+    if (!this.account) {
       throw new Error('Wallet not connected')
     }
 
     try {
-      console.log(`💸 Sending ${amount} PERSONA to ${to}`)
+      console.log(`💸 Sending transaction via PersonaChain backend`)
       
-      const hash = await this.walletClient.sendTransaction({
-        to,
-        value: parseEther(amount),
-        data,
+      // Use backend API for PersonaChain transactions (Cosmos SDK)
+      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'https://api.personapass.xyz/api'
+      const response = await fetch(`${apiUrl}/blockchain/transaction`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          from: this.account.address,
+          to,
+          amount,
+          data,
+          signature: await this.signMessage(`${to}:${amount}:${data || ''}`)
+        })
       })
 
+      const result = await response.json()
+      if (!result.success) {
+        throw new Error(result.error || 'Transaction failed')
+      }
+
       const transaction: PersonaTransaction = {
-        hash,
+        hash: result.data.hash || `tx_${Date.now()}`,
         from: this.account.address,
         to,
         value: amount,
         data,
-        gasLimit: '21000',
-        gasPrice: '20000000000',
+        gasLimit: '200000',
+        gasPrice: '0.025',
         timestamp: new Date().toISOString(),
         status: 'pending',
         type: data ? 'credential' : 'transfer'
       }
 
-      console.log('✅ Transaction sent:', hash)
+      console.log('✅ Transaction sent via PersonaChain:', transaction.hash)
       return transaction
     } catch (error) {
       console.error('❌ Transaction failed:', error)
