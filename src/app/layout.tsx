@@ -1,10 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Mono, Orbitron, Audiowide } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const spaceMono = Space_Mono({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-space-mono',
+});
+
+const orbitron = Orbitron({
+  weight: ['400', '500', '600', '700', '800', '900'],
+  subsets: ['latin'],
+  variable: '--font-orbitron',
+});
+
+const audiowide = Audiowide({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-audiowide',
 });
 
 export const metadata: Metadata = {
@@ -33,7 +51,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased midnight-bg`}>
+      <body className={`${inter.variable} ${spaceMono.variable} ${orbitron.variable} ${audiowide.variable} antialiased midnight-bg`}>
         {/* Professional Web3 Navigation */}
         <nav className="fixed top-0 w-full z-50 backdrop-blur-xl bg-background/80 border-b border-border">
           <div className="container mx-auto px-4">

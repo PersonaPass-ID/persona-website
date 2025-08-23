@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Orbitron:wght@400;500;600;700;800;900&family=Audiowide&display=swap');
 
 :root {
   --background: #ffffff;
@@ -9,10 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: 'Space Mono', 'Courier New', monospace;
-  --font-display: 'Orbitron', 'Helvetica', sans-serif;
-  --font-web3: 'Audiowide', 'Orbitron', sans-serif;
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-space-mono);
+  --font-display: var(--font-orbitron);
+  --font-web3: var(--font-audiowide);
   
   /* Custom animations */
   --animate-float: float 6s ease-in-out infinite;
