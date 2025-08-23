@@ -145,7 +145,7 @@ export const PERSONACHAIN_CONFIG = {
   chainId: 'personachain-1',
   rpcUrl: process.env.NEXT_PUBLIC_PERSONACHAIN_RPC || 'http://44.201.59.57:26657',
   apiUrl: process.env.NEXT_PUBLIC_PERSONACHAIN_API_URL || 'http://44.201.59.57:1317',
-  name: 'PersonaChain Testnet',
+  name: 'PersonaChain Mainnet',
   nativeCurrency: {
     decimals: 18,
     name: 'PERSONA',

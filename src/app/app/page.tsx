@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { personaWallet, PersonaWalletConnection } from '@/lib/persona-wallet'
+import { personaWallet as personaWalletWrapper, PersonaWalletConnection } from '@/lib/persona-wallet'
+import { personaWallet as personaWalletCore } from '@/lib/persona-wallet-core'
 import { personaApi, type CreateAccountRequest, type TOTPSetupResponse } from '@/lib/api-client'
 
 export default function AppPage() {
@@ -14,11 +15,30 @@ export default function AppPage() {
   const [formData, setFormData] = useState({ email: '', password: '', totpCode: '' })
 
   useEffect(() => {
-    // Subscribe to connection changes
-    const unsubscribe = personaWallet.onConnectionChange(setConnection)
+    // Subscribe to PERSONA Wallet Core changes
+    const unsubscribe = personaWalletCore.onAccountChange((account) => {
+      if (account) {
+        setConnection({
+          did: account.did,
+          address: account.address,
+          publicKey: account.publicKey,
+          isConnected: account.isConnected
+        })
+      } else {
+        setConnection(null)
+      }
+    })
     
-    // Check if already connected
-    setConnection(personaWallet.getConnection())
+    // Check if already connected to PERSONA Wallet Core
+    const account = personaWalletCore.getAccount()
+    if (account) {
+      setConnection({
+        did: account.did,
+        address: account.address,
+        publicKey: account.publicKey,
+        isConnected: account.isConnected
+      })
+    }
     
     // Check PersonaChain health on mount
     checkPersonaChainHealth()
@@ -102,14 +122,15 @@ export default function AppPage() {
         console.log('✅ Account created successfully:', response.data)
         setAuthStep('complete')
         
-        // Simulate wallet connection
-        const mockConnection: PersonaWalletConnection = {
-          did: response.data.did,
-          address: response.data.walletAddress,
-          publicKey: 'mock-public-key',
-          isConnected: true
-        }
-        setConnection(mockConnection)
+        // Create real PERSONA Wallet
+        console.log('🔐 Creating PERSONA Wallet...')
+        const walletAccount = await personaWalletCore.createWallet()
+        
+        // Register DID on PersonaChain
+        console.log('🆔 Registering DID on PersonaChain...')
+        await personaWalletCore.createDID()
+        
+        console.log('✅ PERSONA Wallet and DID created successfully!')
       } else {
         throw new Error(response.error || 'Account creation failed')
       }
@@ -121,18 +142,27 @@ export default function AppPage() {
 
   const handleDisconnect = async () => {
     try {
-      await personaWallet.disconnect()
+      await personaWalletCore.disconnect()
     } catch (err: any) {
       setError(err.message || 'Failed to disconnect')
     }
   }
 
-  const handleCreateDID = async () => {
+  const handleIssueCredential = async () => {
     try {
-      const did = await personaWallet.createDID()
-      alert(`DID Created: ${did}`)
+      console.log('📜 Issuing verifiable credential...')
+      const credential = await personaWalletCore.issueCredential(
+        {
+          name: formData.email.split('@')[0],
+          email: formData.email,
+          verifiedAt: new Date().toISOString()
+        },
+        ['EmailCredential', 'IdentityCredential']
+      )
+      alert(`Credential Issued: ${credential.id}`)
+      console.log('✅ Credential:', credential)
     } catch (err: any) {
-      setError(err.message || 'Failed to create DID')
+      setError(err.message || 'Failed to issue credential')
     }
   }
 
@@ -274,8 +304,19 @@ export default function AppPage() {
                     </div>
                   </div>
                   <div className="space-y-3">
-                    <button onClick={handleCreateDID} className="btn-secondary w-full">
+                    <button onClick={handleIssueCredential} className="btn-secondary w-full">
                       Issue Credentials
+                    </button>
+                    <button 
+                      onClick={() => {
+                        if (connection) {
+                          navigator.clipboard.writeText(connection.did)
+                          alert('DID copied to clipboard!')
+                        }
+                      }}
+                      className="btn-glass w-full"
+                    >
+                      Copy DID
                     </button>
                     <button onClick={handleDisconnect} className="btn-glass w-full">
                       Sign Out

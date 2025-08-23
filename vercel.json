@@ -1,8 +1,8 @@
 {
   "env": {
     "NEXT_PUBLIC_PERSONA_API_URL": "https://api.personapass.xyz/api",
-    "NEXT_PUBLIC_PERSONACHAIN_RPC": "https://rpc.personapass.xyz:26657",
-    "NEXT_PUBLIC_PERSONACHAIN_API_URL": "https://rpc.personapass.xyz:1317"
+    "NEXT_PUBLIC_PERSONACHAIN_RPC": "http://44.201.59.57:26657",
+    "NEXT_PUBLIC_PERSONACHAIN_API_URL": "http://44.201.59.57:1317"
   },
   "headers": [
     {
