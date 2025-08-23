@@ -41,13 +41,19 @@ export default function TestAuth() {
   const [accountResult, setAccountResult] = useState<AccountResponse | null>(null)
   const [loading, setLoading] = useState(false)
 
+  // Production API URLs from environment variables
+  const getApiUrl = () => {
+    return process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://44.201.59.57:3001/api'
+  }
+
   useEffect(() => {
     checkBackendStatus()
   }, [])
 
   const checkBackendStatus = async () => {
     try {
-      const response = await fetch('http://localhost:3002/api/status')
+      const apiUrl = getApiUrl()
+      const response = await fetch(`${apiUrl}/status`)
       const data = await response.json()
       setBackendStatus(data)
     } catch (error) {
@@ -61,7 +67,8 @@ export default function TestAuth() {
   const setupTOTP = async () => {
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3002/api/auth/totp-setup', {
+      const apiUrl = getApiUrl()
+      const response = await fetch(`${apiUrl}/auth/totp-setup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +95,8 @@ export default function TestAuth() {
     
     setLoading(true)
     try {
-      const response = await fetch('http://localhost:3002/api/auth/create-account', {
+      const apiUrl = getApiUrl()
+      const response = await fetch(`${apiUrl}/auth/create-account`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -265,7 +273,7 @@ export default function TestAuth() {
 
       <div className="text-sm text-gray-600">
         <p><strong>Note:</strong> This is a test page for verifying backend connectivity and authentication flow.</p>
-        <p>Backend API: http://localhost:3002</p>
+        <p>Backend API: {getApiUrl()}</p>
         <p>PersonaChain: http://44.201.59.57:26657 (operational)</p>
       </div>
     </div>
