@@ -231,9 +231,20 @@ class PersonaWalletCore {
 
     try {
       // Use backend API for PersonaChain balance (Cosmos SDK)
-      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'https://api.personapass.xyz/api'
-      const response = await fetch(`${apiUrl}/blockchain/balance/${this.account.address}`)
+      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://localhost:3002/api'
+      console.log('🔗 Fetching balance from:', `${apiUrl}/blockchain/balance/${this.account.address}`)
+      
+      // Add timeout to prevent hanging
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+      
+      const response = await fetch(`${apiUrl}/blockchain/balance/${this.account.address}`, {
+        signal: controller.signal
+      })
+      clearTimeout(timeoutId)
+      
       const result = await response.json()
+      console.log('💰 Balance API response:', result)
       
       const balance = result.success ? result.data.balance || '0' : '0'
       
@@ -246,6 +257,7 @@ class PersonaWalletCore {
       return balance
     } catch (error) {
       console.warn('Failed to update balance via PersonaChain backend:', error)
+      // Return default balance instead of hanging
       return '0'
     }
   }
