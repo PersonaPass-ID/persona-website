@@ -45,9 +45,9 @@ class PersonaApiClient {
   private chainApiUrl: string
 
   constructor() {
-    this.baseUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://44.201.59.57:3001/api'
-    this.chainRpcUrl = process.env.NEXT_PUBLIC_PERSONACHAIN_RPC || 'http://44.201.59.57:26657'
-    this.chainApiUrl = process.env.NEXT_PUBLIC_PERSONACHAIN_API_URL || 'http://44.201.59.57:1317'
+    this.baseUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'https://api.personapass.xyz/api'
+    this.chainRpcUrl = process.env.NEXT_PUBLIC_PERSONACHAIN_RPC || 'https://rpc.personapass.xyz:26657'
+    this.chainApiUrl = process.env.NEXT_PUBLIC_PERSONACHAIN_API_URL || 'https://rpc.personapass.xyz:1317'
 
     console.log('🔗 PersonaApiClient initialized with baseUrl:', this.baseUrl)
   }

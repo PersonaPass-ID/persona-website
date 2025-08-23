@@ -43,7 +43,7 @@ export default function TestAuth() {
 
   // Production API URLs from environment variables
   const getApiUrl = () => {
-    return process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://44.201.59.57:3001/api'
+    return process.env.NEXT_PUBLIC_PERSONA_API_URL || 'https://api.personapass.xyz/api'
   }
 
   useEffect(() => {
