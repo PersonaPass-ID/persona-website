@@ -30,6 +30,7 @@ export async function POST(request) {
 
     if (!email) {
       return NextResponse.json({ 
+        success: false,
         error: 'Email is required' 
       }, { status: 400 })
     }
@@ -62,15 +63,20 @@ export async function POST(request) {
     console.log('✅ TOTP setup completed for:', email.substring(0, 3) + '***')
 
     return NextResponse.json({
+      success: true,
       message: 'TOTP setup successful',
-      qrCode: qrCodeUrl,
-      secret: secret.base32,
-      manualEntryKey: secret.base32
+      data: {
+        qrCode: qrCodeUrl,
+        secret: secret.base32,
+        manualEntryKey: secret.base32,
+        backupCodes: [] // Generate backup codes later
+      }
     })
 
   } catch (error) {
     console.error('❌ TOTP setup error:', error)
     return NextResponse.json({ 
+      success: false,
       error: 'TOTP setup failed', 
       details: error.message 
     }, { status: 500 })
