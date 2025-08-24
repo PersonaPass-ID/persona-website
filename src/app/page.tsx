@@ -1,313 +1,421 @@
 'use client'
 
-import { motion } from 'framer-motion'
-import { ArrowRight, Zap, Shield, Globe, Lock, CheckCircle, Wallet, UserCheck, Key } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { ArrowRight, Shield, Zap, Globe, Eye, Fingerprint, Key, Cpu, Database, Network } from 'lucide-react'
 import Navigation from '@/components/layout/Navigation'
-import { BackgroundLines } from '@/components/ui/background-lines'
-import { FocusCards } from '@/components/ui/focus-cards'
-import { WobbleCard, WobbleCardContent } from '@/components/ui/wobble-card'
-import { AppleCardsCarousel } from '@/components/ui/apple-cards-carousel'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function HomePage() {
-  // Enhanced feature cards data
-  const focusCards = [
-    {
-      title: "Instant Verification",
-      description: "Complete identity verification in seconds, not days. No paperwork, no waiting.",
-      icon: <Zap className="w-8 h-8 text-white" />,
-    },
-    {
-      title: "Zero-Knowledge Security", 
-      description: "Prove your identity without revealing personal data. Your information stays private.",
-      icon: <Shield className="w-8 h-8 text-white" />,
-    },
-    {
-      title: "Universal Compatibility",
-      description: "Use your verified identity across Web3 applications. One identity, endless possibilities.",
-      icon: <Globe className="w-8 h-8 text-white" />,
-    },
-  ];
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const heroRef = useRef(null)
+  const { scrollY } = useScroll()
+  const y1 = useTransform(scrollY, [0, 1000], [0, -500])
+  const y2 = useTransform(scrollY, [0, 1000], [0, -200])
 
-  // Apple Cards Carousel data for How It Works
-  const howItWorksCards = [
-    {
-      category: "STEP ONE",
-      title: "Connect Your Wallet",
-      description: "Connect with Keplr for PersonaChain or Ethereum wallets like MetaMask for multi-chain identity verification.",
-      icon: <Wallet className="w-8 h-8" />,
-      step: "01",
-    },
-    {
-      category: "STEP TWO", 
-      title: "Verify Your Identity",
-      description: "Complete a quick verification process. Your data is encrypted and never leaves your device thanks to zero-knowledge technology.",
-      icon: <UserCheck className="w-8 h-8" />,
-      step: "02",
-    },
-    {
-      category: "STEP THREE",
-      title: "Get Your DID",
-      description: "Receive your Decentralized Identifier (DID) on the blockchain. Use it to access Web3 services while maintaining complete control.",
-      icon: <Key className="w-8 h-8" />,
-      step: "03",
-    },
-  ];
+  useEffect(() => {
+    const updateMousePosition = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY })
+    }
+    window.addEventListener('mousemove', updateMousePosition)
+    return () => window.removeEventListener('mousemove', updateMousePosition)
+  }, [])
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+      {/* Navigation */}
       <Navigation />
       
-      {/* Hero Section - Pure Raw Image */}
-      <section className="relative min-h-screen -mt-16">
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: 'url("/images/Information Overload - Germán Di Ciccio.jpeg")',
-          }}
-        />
-        
-        {/* Container for hero content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center min-h-screen pt-16">
-          {/* Main Content */}
-          <div className="text-center">
-            <motion.h1 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-5xl md:text-7xl font-bold text-white tracking-tight font-web3"
-              style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)' }}
+      {/* Animated Grid Background */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f2937_1px,transparent_1px),linear-gradient(to_bottom,#1f2937_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_110%)] opacity-20" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-900/20 via-purple-900/20 to-orange-900/20" />
+      </div>
+
+      {/* Floating Particles */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        {Array.from({ length: 50 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [-20, 20, -20],
+              opacity: [0.2, 0.8, 0.2],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 4,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Interactive Light Cursor */}
+      <motion.div
+        className="fixed w-96 h-96 rounded-full pointer-events-none z-10 mix-blend-screen"
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 50%, transparent 70%)',
+          left: mousePosition.x - 192,
+          top: mousePosition.y - 192,
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+        }}
+      />
+
+      {/* Hero Section */}
+      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 z-20">
+        <div className="max-w-7xl mx-auto text-center">
+          {/* 3D Floating Logo */}
+          <motion.div
+            className="mb-8"
+            style={{ y: y1 }}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            <div className="relative inline-block">
+              <motion.div
+                className="text-8xl md:text-9xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 bg-clip-text text-transparent"
+                animate={{
+                  rotateX: [0, 5, 0, -5, 0],
+                  rotateY: [0, -10, 0, 10, 0],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                style={{
+                  textShadow: '0 0 40px rgba(59, 130, 246, 0.3), 0 0 80px rgba(147, 51, 234, 0.2)',
+                  perspective: '1000px',
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                PERSONA
+              </motion.div>
+              <motion.div
+                className="absolute inset-0 text-8xl md:text-9xl font-black text-white/10 -z-10"
+                animate={{
+                  x: [2, -2, 2],
+                  y: [2, -2, 2],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              >
+                PERSONA
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Glitch Effect Subtitle */}
+          <motion.div
+            className="mb-12"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+          >
+            <motion.h1
+              className="text-2xl md:text-4xl font-mono font-bold text-gray-300 mb-4"
+              animate={{
+                textShadow: [
+                  '2px 2px #ff00c1, -2px -2px #00ff41',
+                  '2px 2px #00ff41, -2px -2px #ff00c1',
+                  '2px 2px #ff00c1, -2px -2px #00ff41',
+                ],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+              }}
             >
-              Your Identity,
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-yellow-400 to-blue-500 drop-shadow-lg">
-                Decentralized
-              </span>
+              DIGITAL_SOVEREIGNTY.EXE
             </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-6 text-xl md:text-2xl text-white max-w-3xl mx-auto font-display"
-              style={{ textShadow: '1px 1px 3px rgba(0,0,0,0.8)' }}
+            <motion.p
+              className="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed font-light"
+              animate={{
+                opacity: [0.7, 1, 0.7],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+              }}
             >
-              Create verifiable digital credentials with zero-knowledge proofs. 
-              Own your identity on the blockchain.
+              The most advanced decentralized identity protocol on the blockchain. 
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium">
+                Zero-knowledge • Self-sovereign • Quantum-resistant
+              </span>
             </motion.p>
+          </motion.div>
 
-            {/* Enhanced CTA Buttons */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link href="/signup">
-                <button className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-blue-600 text-white rounded-full font-medium hover:from-orange-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg font-display transform hover:scale-105">
-                  Get Started
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </Link>
-              
-              <button className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-medium hover:border-white/50 hover:bg-white/10 backdrop-blur-sm transition-all duration-300 font-display transform hover:scale-105">
-                Learn More
-              </button>
-            </motion.div>
+          {/* Holographic CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <Link href="/signup">
+              <motion.button
+                className="group relative px-12 py-6 bg-gradient-to-r from-blue-600 via-purple-600 to-orange-600 rounded-2xl font-bold text-xl font-mono overflow-hidden"
+                whileHover={{ scale: 1.05, y: -2 }}
+                whileTap={{ scale: 0.95 }}
+                onHoverStart={() => {}}
+              >
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  animate={{
+                    rotate: [0, 360],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                />
+                <div className="relative z-10 flex items-center space-x-3">
+                  <span>INITIALIZE_IDENTITY</span>
+                  <motion.div
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  >
+                    <ArrowRight className="w-6 h-6" />
+                  </motion.div>
+                </div>
+                <div className="absolute inset-0 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10" />
+              </motion.button>
+            </Link>
 
-            {/* Enhanced Trust Indicators */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm"
+            <motion.button
+              className="group px-12 py-6 bg-black/30 backdrop-blur-xl border border-white/20 rounded-2xl font-bold text-xl font-mono hover:border-white/40 transition-all duration-300"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <CheckCircle className="w-4 h-4 text-green-400" />
-                <span className="text-white/90">Zero-Knowledge Proofs</span>
+              <div className="flex items-center space-x-3">
+                <span>VIEW_PROTOCOL</span>
+                <Eye className="w-6 h-6" />
               </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <CheckCircle className="w-4 h-4 text-green-400" />
-                <span className="text-white/90">Blockchain Secured</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full">
-                <CheckCircle className="w-4 h-4 text-green-400" />
-                <span className="text-white/90">Privacy First</span>
-              </div>
-            </motion.div>
-          </div>
+            </motion.button>
+          </motion.div>
+
+          {/* Stats Dashboard */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+            style={{ y: y2 }}
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 1.2 }}
+          >
+            {[
+              { value: "1M+", label: "IDENTITIES_SECURED", icon: Shield },
+              { value: "99.9%", label: "UPTIME_GUARANTEE", icon: Zap },
+              { value: "∞", label: "PRIVACY_LEVEL", icon: Eye },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                className="relative p-8 bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl"
+                whileHover={{ scale: 1.05, y: -5 }}
+                animate={{
+                  boxShadow: [
+                    '0 0 20px rgba(59, 130, 246, 0.1)',
+                    '0 0 40px rgba(147, 51, 234, 0.2)',
+                    '0 0 20px rgba(59, 130, 246, 0.1)',
+                  ],
+                }}
+                transition={{
+                  boxShadow: { duration: 3, repeat: Infinity },
+                  scale: { duration: 0.3 },
+                  y: { duration: 0.3 },
+                }}
+              >
+                <div className="text-center">
+                  <stat.icon className="w-12 h-12 text-blue-400 mx-auto mb-4" />
+                  <motion.div
+                    className="text-4xl font-black font-mono text-white mb-2"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                  >
+                    {stat.value}
+                  </motion.div>
+                  <div className="text-gray-400 font-mono text-sm tracking-widest">
+                    {stat.label}
+                  </div>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 rounded-2xl" />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Enhanced Features Section with Focus Cards */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Features Showcase */}
+      <section className="relative py-32 px-4 sm:px-6 lg:px-8 z-20">
+        <div className="max-w-7xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-orange-600 to-blue-600 bg-clip-text text-transparent">
-              Web3 Identity Infrastructure
-            </h2>
-            <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-              Built for the decentralized future with privacy and security at its core.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            className="text-center mb-20"
+            initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <FocusCards cards={focusCards} />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* How It Works - Enhanced Apple Cards Carousel */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-orange-600 to-blue-600 bg-clip-text text-transparent">
-              Simple, Secure, Sovereign
+            <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+              NEXT-GEN ARCHITECTURE
             </h2>
-            <p className="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-              Get started with decentralized identity in three interactive steps.
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto font-mono">
+              Built with quantum-resistant cryptography and zero-knowledge protocols
             </p>
           </motion.div>
 
-          <AppleCardsCarousel items={howItWorksCards} />
-        </div>
-      </section>
-
-      {/* Enhanced Technology Section with Wobble Cards */}
-      <section className="py-24 bg-gradient-to-br from-orange-50/30 via-white to-blue-50/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-gray-900 via-orange-600 to-blue-600 bg-clip-text text-transparent mb-6">
-              Privacy Without Compromise
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Zero-knowledge proofs allow you to verify your identity without exposing personal information. 
-              It's like showing you're over 21 without revealing your birthdate.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              <WobbleCard>
-                <WobbleCardContent
-                  icon={<Shield className="w-6 h-6" />}
-                  title="Data Never Leaves Your Device"
-                  description="Your personal information is encrypted locally using advanced cryptographic techniques, ensuring complete privacy."
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {[
+              {
+                icon: Fingerprint,
+                title: "BIOMETRIC_ZERO_KNOWLEDGE",
+                description: "Prove your identity without revealing biometric data using advanced ZK-SNARK protocols",
+                color: "from-blue-500 to-cyan-500",
+              },
+              {
+                icon: Database,
+                title: "DECENTRALIZED_STORAGE",
+                description: "Your identity data is sharded across the blockchain with quantum encryption",
+                color: "from-purple-500 to-pink-500",
+              },
+              {
+                icon: Network,
+                title: "CROSS_CHAIN_BRIDGE",
+                description: "Seamless identity verification across Ethereum, Cosmos, and Solana ecosystems",
+                color: "from-orange-500 to-red-500",
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                className="group relative p-8 bg-black/30 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02, y: -10 }}
+              >
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${feature.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}
                 />
-              </WobbleCard>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              viewport={{ once: true }}
-            >
-              <WobbleCard>
-                <WobbleCardContent
-                  icon={<Lock className="w-6 h-6" />}
-                  title="Cryptographically Secure"
-                  description="Impossible to fake or tamper with credentials thanks to advanced blockchain and zero-knowledge technologies."
+                <div className="relative z-10">
+                  <feature.icon className="w-16 h-16 text-white mb-6" />
+                  <h3 className="text-2xl font-black font-mono mb-4 text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-300 leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+                <motion.div
+                  className="absolute -top-10 -right-10 w-20 h-20 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl"
+                  animate={{
+                    rotate: [0, 360],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: index * 0.5,
+                  }}
                 />
-              </WobbleCard>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              viewport={{ once: true }}
-            >
-              <WobbleCard>
-                <WobbleCardContent
-                  icon={<CheckCircle className="w-6 h-6" />}
-                  title="You Own Your Identity"
-                  description="No central authority controls your credentials. You have complete sovereignty over your digital identity."
-                />
-              </WobbleCard>
-            </motion.div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Enhanced CTA Section */}
-      <section className="py-24 bg-gradient-to-r from-orange-600 via-yellow-500 to-blue-600 text-white relative overflow-hidden">
-        {/* Background pattern */}
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl" />
-          <div className="absolute bottom-10 right-10 w-40 h-40 bg-white/10 rounded-full blur-xl" />
-        </div>
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      {/* Terminal Section */}
+      <section className="relative py-32 px-4 sm:px-6 lg:px-8 z-20">
+        <div className="max-w-4xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            className="bg-black/40 backdrop-blur-xl border border-green-500/30 rounded-2xl p-8 font-mono"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg">
-              Ready to Own Your Digital Identity?
-            </h2>
-            <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto drop-shadow-md">
-              Join the future of identity verification. Create your DID in minutes.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/signup">
-                <button className="group px-8 py-4 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
-                  Create Your DID
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </Link>
-              
-              <button className="px-8 py-4 border-2 border-white/30 text-white rounded-full font-medium hover:border-white/50 hover:bg-white/10 backdrop-blur-sm transition-all duration-300">
-                View Documentation
-              </button>
+            <div className="flex items-center space-x-2 mb-6">
+              <div className="w-3 h-3 bg-red-500 rounded-full" />
+              <div className="w-3 h-3 bg-yellow-500 rounded-full" />
+              <div className="w-3 h-3 bg-green-500 rounded-full" />
+              <span className="ml-4 text-gray-400">persona-protocol v2.1.0</span>
+            </div>
+            <div className="text-green-400 space-y-2">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+              >
+                $ persona init --network mainnet
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1 }}
+              >
+                ✓ Blockchain connection established
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 1.5 }}
+              >
+                ✓ Zero-knowledge circuit compiled
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 2 }}
+              >
+                ✓ Identity verification ready
+              </motion.div>
+              <motion.div
+                className="text-blue-400"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: 2.5 }}
+              >
+                → Your sovereign identity is now active
+              </motion.div>
             </div>
           </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-12 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="mb-4 md:mb-0">
-              <p className="text-gray-600">© 2025 Persona. All rights reserved.</p>
-            </div>
-            <div className="flex gap-6">
-              <a href="#" className="text-gray-600 hover:text-black transition-colors">Privacy</a>
-              <a href="#" className="text-gray-600 hover:text-black transition-colors">Terms</a>
-              <a href="#" className="text-gray-600 hover:text-black transition-colors">Contact</a>
+      <footer className="relative py-20 px-4 sm:px-6 lg:px-8 z-20">
+        <div className="max-w-7xl mx-auto border-t border-white/10 pt-20">
+          <div className="text-center">
+            <motion.div
+              className="text-4xl font-black font-mono mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              PERSONA
+            </motion.div>
+            <p className="text-gray-400 mb-8">
+              The sovereign internet identity. Your data. Your control. Access the Web3 ecosystem with zero-knowledge technology.
+            </p>
+            <div className="flex justify-center space-x-8 text-sm text-gray-500">
+              <span>© 2024 PERSONA. All rights reserved.</span>
+              <span>Privacy</span>
+              <span>Terms</span>
+              <span>Cookies</span>
             </div>
           </div>
         </div>
