@@ -200,9 +200,9 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 1.2 }}
           >
             {[
-              { value: "BETA", label: "DEVELOPMENT_STATUS", icon: Shield },
-              { value: "AWS", label: "CLOUD_INFRASTRUCTURE", icon: Zap },
-              { value: "TOTP", label: "AUTHENTICATION_METHOD", icon: Eye },
+              { value: "PRIVATE", label: "DATA_OWNERSHIP", icon: Shield },
+              { value: "SECURE", label: "AUTHENTICATION", icon: Zap },
+              { value: "PORTABLE", label: "CROSS_PLATFORM", icon: Eye },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -330,11 +330,11 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              HOW PERSONAPASS WORKS
+              PRIVACY-FIRST IDENTITY
             </h2>
             <p className="text-xl text-gray-400 max-w-4xl mx-auto font-mono leading-relaxed">
-              PersonaPass is a digital identity platform that combines traditional email/password authentication 
-              with Google Authenticator TOTP security, generating blockchain-based DIDs for secure identity management.
+              PersonaPass gives you complete control over your digital identity. No tracking, no data mining, no surveillance. 
+              Your identity works everywhere while keeping your personal information private and secure.
             </p>
           </motion.div>
 
@@ -342,22 +342,22 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                title: "EMAIL_REGISTRATION",
-                description: "Create your PersonaPass account using a standard email and password combination. Your credentials are securely hashed and stored in our Supabase database with full encryption.",
+                title: "SECURE_REGISTRATION",
+                description: "Create your private identity without revealing personal information. Your authentication data is encrypted and you maintain full control over what information you share.",
                 icon: Fingerprint,
                 color: "from-blue-500 to-cyan-400",
               },
               {
                 step: "02",
-                title: "TOTP_AUTHENTICATION",
-                description: "Set up Google Authenticator for mandatory two-factor authentication. We generate QR codes and encrypted TOTP secrets stored securely in our system for enhanced account security.",
+                title: "PRIVATE_VERIFICATION",
+                description: "Verify your identity without surveillance. Two-factor authentication ensures only you can access your identity while keeping your activities private from third parties.",
                 icon: Shield,
                 color: "from-purple-500 to-pink-400",
               },
               {
                 step: "03",
-                title: "DID_GENERATION",
-                description: "Upon successful registration, we generate a unique Decentralized Identifier (DID) using the format did:persona:hash and create a wallet address for blockchain interactions on PersonaChain.",
+                title: "UNIVERSAL_IDENTITY",
+                description: "Get a portable identity that works across platforms and services. Your decentralized identifier belongs to you and can't be taken away or controlled by any single company.",
                 icon: Database,
                 color: "from-orange-500 to-red-400",
               },
@@ -422,19 +422,19 @@ export default function HomePage() {
               viewport={{ once: true }}
             >
               <h2 className="text-5xl font-black mb-8 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                PRODUCTION-READY SECURITY
+                BUILT FOR PRIVACY
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                PersonaPass uses proven security technologies including bcrypt password hashing, encrypted TOTP secrets, 
-                JWT authentication, and AWS Lambda serverless functions with proper environment variable security.
+                PersonaPass is designed from the ground up to protect your privacy and give you control. 
+                No tracking, no data collection, no surveillance. Your identity data stays private and secure.
               </p>
               <div className="space-y-4">
                 {[
-                  "bcrypt password hashing with salt rounds 12",
-                  "Encrypted TOTP secrets with XOR encryption",
-                  "JWT tokens with secure signing keys",
-                  "Supabase RLS (Row Level Security) policies",
-                  "AWS Lambda with minimal permissions",
+                  "Zero tracking - we don't monitor your activity",
+                  "Encrypted authentication with industry standards",
+                  "Decentralized identity that you own and control",
+                  "No personal data collection or profiling",
+                  "Works across platforms without data sharing",
                 ].map((feature, index) => (
                   <motion.div
                     key={index}
@@ -462,10 +462,10 @@ export default function HomePage() {
                 <Lock className="w-20 h-20 text-blue-400 mb-6" />
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { label: "PASSWORD HASHING", value: "bcrypt" },
-                    { label: "TOTP ENCRYPTION", value: "XOR" },
-                    { label: "DATABASE SECURITY", value: "RLS" },
-                    { label: "API AUTHENTICATION", value: "JWT" },
+                    { label: "DATA TRACKING", value: "NONE" },
+                    { label: "IDENTITY CONTROL", value: "YOU" },
+                    { label: "PRIVACY LEVEL", value: "MAX" },
+                    { label: "CROSS-PLATFORM", value: "YES" },
                   ].map((stat, index) => (
                     <motion.div
                       key={index}
