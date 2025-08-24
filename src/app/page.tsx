@@ -7,19 +7,10 @@ import Navigation from '@/components/layout/Navigation'
 import Link from 'next/link'
 
 export default function HomePage() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const heroRef = useRef(null)
   const { scrollY } = useScroll()
   const y1 = useTransform(scrollY, [0, 1000], [0, -500])
   const y2 = useTransform(scrollY, [0, 1000], [0, -200])
-
-  useEffect(() => {
-    const updateMousePosition = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
-    }
-    window.addEventListener('mousemove', updateMousePosition)
-    return () => window.removeEventListener('mousemove', updateMousePosition)
-  }, [])
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
@@ -137,10 +128,10 @@ export default function HomePage() {
                 repeat: Infinity,
               }}
             >
-              Secure digital identity platform built on PersonaChain blockchain. 
+              Your data. Your identity. Your control. Built for the decentralized web. 
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium">
-                Email + TOTP • DID Generation • Blockchain Verified
+                Privacy First • Secure Authentication • Cross-Platform Identity
               </span>
             </motion.p>
           </motion.div>
