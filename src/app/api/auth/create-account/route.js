@@ -57,6 +57,7 @@ export async function POST(request) {
     // Validate required fields (only email, password, totpCode are required for Web3 signup)
     if (!email || !password || !totpCode) {
       return NextResponse.json({ 
+        success: false,
         error: 'Email, password, and TOTP code are required' 
       }, { status: 400 })
     }
@@ -72,6 +73,7 @@ export async function POST(request) {
     if (existingUser) {
       console.log('❌ User already exists:', email.substring(0, 3) + '***')
       return NextResponse.json({ 
+        success: false,
         error: 'User already exists with this email' 
       }, { status: 409 })
     }
@@ -99,6 +101,7 @@ export async function POST(request) {
 
     if (!totpValid) {
       return NextResponse.json({ 
+        success: false,
         error: 'Invalid TOTP code' 
       }, { status: 400 })
     }
@@ -148,6 +151,7 @@ export async function POST(request) {
     })
 
     return NextResponse.json({
+      success: true,
       message: 'Account created successfully',
       user: {
         id: newUser.id,
@@ -163,11 +167,13 @@ export async function POST(request) {
     // Handle database constraint errors
     if (error.message.includes('duplicate') || error.code === '23505') {
       return NextResponse.json({ 
+        success: false,
         error: 'User already exists with this email' 
       }, { status: 409 })
     }
 
     return NextResponse.json({ 
+      success: false,
       error: 'Account creation failed', 
       details: error.message 
     }, { status: 500 })
