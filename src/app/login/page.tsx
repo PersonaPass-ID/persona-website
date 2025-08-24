@@ -38,8 +38,12 @@ export default function LoginPage() {
       
       if (result.success) {
         setStep('totp')
+      } else if (result.requiresTotp) {
+        // TOTP is required - move to TOTP step
+        setStep('totp')
+        setError('') // Clear any errors
       } else {
-        setError(result.message || 'Login failed')
+        setError(result.error || result.message || 'Login failed')
       }
     } catch (err) {
       setError('Network error. Please try again.')
@@ -73,7 +77,7 @@ export default function LoginPage() {
         // Try to restore wallet from stored data
         await handleWalletRestore()
       } else {
-        setError(result.message || 'TOTP verification failed')
+        setError(result.error || result.message || 'TOTP verification failed')
       }
     } catch (err) {
       setError('Network error. Please try again.')
