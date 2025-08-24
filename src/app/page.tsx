@@ -137,10 +137,10 @@ export default function HomePage() {
                 repeat: Infinity,
               }}
             >
-              The most advanced decentralized identity protocol on the blockchain. 
+              Secure digital identity platform built on PersonaChain blockchain. 
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium">
-                Zero-knowledge • Self-sovereign • Quantum-resistant
+                Email + TOTP • DID Generation • Blockchain Verified
               </span>
             </motion.p>
           </motion.div>
@@ -209,9 +209,9 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 1.2 }}
           >
             {[
-              { value: "1M+", label: "IDENTITIES_SECURED", icon: Shield },
-              { value: "99.9%", label: "UPTIME_GUARANTEE", icon: Zap },
-              { value: "∞", label: "PRIVACY_LEVEL", icon: Eye },
+              { value: "BETA", label: "DEVELOPMENT_STATUS", icon: Shield },
+              { value: "AWS", label: "CLOUD_INFRASTRUCTURE", icon: Zap },
+              { value: "TOTP", label: "AUTHENTICATION_METHOD", icon: Eye },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -339,11 +339,11 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              REVOLUTIONARY PROTOCOL
+              HOW PERSONAPASS WORKS
             </h2>
             <p className="text-xl text-gray-400 max-w-4xl mx-auto font-mono leading-relaxed">
-              PersonaPass operates on a groundbreaking three-layer architecture that combines blockchain security, 
-              zero-knowledge privacy, and biometric authentication into the world's most advanced digital identity system.
+              PersonaPass is a digital identity platform that combines traditional email/password authentication 
+              with Google Authenticator TOTP security, generating blockchain-based DIDs for secure identity management.
             </p>
           </motion.div>
 
@@ -351,22 +351,22 @@ export default function HomePage() {
             {[
               {
                 step: "01",
-                title: "BIOMETRIC_ENROLLMENT",
-                description: "Your unique biometric patterns are processed locally on your device using advanced neural networks. We never store your actual biometric data - only mathematical proofs of authenticity.",
+                title: "EMAIL_REGISTRATION",
+                description: "Create your PersonaPass account using a standard email and password combination. Your credentials are securely hashed and stored in our Supabase database with full encryption.",
                 icon: Fingerprint,
                 color: "from-blue-500 to-cyan-400",
               },
               {
                 step: "02",
-                title: "ZERO_KNOWLEDGE_PROOF",
-                description: "Our ZK-SNARK circuits generate cryptographic proofs that verify your identity without revealing any personal information. You prove you are you, without showing who you are.",
+                title: "TOTP_AUTHENTICATION",
+                description: "Set up Google Authenticator for mandatory two-factor authentication. We generate QR codes and encrypted TOTP secrets stored securely in our system for enhanced account security.",
                 icon: Shield,
                 color: "from-purple-500 to-pink-400",
               },
               {
                 step: "03",
-                title: "BLOCKCHAIN_VERIFICATION",
-                description: "Your identity proofs are validated across our distributed PersonaChain network, ensuring global recognition while maintaining complete privacy and user sovereignty.",
+                title: "DID_GENERATION",
+                description: "Upon successful registration, we generate a unique Decentralized Identifier (DID) using the format did:persona:hash and create a wallet address for blockchain interactions on PersonaChain.",
                 icon: Database,
                 color: "from-orange-500 to-red-400",
               },
@@ -431,19 +431,19 @@ export default function HomePage() {
               viewport={{ once: true }}
             >
               <h2 className="text-5xl font-black mb-8 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
-                MILITARY-GRADE SECURITY
+                PRODUCTION-READY SECURITY
               </h2>
               <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                PersonaPass employs the same cryptographic standards used by intelligence agencies and financial institutions. 
-                Your identity is protected by quantum-resistant algorithms that remain secure even against future computing threats.
+                PersonaPass uses proven security technologies including bcrypt password hashing, encrypted TOTP secrets, 
+                JWT authentication, and AWS Lambda serverless functions with proper environment variable security.
               </p>
               <div className="space-y-4">
                 {[
-                  "AES-256 encryption with rotating keys",
-                  "Post-quantum cryptographic signatures",
-                  "Hardware security module integration",
-                  "Zero-knowledge proof verification",
-                  "Distributed consensus mechanisms",
+                  "bcrypt password hashing with salt rounds 12",
+                  "Encrypted TOTP secrets with XOR encryption",
+                  "JWT tokens with secure signing keys",
+                  "Supabase RLS (Row Level Security) policies",
+                  "AWS Lambda with minimal permissions",
                 ].map((feature, index) => (
                   <motion.div
                     key={index}
@@ -471,10 +471,10 @@ export default function HomePage() {
                 <Lock className="w-20 h-20 text-blue-400 mb-6" />
                 <div className="grid grid-cols-2 gap-6">
                   {[
-                    { label: "ATTACK VECTORS BLOCKED", value: "99.999%" },
-                    { label: "ENCRYPTION STRENGTH", value: "256-bit" },
-                    { label: "QUANTUM RESISTANCE", value: "ACTIVE" },
-                    { label: "THREAT DETECTION", value: "REAL-TIME" },
+                    { label: "PASSWORD HASHING", value: "bcrypt" },
+                    { label: "TOTP ENCRYPTION", value: "XOR" },
+                    { label: "DATABASE SECURITY", value: "RLS" },
+                    { label: "API AUTHENTICATION", value: "JWT" },
                   ].map((stat, index) => (
                     <motion.div
                       key={index}
@@ -510,63 +510,63 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              ENDLESS POSSIBILITIES
+              DIGITAL IDENTITY USE CASES
             </h2>
             <p className="text-xl text-gray-400 max-w-4xl mx-auto font-mono leading-relaxed">
-              From decentralized finance to metaverse gaming, PersonaPass is your universal passport to the Web3 ecosystem. 
-              One identity, infinite access, complete privacy.
+              PersonaPass provides secure digital identity management with blockchain-based DIDs, enabling 
+              authenticated access to Web3 applications while maintaining user privacy and security.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               {
-                category: "DEFI_PROTOCOLS",
-                title: "Decentralized Finance",
-                description: "Access lending, borrowing, and trading platforms across all blockchains with verified identity while maintaining complete privacy.",
+                category: "WEB3_AUTHENTICATION",
+                title: "Blockchain Identity",
+                description: "Use your PersonaPass DID to authenticate with Web3 applications and prove your identity on blockchain networks without revealing personal information.",
                 icon: TrendingUp,
                 color: "from-green-500 to-emerald-400",
-                examples: ["Uniswap", "Aave", "Compound", "MakerDAO"]
+                examples: ["DID Verification", "Wallet Linking", "Chain Auth", "Identity Proofs"]
               },
               {
-                category: "METAVERSE_GAMING",
-                title: "Virtual Worlds",
-                description: "Seamlessly move between virtual worlds and games while maintaining your reputation, assets, and achievements.",
+                category: "SECURE_APPLICATIONS",
+                title: "Enterprise Apps",
+                description: "Integrate PersonaPass TOTP authentication into your applications for secure user verification with Google Authenticator support.",
                 icon: Gamepad2,
                 color: "from-purple-500 to-violet-400",
-                examples: ["Sandbox", "Decentraland", "Axie Infinity", "Horizon"]
+                examples: ["API Access", "Admin Panels", "User Portals", "Mobile Apps"]
               },
               {
-                category: "SOCIAL_NETWORKS",
-                title: "Web3 Social",
-                description: "Build genuine connections on decentralized social platforms with verified human identity and spam-free interactions.",
+                category: "PLATFORM_INTEGRATION",
+                title: "API Integration",
+                description: "Use PersonaPass APIs to add secure authentication to your platform with TOTP verification and DID management capabilities.",
                 icon: Users,
                 color: "from-blue-500 to-cyan-400",
-                examples: ["Lens Protocol", "Farcaster", "Mirror", "Friend.tech"]
+                examples: ["REST APIs", "Lambda Functions", "Express.js", "Next.js"]
               },
               {
-                category: "ENTERPRISE_AUTH",
-                title: "Corporate Access",
-                description: "Replace traditional corporate authentication systems with passwordless, biometric-verified access to sensitive systems.",
+                category: "DEVELOPMENT_TOOLS",
+                title: "Developer APIs",
+                description: "Build on PersonaPass infrastructure using our authentication APIs, TOTP setup endpoints, and blockchain identity services.",
                 icon: Shield,
                 color: "from-orange-500 to-red-400",
-                examples: ["SSO Systems", "VPN Access", "Database Auth", "API Keys"]
+                examples: ["Auth APIs", "TOTP Setup", "DID Creation", "JWT Tokens"]
               },
               {
-                category: "IOT_DEVICES",
-                title: "Smart Devices",
-                description: "Securely authenticate with IoT devices, smart homes, and connected vehicles using biometric verification.",
+                category: "PERSONACHAIN_NETWORK",
+                title: "Blockchain Network",
+                description: "PersonaChain runs on Cosmos SDK at 44.220.177.56 providing the blockchain infrastructure for decentralized identity management.",
                 icon: Smartphone,
                 color: "from-teal-500 to-cyan-400",
-                examples: ["Smart Homes", "Connected Cars", "Wearables", "Industrial IoT"]
+                examples: ["Cosmos SDK", "Tendermint", "RPC Endpoints", "Block Explorer"]
               },
               {
-                category: "GOVERNMENT_ID",
-                title: "Digital Citizenship",
-                description: "Future-proof government services with blockchain-verified digital citizenship and voting systems.",
+                category: "INFRASTRUCTURE_STACK",
+                title: "Cloud Infrastructure",
+                description: "PersonaPass runs on production AWS infrastructure with Terraform IaC, Lambda functions, and Supabase PostgreSQL database.",
                 icon: Globe,
                 color: "from-indigo-500 to-purple-400",
-                examples: ["Digital Voting", "Tax Systems", "Healthcare", "Benefits"]
+                examples: ["AWS Lambda", "Supabase", "Terraform", "Vercel"]
               },
             ].map((useCase, index) => (
               <motion.div
@@ -621,10 +621,11 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              TECHNICAL EXCELLENCE
+              TECHNOLOGY STACK
             </h2>
             <p className="text-xl text-gray-400 max-w-4xl mx-auto font-mono leading-relaxed">
-              Built on cutting-edge technology stack with enterprise-grade infrastructure capable of handling global scale operations.
+              PersonaPass is built with modern production technologies including Next.js frontend, 
+              Express.js backend, AWS Lambda serverless functions, and PersonaChain blockchain infrastructure.
             </p>
           </motion.div>
 
@@ -639,15 +640,15 @@ export default function HomePage() {
             >
               <h3 className="text-3xl font-black mb-8 text-white flex items-center">
                 <BarChart3 className="w-8 h-8 text-blue-400 mr-4" />
-                PERFORMANCE METRICS
+                DEVELOPMENT STATUS
               </h3>
               <div className="space-y-6">
                 {[
-                  { metric: "Transaction Speed", value: "50,000 TPS", description: "Lightning-fast identity verification" },
-                  { metric: "Global Latency", value: "<50ms", description: "Worldwide response time" },
-                  { metric: "Uptime Guarantee", value: "99.99%", description: "Enterprise SLA compliance" },
-                  { metric: "Proof Generation", value: "<2 seconds", description: "ZK proof creation time" },
-                  { metric: "Network Nodes", value: "10,000+", description: "Distributed validation network" },
+                  { metric: "Frontend", value: "Next.js 15", description: "React-based web application" },
+                  { metric: "Backend", value: "Express.js", description: "Node.js API server on port 3001" },
+                  { metric: "Database", value: "Supabase", description: "PostgreSQL with RLS policies" },
+                  { metric: "Blockchain", value: "PersonaChain", description: "Cosmos SDK at 44.220.177.56" },
+                  { metric: "Deployment", value: "AWS + Vercel", description: "Production cloud infrastructure" },
                 ].map((item, index) => (
                   <motion.div
                     key={index}
@@ -684,23 +685,23 @@ export default function HomePage() {
               <div className="space-y-8">
                 {[
                   {
-                    category: "Blockchain Layer",
-                    technologies: ["Cosmos SDK", "Tendermint", "IBC Protocol", "CosmWasm"],
+                    category: "Frontend Stack",
+                    technologies: ["Next.js 15", "React 18", "Framer Motion", "Tailwind CSS"],
                     color: "text-blue-400"
                   },
                   {
-                    category: "Cryptography",
-                    technologies: ["ZK-SNARKs", "Bulletproofs", "Ed25519", "BLS Signatures"],
+                    category: "Backend APIs",
+                    technologies: ["Express.js", "Node.js", "AWS Lambda", "JWT Auth"],
                     color: "text-purple-400"
                   },
                   {
-                    category: "Infrastructure",
-                    technologies: ["AWS Global", "Kubernetes", "Redis Cluster", "PostgreSQL"],
+                    category: "Database & Storage",
+                    technologies: ["Supabase", "PostgreSQL", "RLS Policies", "Encrypted Secrets"],
                     color: "text-green-400"
                   },
                   {
-                    category: "Security",
-                    technologies: ["HSM Integration", "TEE Support", "Multi-sig", "Threshold Crypto"],
+                    category: "Infrastructure",
+                    technologies: ["AWS EC2", "Terraform", "Vercel", "PersonaChain"],
                     color: "text-orange-400"
                   },
                 ].map((stack, index) => (
@@ -743,11 +744,11 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
-              FUTURE ROADMAP
+              DEVELOPMENT ROADMAP
             </h2>
             <p className="text-xl text-gray-400 max-w-4xl mx-auto font-mono leading-relaxed">
-              Our ambitious roadmap extends PersonaPass capabilities into every corner of the digital universe, 
-              establishing it as the universal identity protocol for Web3 and beyond.
+              PersonaPass development roadmap showing our current progress and planned features. 
+              We're currently in beta development phase with core authentication and DID generation working.
             </p>
           </motion.div>
 
@@ -758,53 +759,53 @@ export default function HomePage() {
             <div className="space-y-20">
               {[
                 {
-                  phase: "Q1 2024",
-                  title: "MAINNET GENESIS",
+                  phase: "Q3 2025",
+                  title: "CORE DEVELOPMENT",
                   status: "COMPLETED",
                   achievements: [
-                    "PersonaChain mainnet launch",
-                    "Mobile app v1.0 release",
-                    "1M+ identity registrations",
-                    "Top 5 DeFi integrations"
+                    "Email/password authentication system",
+                    "Google Authenticator TOTP integration",
+                    "Basic DID generation (did:persona:hash)",
+                    "Supabase database setup with RLS"
                   ],
                   color: "from-green-500 to-emerald-400",
                   position: "left"
                 },
                 {
-                  phase: "Q2 2024",
-                  title: "ECOSYSTEM EXPANSION",
+                  phase: "Q4 2025",
+                  title: "BETA PLATFORM",
                   status: "IN PROGRESS",
                   achievements: [
-                    "Cross-chain bridge deployment",
-                    "Enterprise API launch",
-                    "Government pilot programs",
-                    "Advanced biometric features"
+                    "PersonaChain blockchain deployment",
+                    "Next.js frontend with signup/login",
+                    "AWS Lambda authentication functions",
+                    "Production Terraform infrastructure"
                   ],
                   color: "from-blue-500 to-cyan-400",
                   position: "right"
                 },
                 {
-                  phase: "Q3 2024",
-                  title: "GLOBAL SCALING",
-                  status: "UPCOMING",
+                  phase: "Q1 2026",
+                  title: "PUBLIC LAUNCH",
+                  status: "PLANNED",
                   achievements: [
-                    "Multi-region deployment",
-                    "100+ protocol integrations",
-                    "Quantum-resistant upgrade",
-                    "AI-powered fraud detection"
+                    "Complete PersonaChain integration",
+                    "DID/VC standards compliance",
+                    "API documentation and SDKs",
+                    "Third-party platform integrations"
                   ],
                   color: "from-purple-500 to-violet-400",
                   position: "left"
                 },
                 {
-                  phase: "Q4 2024",
-                  title: "METAVERSE READY",
-                  status: "PLANNED",
+                  phase: "Q2 2026",
+                  title: "ECOSYSTEM GROWTH",
+                  status: "FUTURE",
                   achievements: [
-                    "VR/AR identity integration",
-                    "Holographic verification",
-                    "Neural interface support",
-                    "Interplanetary protocols"
+                    "Developer API marketplace",
+                    "Cross-chain identity verification",
+                    "Advanced credential management",
+                    "Enterprise partnership program"
                   ],
                   color: "from-orange-500 to-red-400",
                   position: "right"
@@ -874,13 +875,13 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <h2 className="text-6xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-orange-400 bg-clip-text text-transparent">
-              JOIN THE REVOLUTION
+              TRY PERSONAPASS BETA
             </h2>
             <p className="text-2xl text-gray-300 mb-12 leading-relaxed">
-              Don't just use the internet. Own it. Control it. Secure it.
+              Experience secure digital identity with blockchain-based DIDs.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-bold">
-                Your digital sovereignty starts now.
+                Email + TOTP authentication. Simple. Secure. Decentralized.
               </span>
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -948,7 +949,7 @@ export default function HomePage() {
                 PERSONA
               </motion.div>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                The world's first quantum-resistant, biometric-verified, blockchain-based digital identity protocol.
+                Secure digital identity platform with email/TOTP authentication, blockchain-based DIDs, and AWS infrastructure.
               </p>
               <div className="flex space-x-4">
                 {["Twitter", "Discord", "GitHub", "Telegram"].map((platform, index) => (
