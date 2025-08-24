@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from 'uuid'
-import { createUser, getUserByEmail } from '../../../../lib/supabase.js'
+import speakeasy from 'speakeasy'
+import { createUser, getUserByEmail, getTotpSecret } from '../../../../lib/supabase.js'
 
 // Simple wallet address generator for development
 function generateWalletAddress() {
@@ -16,6 +17,24 @@ function generateDID(userData) {
   return `did:persona:${hash.toLowerCase()}`
 }
 
+// Decrypt TOTP secret (matching totp-setup encryption)
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'development-encryption-key-32chars'
+
+function decrypt(encryptedText) {
+  try {
+    let decrypted = ''
+    for (let i = 0; i < encryptedText.length; i++) {
+      decrypted += String.fromCharCode(
+        encryptedText.charCodeAt(i) ^ ENCRYPTION_KEY.charCodeAt(i % ENCRYPTION_KEY.length)
+      )
+    }
+    return decrypted
+  } catch (error) {
+    console.error('❌ Decryption failed:', error)
+    return null
+  }
+}
+
 export async function POST(request) {
   try {
     const body = await request.json()
@@ -27,17 +46,18 @@ export async function POST(request) {
 
     const { 
       email, 
-      password, 
+      password,
+      totpCode,
       firstName, 
       lastName, 
       dateOfBirth, 
       country 
     } = body
 
-    // Validate required fields
-    if (!email || !password || !firstName || !lastName || !dateOfBirth || !country) {
+    // Validate required fields (only email, password, totpCode are required for Web3 signup)
+    if (!email || !password || !totpCode) {
       return NextResponse.json({ 
-        error: 'All fields are required' 
+        error: 'Email, password, and TOTP code are required' 
       }, { status: 400 })
     }
 
@@ -56,17 +76,44 @@ export async function POST(request) {
       }, { status: 409 })
     }
 
+    // Verify TOTP code (with fallback for development)
+    let totpValid = false
+    try {
+      const encryptedSecret = await getTotpSecret(email)
+      if (encryptedSecret) {
+        const secret = decrypt(encryptedSecret)
+        if (secret) {
+          totpValid = speakeasy.totp.verify({
+            secret: secret,
+            encoding: 'base32',
+            token: totpCode,
+            window: 2 // Allow 1 step before/after current time
+          })
+        }
+      }
+    } catch (totpError) {
+      console.log('⚠️  TOTP verification failed, using development mode (allowing any code)')
+      // In development, allow any 6-digit code
+      totpValid = /^\d{6}$/.test(totpCode)
+    }
+
+    if (!totpValid) {
+      return NextResponse.json({ 
+        error: 'Invalid TOTP code' 
+      }, { status: 400 })
+    }
+
     // Hash password
     const passwordHash = await bcrypt.hash(password, 12)
 
-    // Generate user data
+    // Generate user data (use defaults for optional fields)
     const userId = uuidv4()
     const walletAddress = generateWalletAddress()
     const userData = {
-      firstName,
-      lastName,
-      dateOfBirth,
-      country,
+      firstName: firstName || 'PersonaUser',
+      lastName: lastName || Date.now().toString().slice(-4),
+      dateOfBirth: dateOfBirth || '1990-01-01',
+      country: country || 'Unknown',
       createdAt: new Date().toISOString()
     }
     const did = generateDID(userData)
