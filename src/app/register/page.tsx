@@ -53,6 +53,7 @@ interface RegistrationState {
   walletAddress?: string
   totpSecret?: string
   qrCodeUrl?: string
+  backupCodes?: string[]
   userData?: {
     firstName: string
     lastName: string
@@ -76,6 +77,8 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [registrationState, setRegistrationState] = useState<RegistrationState>({})
+  const [backupAcknowledged, setBackupAcknowledged] = useState(false)
+  const [secretCopied, setSecretCopied] = useState(false)
 
   const {
     register,
@@ -121,8 +124,14 @@ export default function RegisterPage() {
         await generateTotpSecret()
         setCurrentStep(prev => prev + 1)
       } else if (currentStep === 2) {
-        // Generate DID and wallet - step advancement is handled in the function
-        await generateDidAndWallet()
+        // Check if DID already exists in state
+        if (registrationState.did) {
+          console.log('🎯 DID already exists, advancing to next step')
+          setCurrentStep(prev => prev + 1)
+        } else {
+          console.log('🎯 No DID found, generating new DID')
+          await generateDidAndWallet()
+        }
       } else {
         setCurrentStep(prev => prev + 1)
       }
@@ -140,7 +149,14 @@ export default function RegisterPage() {
       setIsLoading(true)
       const email = watch('email')
       
-      const response = await fetch('/api/auth/totp-setup', {
+      // Use backend endpoint directly
+      const apiUrl = '/api'
+      const fullUrl = `${apiUrl}/auth/totp-setup`
+      
+      console.log('🔐 Generating TOTP secret for:', email?.substring(0, 3) + '***')
+      console.log('🌐 TOTP endpoint:', fullUrl)
+      
+      const response = await fetch(fullUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
@@ -149,13 +165,22 @@ export default function RegisterPage() {
       if (!response.ok) throw new Error('Failed to generate TOTP secret')
       
       const data = await response.json()
-      setRegistrationState(prev => ({
-        ...prev,
-        totpSecret: data.secret,
-        qrCodeUrl: data.qrCodeUrl
-      }))
+      console.log('🎯 TOTP response:', data.success ? 'Success' : 'Failed')
+      
+      if (data.success) {
+        setRegistrationState(prev => ({
+          ...prev,
+          totpSecret: data.data.secret,
+          qrCodeUrl: data.data.qrCode, // Backend returns 'qrCode', not 'qrCodeUrl'
+          backupCodes: data.data.backupCodes || []
+        }))
+        console.log('✅ TOTP secret generated successfully')
+      } else {
+        throw new Error(data.message || 'TOTP setup failed')
+      }
     } catch (err) {
-      setError('Failed to setup two-factor authentication')
+      console.error('❌ TOTP setup error:', err)
+      setError(`Failed to setup two-factor authentication: ${err.message}`)
     } finally {
       setIsLoading(false)
     }
@@ -163,43 +188,96 @@ export default function RegisterPage() {
 
   const generateDidAndWallet = async () => {
     try {
+      console.log('🚀 Starting DID generation...')
       setIsLoading(true)
       setError(null)
       
-      const apiUrl = process.env.NEXT_PUBLIC_PERSONA_API_URL || 'http://localhost:8001/api'
-      const response = await fetch(`${apiUrl}/identity/create-did`, {
+      const firstName = watch('firstName')
+      const lastName = watch('lastName')
+      const email = watch('email')
+      
+      console.log('📋 User data:', { firstName, lastName, email: email?.substring(0, 3) + '***' })
+      
+      const apiUrl = '/api'
+      const fullUrl = `${apiUrl}/identity/create-did`
+      
+      console.log('🌐 Making request to:', fullUrl)
+      
+      const requestPayload = {
+        firstName,
+        lastName,
+        email
+      }
+      
+      console.log('📦 Request payload:', { ...requestPayload, email: email?.substring(0, 3) + '***' })
+      
+      const response = await fetch(fullUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          firstName: watch('firstName'),
-          lastName: watch('lastName'),
-          email: watch('email')
-        })
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(requestPayload)
       })
 
-      if (!response.ok) throw new Error('Failed to generate digital identity')
+      console.log('📡 Response status:', response.status, response.statusText)
+      console.log('📡 Response headers:', Object.fromEntries(response.headers.entries()))
+
+      if (!response.ok) {
+        console.error('❌ Response not OK:', response.status, response.statusText)
+        const errorText = await response.text()
+        console.error('❌ Error response body:', errorText)
+        throw new Error(`API Error ${response.status}: ${response.statusText}`)
+      }
       
       const data = await response.json()
+      console.log('✅ Response data:', {
+        success: data.success,
+        did: data.did?.substring(0, 20) + '...',
+        message: data.message,
+        isExisting: data.isExisting
+      })
+      
       if (data.success) {
-        setRegistrationState(prev => ({
-          ...prev,
-          did: data.did,
-          walletAddress: data.walletAddress,
-          userData: data.userData,
-          blockchain: data.blockchain,
-          isExisting: data.isExisting
-        }))
-        
-        // Don't auto-advance - let user see their DID and manually continue
-        // User can now review their DID before proceeding
+        console.log('🎯 Setting registration state...')
+        setRegistrationState(prev => {
+          const newState = {
+            ...prev,
+            did: data.did,
+            walletAddress: data.walletAddress,
+            userData: data.userData,
+            blockchain: data.blockchain,
+            isExisting: data.isExisting
+          }
+          console.log('✅ DID generation completed successfully!')
+          console.log('🎯 DID:', data.did?.substring(0, 25) + '...')
+          console.log('🎯 State updated with new DID')
+          return newState
+        })
       } else {
-        throw new Error(data.message || 'Failed to generate identity')
+        console.error('❌ API returned success=false:', data.message)
+        throw new Error(data.message || 'API returned unsuccessful response')
       }
       
     } catch (err) {
-      setError('Failed to generate digital identity')
+      console.error('💥 DID generation failed:', err)
+      console.error('Stack trace:', err.stack)
+      setError(`Failed to generate digital identity: ${err.message}`)
     } finally {
+      console.log('🏁 Setting loading to false')
       setIsLoading(false)
+    }
+  }
+
+  const copyToClipboard = async (text: string, type: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      if (type === 'secret') {
+        setSecretCopied(true)
+        setTimeout(() => setSecretCopied(false), 2000)
+      }
+    } catch (err) {
+      console.error('Failed to copy:', err)
     }
   }
 
@@ -208,24 +286,45 @@ export default function RegisterPage() {
       setIsLoading(true)
       setError(null)
 
+      console.log('🎯 Final registration submission:', {
+        email: data.email?.substring(0, 3) + '***',
+        hasPassword: !!data.password,
+        hasTotpCode: !!data.totpCode,
+        totpCodeLength: data.totpCode?.length || 0
+      })
+
       const registrationPayload = {
-        ...data,
-        ...registrationState
+        email: data.email,
+        password: data.password,
+        totpCode: data.totpCode
       }
 
-      const response = await fetch('/api/auth/register', {
+      // Use backend endpoint for final account creation
+      const apiUrl = '/api'
+      const fullUrl = `${apiUrl}/auth/create-account`
+      
+      console.log('🎯 Final registration to:', fullUrl)
+      console.log('📦 Registration payload:', { ...registrationPayload, password: '***', totpCode: '***' })
+
+      const response = await fetch(fullUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(registrationPayload)
       })
 
+      const result = await response.json()
+      
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || 'Registration failed')
+        throw new Error(result.message || 'Registration failed')
       }
 
-      // Success - redirect to login or dashboard
-      window.location.href = '/login?registered=true'
+      if (result.success) {
+        console.log('✅ Registration successful:', result.message)
+        // Success - redirect to login or dashboard
+        window.location.href = '/login?registered=true'
+      } else {
+        throw new Error(result.message || 'Registration failed')
+      }
       
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
@@ -566,40 +665,138 @@ export default function RegisterPage() {
                 <div className="space-y-6">
                   <div className="text-center">
                     <h3 className="text-xl font-bold text-white mb-4">
-                      Setup Two-Factor Authentication
+                      🔐 Secure Your Account
                     </h3>
                     <p className="text-gray-300 mb-6">
-                      Scan this QR code with Google Authenticator and enter the 6-digit code to complete your registration.
+                      Complete your two-factor authentication setup and save your recovery information.
                     </p>
-                    
-                    {registrationState.qrCodeUrl ? (
-                      <div className="bg-white p-4 rounded-xl inline-block mb-6">
-                        <img 
-                          src={registrationState.qrCodeUrl} 
-                          alt="TOTP QR Code" 
-                          className="w-48 h-48"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-48 h-48 bg-gray-800 rounded-xl flex items-center justify-center mx-auto mb-6">
-                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
-                      </div>
-                    )}
+                  </div>
 
+                  {/* QR Code and Secret */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {/* QR Code Section */}
+                    <div className="bg-gray-800/50 rounded-xl p-6">
+                      <h4 className="font-semibold text-white mb-4 text-center">📱 Scan QR Code</h4>
+                      <div className="text-center">
+                        {registrationState.qrCodeUrl ? (
+                          <div className="bg-white p-4 rounded-xl inline-block mb-4">
+                            <img 
+                              src={registrationState.qrCodeUrl} 
+                              alt="TOTP QR Code" 
+                              className="w-40 h-40"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-40 h-40 bg-gray-700 rounded-xl flex items-center justify-center mx-auto mb-4">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
+                          </div>
+                        )}
+                        <p className="text-sm text-gray-400">
+                          Scan with Google Authenticator
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Manual Entry Section */}
+                    <div className="bg-gray-800/50 rounded-xl p-6">
+                      <h4 className="font-semibold text-white mb-4 text-center">🔑 Manual Entry</h4>
+                      <div className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-medium text-gray-400 mb-2">
+                            Secret Key (backup)
+                          </label>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="text"
+                              value={registrationState.totpSecret || ''}
+                              readOnly
+                              className="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white font-mono text-sm"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard(registrationState.totpSecret || '', 'secret')}
+                              className="px-3 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg text-sm transition-colors"
+                            >
+                              {secretCopied ? '✓' : 'Copy'}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Backup Codes */}
+                  {registrationState.backupCodes && registrationState.backupCodes.length > 0 && (
+                    <div className="bg-red-900/20 border border-red-700/50 rounded-xl p-6">
+                      <div className="flex items-center mb-4">
+                        <ExclamationTriangleIcon className="h-6 w-6 text-red-400 mr-3" />
+                        <h4 className="font-semibold text-white">⚠️ Emergency Recovery Codes</h4>
+                      </div>
+                      <p className="text-red-200 text-sm mb-4">
+                        Save these backup codes in a secure location. You can use them to access your account if you lose your authenticator device.
+                      </p>
+                      
+                      <div className="grid grid-cols-2 gap-2 mb-4">
+                        {registrationState.backupCodes.map((code, index) => (
+                          <div key={index} className="flex items-center justify-between bg-gray-800/50 px-3 py-2 rounded-lg">
+                            <span className="font-mono text-sm text-white">{code}</span>
+                            <button
+                              type="button"
+                              onClick={() => copyToClipboard(code, 'backup')}
+                              className="text-xs text-cyan-400 hover:text-cyan-300 ml-2"
+                            >
+                              Copy
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center space-x-3 mb-4">
+                        <input
+                          type="checkbox"
+                          id="backupAcknowledged"
+                          checked={backupAcknowledged}
+                          onChange={(e) => setBackupAcknowledged(e.target.checked)}
+                          className="h-4 w-4 bg-gray-800 border-gray-600 rounded focus:ring-cyan-400 focus:ring-2 text-cyan-500"
+                        />
+                        <label htmlFor="backupAcknowledged" className="text-sm text-red-200 select-none">
+                          ✅ I have saved my backup codes in a secure location
+                        </label>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const codesText = registrationState.backupCodes?.join('\n') || ''
+                          copyToClipboard(`PersonaPass Recovery Codes:\n${codesText}\n\nKeep these codes secure and do not share them.`, 'all')
+                        }}
+                        className="w-full px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg text-sm transition-colors"
+                      >
+                        📋 Copy All Recovery Codes
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Authentication Code Input */}
+                  <div className="bg-gray-800/50 rounded-xl p-6">
+                    <h4 className="font-semibold text-white mb-4 text-center">🔐 Enter Authentication Code</h4>
                     <div className="max-w-sm mx-auto">
                       <label className="block text-sm font-medium text-gray-300 mb-2">
-                        Authentication Code *
+                        6-Digit Code from Authenticator *
                       </label>
                       <input
                         {...register('totpCode')}
                         type="text"
                         maxLength={6}
-                        className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200 text-center font-mono text-lg"
+                        className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-cyan-400 transition-colors duration-200 text-center font-mono text-lg"
                         placeholder="000000"
                       />
                       {errors.totpCode && (
                         <p className="text-red-400 text-sm mt-1">{errors.totpCode.message}</p>
                       )}
+                      <p className="text-xs text-gray-400 mt-2 text-center">
+                        Enter the current code from your Google Authenticator app
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -634,13 +831,17 @@ export default function RegisterPage() {
                           Processing...
                         </>
                       ) : (
-                        'Continue'
+                        currentStep === 2 && registrationState.did
+                          ? 'Continue to Authentication'
+                          : currentStep === 2
+                            ? 'Generate Digital Identity'
+                            : 'Continue'
                       )}
                     </button>
                   ) : (
                     <button
                       type="submit"
-                      disabled={isLoading || !isValid}
+                      disabled={isLoading || !watch('totpCode') || watch('totpCode')?.length !== 6}
                       className="px-8 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
                     >
                       {isLoading ? (

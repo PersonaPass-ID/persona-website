@@ -103,7 +103,7 @@ export default function HomePage() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
             >
-              <Link href="/get-started-v2">
+              <Link href="/signup">
                 <button className="group px-8 py-4 bg-gradient-to-r from-orange-500 to-blue-600 text-white rounded-full font-medium hover:from-orange-600 hover:to-blue-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg font-display transform hover:scale-105">
                   Get Started
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -282,7 +282,7 @@ export default function HomePage() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/get-started-v2">
+              <Link href="/signup">
                 <button className="group px-8 py-4 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-all duration-300 flex items-center justify-center gap-2 shadow-lg">
                   Create Your DID
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
