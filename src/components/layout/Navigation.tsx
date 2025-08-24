@@ -53,7 +53,7 @@ export default function Navigation() {
                 Sign In
               </Link>
               <Link
-                href="/register"
+                href="/signup"
                 className="bg-gradient-to-r from-orange-500 via-yellow-500 to-blue-600 text-white px-6 py-2 rounded-xl font-medium font-mono hover:from-orange-600 hover:to-blue-700 transition-all duration-200 shadow-lg hover:shadow-orange-500/30 transform hover:scale-105"
               >
                 Get Started
@@ -99,7 +99,7 @@ export default function Navigation() {
                     Sign In
                   </Link>
                   <Link
-                    href="/register"
+                    href="/signup"
                     className="block w-full text-center bg-gradient-to-r from-orange-500 via-yellow-500 to-blue-600 text-white px-6 py-3 rounded-xl font-medium font-mono hover:from-orange-600 hover:to-blue-700 transition-all duration-200 shadow-lg"
                     onClick={() => setIsOpen(false)}
                   >
