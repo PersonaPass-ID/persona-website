@@ -128,10 +128,11 @@ export default function HomePage() {
                 repeat: Infinity,
               }}
             >
-              Your data. Your identity. Your control. Built for the decentralized web. 
+              True digital self-sovereignty. Own your identity completely. 
+              No intermediaries. No surveillance. No compromise.
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400 font-medium">
-                Privacy First • Secure Authentication • Cross-Platform Identity
+                Self-Sovereign • Decentralized • Interoperable
               </span>
             </motion.p>
           </motion.div>
@@ -200,9 +201,9 @@ export default function HomePage() {
             transition={{ duration: 1, delay: 1.2 }}
           >
             {[
-              { value: "PRIVATE", label: "DATA_OWNERSHIP", icon: Shield },
-              { value: "SECURE", label: "AUTHENTICATION", icon: Zap },
-              { value: "PORTABLE", label: "CROSS_PLATFORM", icon: Eye },
+              { value: "SOVEREIGN", label: "IDENTITY_CONTROL", icon: Shield },
+              { value: "ZERO_TRUST", label: "ARCHITECTURE", icon: Zap },
+              { value: "UNIVERSAL", label: "PORTABILITY", icon: Eye },
             ].map((stat, index) => (
               <motion.div
                 key={index}
@@ -240,6 +241,9 @@ export default function HomePage() {
           </motion.div>
         </div>
       </section>
+
+      {/* Spacer Section for Better Visual Separation */}
+      <div className="py-24"></div>
 
       {/* Features Showcase */}
       <section className="relative py-32 px-4 sm:px-6 lg:px-8 z-20">
