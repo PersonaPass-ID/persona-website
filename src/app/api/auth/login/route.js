@@ -36,7 +36,7 @@ export async function POST(request) {
   try {
     const body = await request.json()
     console.log('🔐 Login attempt [FIXED]:', { email: body.email?.substring(0, 3) + '***', hasPassword: !!body.password, hasTotpCode: !!body.totpCode })
-    console.log('🗄️ Database schema recreated, new API key deployed, cache cleared v3')
+    console.log('🗄️ Database schema recreated, new API key deployed, cache cleared v4 - FORCED DEPLOY')
     
     // DEBUG: Environment variables check
     console.log('🔍 DEBUG - Environment check:', {
