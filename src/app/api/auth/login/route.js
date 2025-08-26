@@ -36,7 +36,7 @@ export async function POST(request) {
   try {
     const body = await request.json()
     console.log('🔐 Login attempt [FIXED]:', { email: body.email?.substring(0, 3) + '***', hasPassword: !!body.password, hasTotpCode: !!body.totpCode })
-    console.log('🗄️ Database tables recreated, RLS disabled, cache force-cleared v2')
+    console.log('🗄️ Database schema recreated, new API key deployed, cache cleared v3')
 
     const { email, password, totpCode } = body
 
