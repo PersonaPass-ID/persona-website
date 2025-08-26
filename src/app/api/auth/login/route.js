@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcryptjs'
 import speakeasy from 'speakeasy'
-import { getUserByEmail, getTotpSecret } from '../../../../lib/supabase.js'
+import { supabase, getUserByEmail, getTotpSecret } from '../../../../lib/supabase.js'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'persona-secret-key-development-only'
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY || 'development-encryption-key-32chars'
@@ -35,7 +35,8 @@ function decrypt(encryptedText) {
 export async function POST(request) {
   try {
     const body = await request.json()
-    console.log('🔐 Login attempt:', { email: body.email?.substring(0, 3) + '***', hasPassword: !!body.password, hasTotpCode: !!body.totpCode })
+    console.log('🔐 Login attempt [FIXED]:', { email: body.email?.substring(0, 3) + '***', hasPassword: !!body.password, hasTotpCode: !!body.totpCode })
+    console.log('🗄️ Database tables recreated, RLS disabled, cache force-cleared v2')
 
     const { email, password, totpCode } = body
 
@@ -47,15 +48,35 @@ export async function POST(request) {
       }, { status: 400 })
     }
 
-    // Get user from database (with fallback for database issues)
+    // Get user from database with improved error handling
     let user = null
     try {
-      user = await getUserByEmail(email)
+      // Try direct Supabase query with explicit error handling
+      const { data, error } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single()
+      
+      if (error && error.code === 'PGRST116') {
+        // User not found - this is normal
+        user = null
+        console.log('ℹ️  User not found:', email.substring(0, 3) + '***')
+      } else if (error) {
+        // Real database error
+        console.error('❌ Database error during login:', error)
+        throw error
+      } else {
+        // User found successfully  
+        user = data
+        console.log('✅ User found:', data.id)
+      }
+      
     } catch (dbError) {
-      console.log('⚠️  Database connection issue during login, using development fallback mode')
-      // In development mode, allow login with fallback validation
+      console.error('🚨 Database connection error during login:', dbError.message)
+      
       if (email === 'aidenlippert@gmail.com') {
-        // Allow test user login with development fallback
+        // Allow test user login with development fallback for real connection issues
         user = {
           id: 'dev-user-123',
           email: email,
@@ -65,9 +86,12 @@ export async function POST(request) {
         }
         console.log('🔧 Using development fallback user for:', email.substring(0, 3) + '***')
       } else {
+        // Real database connection issue - return 503
+        console.error('🚨 Critical database error, returning 503:', dbError)
         return NextResponse.json({ 
           success: false,
-          error: 'Service temporarily unavailable. Please try again.' 
+          error: 'Service temporarily unavailable. Please try again.',
+          debug: process.env.NODE_ENV !== 'production' ? dbError.message : undefined
         }, { status: 503 })
       }
     }

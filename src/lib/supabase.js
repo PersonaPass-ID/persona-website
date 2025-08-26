@@ -76,20 +76,43 @@ export async function createUser(userData) {
 
 export async function getUserByEmail(email) {
   try {
+    console.log('🔍 Looking up user:', email.substring(0, 3) + '***')
+    
     const { data, error } = await supabase
       .from(TABLES.users)
       .select('*')
       .eq('email', email)
       .single()
     
-    if (error && error.code !== 'PGRST116') throw error
+    console.log('📊 Query result:', { 
+      hasData: !!data, 
+      errorCode: error?.code || 'none',
+      errorMessage: error?.message || 'success'
+    })
     
-    return data
-  } catch (error) {
-    if (error.code === 'PGRST116') {
-      return null // User not found
+    // PGRST116 = "The result contains 0 rows" (user not found)
+    if (error && error.code === 'PGRST116') {
+      console.log('ℹ️  User not found (normal):', email.substring(0, 3) + '***')
+      return null
     }
-    console.error('❌ Failed to get user by email:', error.message)
+    
+    // Other errors should be thrown
+    if (error) {
+      console.error('❌ Database error in getUserByEmail:', error)
+      throw error
+    }
+    
+    console.log('✅ User found:', data.id, email.substring(0, 3) + '***')
+    return data
+    
+  } catch (error) {
+    // Final error handling with detailed logging
+    console.error('🚨 Critical error in getUserByEmail:', {
+      email: email.substring(0, 3) + '***',
+      code: error.code,
+      message: error.message,
+      details: error.details
+    })
     throw error
   }
 }
