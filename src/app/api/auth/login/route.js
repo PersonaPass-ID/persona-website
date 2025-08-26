@@ -37,6 +37,27 @@ export async function POST(request) {
     const body = await request.json()
     console.log('🔐 Login attempt [FIXED]:', { email: body.email?.substring(0, 3) + '***', hasPassword: !!body.password, hasTotpCode: !!body.totpCode })
     console.log('🗄️ Database schema recreated, new API key deployed, cache cleared v3')
+    
+    // DEBUG: Environment variables check
+    console.log('🔍 DEBUG - Environment check:', {
+      hasSupabaseUrl: !!process.env.SUPABASE_URL,
+      hasServiceRoleKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      supabaseUrlPrefix: process.env.SUPABASE_URL?.substring(0, 30) + '...',
+      serviceRoleKeyPrefix: process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(0, 20) + '...'
+    })
+    
+    // DEBUG: Test direct Supabase connection
+    console.log('🔍 DEBUG - Testing Supabase connection...')
+    try {
+      const testConnection = await supabase.from('users').select('count').limit(1)
+      console.log('✅ Supabase connection test:', { 
+        success: !testConnection.error, 
+        error: testConnection.error?.message || 'none',
+        data: testConnection.data 
+      })
+    } catch (connError) {
+      console.error('❌ Supabase connection failed:', connError.message)
+    }
 
     const { email, password, totpCode } = body
 
@@ -50,6 +71,8 @@ export async function POST(request) {
 
     // Get user from database with improved error handling
     let user = null
+    console.log('🔍 DEBUG - Querying user with email:', email.substring(0, 3) + '***')
+    
     try {
       // Try direct Supabase query with explicit error handling
       const { data, error } = await supabase
@@ -57,6 +80,14 @@ export async function POST(request) {
         .select('*')
         .eq('email', email)
         .single()
+      
+      console.log('🔍 DEBUG - Supabase query result:', { 
+        hasData: !!data, 
+        hasError: !!error, 
+        errorCode: error?.code,
+        errorMessage: error?.message,
+        userData: data ? { id: data.id, email: data.email?.substring(0, 3) + '***' } : null
+      })
       
       if (error && error.code === 'PGRST116') {
         // User not found - this is normal
